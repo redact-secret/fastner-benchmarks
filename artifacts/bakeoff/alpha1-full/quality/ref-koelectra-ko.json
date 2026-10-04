@@ -1,0 +1,409 @@
+{
+  "corpus": {
+    "case_count": 545,
+    "digest": "sha256:65b5a0970bfe9307d4c5fb4c0ad5dbdd11546ce3d591e0afe583249955757415",
+    "id": "ner-evidence-public",
+    "redistribution": "internal-only",
+    "snapshot_id": "person-en-ko-alpha.1-65b5a0970bfe"
+  },
+  "evaluator_version": "0.1.0",
+  "metric_protocol_version": "ner-eval.match/1.1.0",
+  "metrics": {
+    "overall": {
+      "cases": 545,
+      "counts": {
+        "ambiguous": 31,
+        "boundary_overlap": 6,
+        "duplicate": 0,
+        "exact": 986,
+        "false_positive": 288,
+        "false_positive_asserted_negative": 26,
+        "gold_total": 2420,
+        "miss": 1199,
+        "over_wide": 36,
+        "pred_total": 1509,
+        "under_wide": 180,
+        "wrong_type_gold": 13
+      },
+      "lenient": {
+        "f1": 0.6149147365741919,
+        "precision": 0.8005301524188204,
+        "recall": 0.4991735537190083
+      },
+      "strict": {
+        "f1": 0.5019088826673455,
+        "precision": 0.6534128561961564,
+        "recall": 0.40743801652892564
+      }
+    },
+    "slices": {
+      "collision=common-word": {
+        "cases": 156,
+        "counts": {
+          "ambiguous": 24,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 84,
+          "false_positive": 5,
+          "false_positive_asserted_negative": 1,
+          "gold_total": 370,
+          "miss": 264,
+          "over_wide": 13,
+          "pred_total": 109,
+          "under_wide": 7,
+          "wrong_type_gold": 2
+        },
+        "lenient": {
+          "f1": 0.4342379958246347,
+          "precision": 0.9541284403669725,
+          "recall": 0.2810810810810811
+        },
+        "strict": {
+          "f1": 0.35073068893528186,
+          "precision": 0.7706422018348624,
+          "recall": 0.22702702702702704
+        }
+      },
+      "collision=location": {
+        "cases": 52,
+        "counts": {
+          "ambiguous": 2,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 11,
+          "false_positive": 3,
+          "false_positive_asserted_negative": 3,
+          "gold_total": 74,
+          "miss": 59,
+          "over_wide": 0,
+          "pred_total": 17,
+          "under_wide": 3,
+          "wrong_type_gold": 1
+        },
+        "lenient": {
+          "f1": 0.30769230769230765,
+          "precision": 0.8235294117647058,
+          "recall": 0.1891891891891892
+        },
+        "strict": {
+          "f1": 0.24175824175824176,
+          "precision": 0.6470588235294118,
+          "recall": 0.14864864864864866
+        }
+      },
+      "collision=organization": {
+        "cases": 33,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 20,
+          "false_positive": 16,
+          "false_positive_asserted_negative": 16,
+          "gold_total": 39,
+          "miss": 19,
+          "over_wide": 0,
+          "pred_total": 36,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": 0.5333333333333333,
+          "precision": 0.5555555555555556,
+          "recall": 0.5128205128205128
+        },
+        "strict": {
+          "f1": 0.5333333333333333,
+          "precision": 0.5555555555555556,
+          "recall": 0.5128205128205128
+        }
+      },
+      "context=no-person": {
+        "cases": 135,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 22,
+          "false_positive_asserted_negative": 21,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 22,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": 0.0,
+          "recall": null
+        },
+        "strict": {
+          "f1": null,
+          "precision": 0.0,
+          "recall": null
+        }
+      },
+      "difficulty=ambiguous": {
+        "cases": 252,
+        "counts": {
+          "ambiguous": 31,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 126,
+          "false_positive": 31,
+          "false_positive_asserted_negative": 26,
+          "gold_total": 506,
+          "miss": 350,
+          "over_wide": 17,
+          "pred_total": 184,
+          "under_wide": 10,
+          "wrong_type_gold": 3
+        },
+        "lenient": {
+          "f1": 0.4434782608695652,
+          "precision": 0.8315217391304348,
+          "recall": 0.30237154150197626
+        },
+        "strict": {
+          "f1": 0.3652173913043478,
+          "precision": 0.6847826086956522,
+          "recall": 0.2490118577075099
+        }
+      },
+      "difficulty=unambiguous": {
+        "cases": 293,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 6,
+          "duplicate": 0,
+          "exact": 860,
+          "false_positive": 89,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 1914,
+          "miss": 849,
+          "over_wide": 19,
+          "pred_total": 1144,
+          "under_wide": 170,
+          "wrong_type_gold": 10
+        },
+        "lenient": {
+          "f1": 0.6899934597776324,
+          "precision": 0.9222027972027972,
+          "recall": 0.5512016718913271
+        },
+        "strict": {
+          "f1": 0.5624591236102027,
+          "precision": 0.7517482517482518,
+          "recall": 0.44932079414838033
+        }
+      },
+      "language=en": {
+        "cases": 244,
+        "counts": {
+          "ambiguous": 11,
+          "boundary_overlap": 5,
+          "duplicate": 0,
+          "exact": 49,
+          "false_positive": 44,
+          "false_positive_asserted_negative": 12,
+          "gold_total": 913,
+          "miss": 765,
+          "over_wide": 8,
+          "pred_total": 190,
+          "under_wide": 84,
+          "wrong_type_gold": 2
+        },
+        "lenient": {
+          "f1": 0.26473254759746145,
+          "precision": 0.7684210526315789,
+          "recall": 0.15991237677984665
+        },
+        "strict": {
+          "f1": 0.08884859474161379,
+          "precision": 0.2578947368421053,
+          "recall": 0.05366922234392114
+        }
+      },
+      "language=ko": {
+        "cases": 301,
+        "counts": {
+          "ambiguous": 20,
+          "boundary_overlap": 1,
+          "duplicate": 0,
+          "exact": 937,
+          "false_positive": 76,
+          "false_positive_asserted_negative": 14,
+          "gold_total": 1507,
+          "miss": 434,
+          "over_wide": 28,
+          "pred_total": 1138,
+          "under_wide": 96,
+          "wrong_type_gold": 11
+        },
+        "lenient": {
+          "f1": 0.8030245746691871,
+          "precision": 0.9332161687170475,
+          "recall": 0.7047113470471135
+        },
+        "strict": {
+          "f1": 0.7085066162570889,
+          "precision": 0.8233743409490334,
+          "recall": 0.621765096217651
+        }
+      },
+      "script=mixed": {
+        "cases": 36,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 2,
+          "duplicate": 0,
+          "exact": 149,
+          "false_positive": 25,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 274,
+          "miss": 73,
+          "over_wide": 0,
+          "pred_total": 225,
+          "under_wide": 49,
+          "wrong_type_gold": 1
+        },
+        "lenient": {
+          "f1": 0.8016032064128256,
+          "precision": 0.8888888888888888,
+          "recall": 0.7299270072992701
+        },
+        "strict": {
+          "f1": 0.5971943887775552,
+          "precision": 0.6622222222222223,
+          "recall": 0.5437956204379562
+        }
+      },
+      "seen=false": {
+        "cases": 128,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 3,
+          "duplicate": 0,
+          "exact": 219,
+          "false_positive": 19,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 730,
+          "miss": 438,
+          "over_wide": 12,
+          "pred_total": 304,
+          "under_wide": 51,
+          "wrong_type_gold": 7
+        },
+        "lenient": {
+          "f1": 0.551257253384913,
+          "precision": 0.9375,
+          "recall": 0.3904109589041096
+        },
+        "strict": {
+          "f1": 0.42359767891682787,
+          "precision": 0.7203947368421053,
+          "recall": 0.3
+        }
+      },
+      "seen=true": {
+        "cases": 335,
+        "counts": {
+          "ambiguous": 31,
+          "boundary_overlap": 3,
+          "duplicate": 0,
+          "exact": 767,
+          "false_positive": 91,
+          "false_positive_asserted_negative": 17,
+          "gold_total": 1690,
+          "miss": 761,
+          "over_wide": 24,
+          "pred_total": 1014,
+          "under_wide": 129,
+          "wrong_type_gold": 6
+        },
+        "lenient": {
+          "f1": 0.6826923076923077,
+          "precision": 0.9102564102564102,
+          "recall": 0.5461538461538461
+        },
+        "strict": {
+          "f1": 0.5673076923076924,
+          "precision": 0.7564102564102564,
+          "recall": 0.45384615384615384
+        }
+      },
+      "shape=multi-token": {
+        "cases": 177,
+        "counts": {
+          "ambiguous": 5,
+          "boundary_overlap": 3,
+          "duplicate": 0,
+          "exact": 108,
+          "false_positive": 68,
+          "false_positive_asserted_negative": 15,
+          "gold_total": 800,
+          "miss": 564,
+          "over_wide": 2,
+          "pred_total": 301,
+          "under_wide": 120,
+          "wrong_type_gold": 3
+        },
+        "lenient": {
+          "f1": 0.4232515894641235,
+          "precision": 0.7740863787375415,
+          "recall": 0.29125
+        },
+        "strict": {
+          "f1": 0.19618528610354224,
+          "precision": 0.3588039867109635,
+          "recall": 0.135
+        }
+      },
+      "shape=single-token": {
+        "cases": 368,
+        "counts": {
+          "ambiguous": 26,
+          "boundary_overlap": 3,
+          "duplicate": 0,
+          "exact": 878,
+          "false_positive": 52,
+          "false_positive_asserted_negative": 11,
+          "gold_total": 1620,
+          "miss": 635,
+          "over_wide": 34,
+          "pred_total": 1027,
+          "under_wide": 60,
+          "wrong_type_gold": 10
+        },
+        "lenient": {
+          "f1": 0.7366830374008312,
+          "precision": 0.9493670886075949,
+          "recall": 0.6018518518518519
+        },
+        "strict": {
+          "f1": 0.6633925198337741,
+          "precision": 0.8549172346640701,
+          "recall": 0.5419753086419753
+        }
+      }
+    }
+  },
+  "model": {
+    "adapter_id": "hf-leo97-koelectra-small-v3-modu-ner-bb9d562",
+    "artifact_digest": "sha256:9ad852bbefa730824fdb115491a1e983a64834ab88ac10dc590fd2b54a3bbab4",
+    "id": "ref-koelectra-ko"
+  },
+  "run_id": "run-395459fbb4ecb4da:hf-leo97-koelectra-small-v3-modu-ner-bb9d562",
+  "schema": "fastner-benchmarks.quality/2",
+  "slice_spec": "ner-eval.person-slices/2",
+  "source": {
+    "artifact_digest": "sha256:b5b1c0899d4d779442c146f387122f4472c4617ccaa71af045fae93afbdd0e32",
+    "artifact_file_sha256": "sha256:b500668112cc35167cb2f4fbfee4b484ef53b80a200b498ea7e198c7956e3b9b",
+    "ner_eval_run_id": "run-395459fbb4ecb4da",
+    "ner_eval_run_manifest_digest": "sha256:87397d2a8337fc84266d9a7ea2f8a89045bdd279cf2ff3b41178bd3f45d687d9",
+    "path": "results/alpha1-full/quality/hf-leo97-koelectra-small-v3-modu-ner-bb9d562.quality.json"
+  },
+  "status": "ok"
+}

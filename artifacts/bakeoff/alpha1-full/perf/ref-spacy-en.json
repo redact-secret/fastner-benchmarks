@@ -1,0 +1,131 @@
+{
+  "cells": [
+    {
+      "batch_size": 1,
+      "cases_per_sec": 88.52965522125774,
+      "cold_startup_us": [
+        1902151,
+        1791142,
+        1597226
+      ],
+      "effective_threads": 1,
+      "first_batch_us": [
+        27535,
+        19381,
+        23628
+      ],
+      "peak_rss_bytes": 156221440,
+      "per_case_p50_us": 10814,
+      "per_case_p95_us": 14917,
+      "rss_scope": "adapter-process",
+      "threads": 1
+    },
+    {
+      "batch_size": 16,
+      "cases_per_sec": 180.3097989655505,
+      "cold_startup_us": [
+        1561724,
+        1679708,
+        1611609
+      ],
+      "effective_threads": 1,
+      "first_batch_us": [
+        83870,
+        87749,
+        100190
+      ],
+      "peak_rss_bytes": 159465472,
+      "per_case_p50_us": 5221,
+      "per_case_p95_us": 7752,
+      "rss_scope": "adapter-process",
+      "threads": 1
+    },
+    {
+      "batch_size": 1,
+      "cases_per_sec": 106.91873371139869,
+      "cold_startup_us": [
+        1445146,
+        1442572,
+        1263354
+      ],
+      "effective_threads": 4,
+      "first_batch_us": [
+        16288,
+        16285,
+        16047
+      ],
+      "peak_rss_bytes": 157843456,
+      "per_case_p50_us": 9236,
+      "per_case_p95_us": 11848,
+      "rss_scope": "adapter-process",
+      "threads": 4
+    },
+    {
+      "batch_size": 16,
+      "cases_per_sec": 169.9814262092369,
+      "cold_startup_us": [
+        1684417,
+        1543131,
+        1450445
+      ],
+      "effective_threads": 4,
+      "first_batch_us": [
+        80599,
+        81260,
+        57840
+      ],
+      "peak_rss_bytes": 163102720,
+      "per_case_p50_us": 5412,
+      "per_case_p95_us": 8326,
+      "rss_scope": "adapter-process",
+      "threads": 4
+    }
+  ],
+  "environment": {
+    "description": "macos 26.5.2 aarch64, Apple M4 (10 logical cores), rustc 1.98.1 (48a229cea 2026-09-01), evaluator 0.1.0 [release]",
+    "id": "sha256:f3fbb386e42b91f4fdb03f500d91b2bead768a2569ff8a09148d3d38ff96ffdf"
+  },
+  "evaluator_version": "0.1.0",
+  "measurement_notes": [
+    "Latencies are wall-clock around Adapter::predict only; normalization and validation are outside the timed region.",
+    "External-process adapters include JSON-lines serialization and pipe transfer in every latency; native adapters do not. Compare transports with that in mind.",
+    "Cold = a fresh process start with model files likely in the OS page cache after the first run; true cold-disk start is not forced.",
+    "Cells run serially on an otherwise unmanaged machine; the protocol does not control CPU frequency, thermal state or background load."
+  ],
+  "model": {
+    "adapter_id": "spacy-en-core-web-sm-3.8.0",
+    "artifact_digest": "sha256:81160f80dfefb684976731b365eab4c47da91305c36b8165f68d30a1d7c48067",
+    "id": "ref-spacy-en"
+  },
+  "parameters": {
+    "batch_sizes": [
+      1,
+      16
+    ],
+    "cold_runs": 3,
+    "enabled": true,
+    "max_cases": 200,
+    "measured_batches": 20,
+    "thread_counts": [
+      1,
+      4
+    ],
+    "warmup_batches": 3
+  },
+  "protocol": "ner-eval.perf-protocol/1.1.0",
+  "run_id": "run-395459fbb4ecb4da:spacy-en-core-web-sm-3.8.0:perf",
+  "schema": "fastner-benchmarks.perf/2",
+  "sizes": {
+    "binary_bytes": null,
+    "model_bytes": 15231350,
+    "wasm_bytes": null
+  },
+  "source": {
+    "artifact_digest": "sha256:83fe462f7b99c0b420f344e6ca8de1ebb7c5f91bf8bd39c073588bb2b072e599",
+    "artifact_file_sha256": "sha256:930b68cf8ed508abd9379ccbbcfc13e2c2bf34c46a75f4ea715bc8e304ba6949",
+    "ner_eval_run_id": "run-395459fbb4ecb4da",
+    "path": "results/alpha1-full/performance/spacy-en-core-web-sm-3.8.0.performance.json"
+  },
+  "status": "ok",
+  "transport": "external-process"
+}

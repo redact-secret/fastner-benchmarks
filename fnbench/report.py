@@ -6,7 +6,7 @@ artifacts. No timestamps, no hand-edited values; output is byte-deterministic.
 import argparse
 import sys
 
-from .artifacts import ArtifactError, load_bakeoff
+from .artifacts import ArtifactError, load_bakeoff, perf_summary
 from .pareto import frontier
 from .pins import load_candidates, pin_table
 from .policy import dimension_map, load_policy
@@ -29,15 +29,26 @@ VIEWS = [
 ]
 
 
+def _mode(src):
+    mode = src.get("match", "strict")
+    return {"strict": "strict", "boundary_lenient": "lenient"}[mode]
+
+
 def _metric(art, dim):
     src = dim["source"]
-    m = art["metrics"]
+    m, mode = art["metrics"], _mode(src)
     if "slice_prefix" in src:
-        vals = [b.get(src["metric"]) for k, b in (m.get("slices") or {}).items() if k.startswith(src["slice_prefix"])]
+        vals = [b[mode].get(src["metric"]) for k, b in (m.get("slices") or {}).items() if k.startswith(src["slice_prefix"])]
         vals = [v for v in vals if v is not None]
         return min(vals) if vals else None
     block = m.get("overall") if src.get("slice") is None else (m.get("slices") or {}).get(src["slice"])
-    return None if block is None else block.get(src["metric"])
+    return None if block is None else block[mode].get(src["metric"])
+
+
+def _flat(block):
+    """Strict P/R/F1 (the policy mode) plus lenient F1 and the slice size, for views."""
+    return {"precision": block["strict"]["precision"], "recall": block["strict"]["recall"], "f1": block["strict"]["f1"],
+            "lenient_f1": block["lenient"]["f1"], "cases": block.get("cases")}
 
 
 def _index(items, key_fn, what):
@@ -85,6 +96,7 @@ def build_report(policy, cfg, pop_reg, quality, perf, root=ROOT):
         if reason:
             rejected.append({"run_id": a["run_id"], "kind": "perf", "reason": reason})
         else:
+            a = {**a, "summary": perf_summary(a, policy["perf_summary"])}
             acc_p.append(a)
 
     protos = sorted({a["metric_protocol_version"] for a in acc_q})
@@ -140,7 +152,7 @@ def build_report(policy, cfg, pop_reg, quality, perf, root=ROOT):
     slice_names = sorted({k for (m, p), a in q_idx.items() if p == pop and a["status"] == "ok"
                           for k in (a["metrics"].get("slices") or {}) if k.startswith("collision=")})
     views["collision_slices"] = {"title": "Collision slices (precision)", "dimensions": slice_names, "rows": [
-        {"model": m, **{s: (((q_idx.get((m, pop)) or {}).get("metrics") or {}).get("slices") or {}).get(s, {}).get("precision") for s in slice_names}} for m in ids]}
+        {"model": m, **{s: ((((q_idx.get((m, pop)) or {}).get("metrics") or {}).get("slices") or {}).get(s) or {}).get("strict", {}).get("precision") for s in slice_names}} for m in ids]}
 
     # Per-population quality, never pooled.
     pop_quality = {}
@@ -153,8 +165,8 @@ def build_report(policy, cfg, pop_reg, quality, perf, root=ROOT):
             elif a["status"] != "ok":
                 rows.append({"model": m, "state": "unavailable", "reason": a["reason"]})
             else:
-                rows.append({"model": m, "state": "ok", "run_id": a["run_id"], "overall": a["metrics"]["overall"],
-                             "slices": a["metrics"].get("slices") or {}})
+                rows.append({"model": m, "state": "ok", "run_id": a["run_id"], "overall": _flat(a["metrics"]["overall"]),
+                             "slices": {k: _flat(b) for k, b in sorted((a["metrics"].get("slices") or {}).items())}})
         pop_quality[pid] = rows
 
     # Generated known limitations.
@@ -165,6 +177,7 @@ def build_report(policy, cfg, pop_reg, quality, perf, root=ROOT):
         p = by_id(pop_reg)[pid]
         if p["status"] != "available":
             limitations.append(f"population {pid} is {p['status']}: {p.get('blocked_by')}")
+    limitations.append("Pareto dominance uses raw point estimates with no noise tolerance; a tiny latency difference can keep a candidate off the dominated list, so the frontier is a screen, not a ranking")
     for m, miss in sorted(incomplete.items()):
         limitations.append(f"{m}: incomplete on {len(miss)} dimension(s), excluded from Pareto ranking")
     for m, why in sorted(unavailable.items()):
@@ -173,6 +186,51 @@ def build_report(policy, cfg, pop_reg, quality, perf, root=ROOT):
         limitations.append(f"artifact {r['run_id']} ({r['kind']}) rejected: {r['reason']}")
     if not acc_q and not acc_p:
         limitations.append("No accepted ner-eval artifacts: every value in this report is 'not measured'.")
+    # Population caveats and slice sizes (small slices are anecdote-sized; no confidence intervals).
+    preg = by_id(pop_reg)
+    for pid in cfg["quality_populations"]:
+        if any(k[1] == pid for k in q_idx):
+            limitations += [f"population {pid}: {c}" for c in preg[pid].get("caveats", [])]
+    min_cases = policy.get("min_slice_cases", 50)
+    slice_sizes = {}
+    for (m, pid), a in sorted(q_idx.items()):
+        if a["status"] == "ok":
+            for k, b in a["metrics"].get("slices", {}).items():
+                slice_sizes.setdefault(pid, {})[k] = b.get("cases")
+    for pid, sz in sorted(slice_sizes.items()):
+        small = sorted(f"{k} ({n} cases)" for k, n in sz.items() if n is not None and n < min_cases)
+        if small:
+            limitations.append(f"{pid}: slices under {min_cases} cases are anecdote-sized and have no confidence intervals: " + ", ".join(small))
+    for e in cfg["candidates"]:
+        lic = e.get("license")
+        if e["role"] == "reference" and e["pin_status"] == "resolved" and not (lic or {}).get("verified"):
+            limitations.append(f"{e['id']}: license unverified (public-release gate)")
+        if e["role"] == "candidate" and "not on main" in (get_path(e, "runtime.source") or ""):
+            limitations.append(f"{e['id']}: runtime commit {e['runtime']['commit'][:12]} comes from an unmerged fastner PR ({e['runtime']['source']})")
+    notes = sorted({n for a in acc_p for n in a.get("measurement_notes", [])})
+    limitations += [f"performance protocol: {n}" for n in notes]
+    scopes = sorted({c.get("rss_scope") for a in acc_p for c in a.get("cells", []) if c.get("rss_scope")})
+    if len(scopes) > 1:
+        limitations.append("peak RSS scope differs across adapters (" + ", ".join(scopes) + "); controls are evaluator-process upper bounds, not comparable to adapter-process values")
+    transports = sorted({a["transport"] for a in acc_p if a.get("transport")})
+    if "external-process" in transports:
+        limitations.append("external-process adapters include JSON-lines transport and process spawn in latency/startup, so those values overstate the in-process library cost")
+    if acc_p and any(a["status"] == "ok" and (a.get("sizes") or {}).get("binary_bytes") for a in acc_p):
+        limitations.append("runtime binary size is the shared evaluation shim, identical for all FastNER candidates, so it does not discriminate between them; WASM size is a per-candidate probe module")
+    spread = []
+    for a in acc_p:
+        groups = {}
+        for c in a.get("cells", []):
+            groups.setdefault((c["batch_size"], c.get("effective_threads")), []).append(c["cases_per_sec"])
+        for (b, _t), v in groups.items():
+            if len(v) > 1 and min(v) > 0 and max(v) / min(v) > 1.5:
+                spread.append((round(max(v) / min(v), 1), a["model"]["id"], b))
+    if spread:
+        worst = ", ".join(f"{m} batch {b} ({r}x)" for r, m, b in sorted(spread, reverse=True)[:4])
+        limitations.append("throughput is order-of-magnitude only: cells with identical effective configuration differ by up to " + str(max(spread)[0]) + "x (" + worst + "); the protocol samples 20 batches per cell on an unmanaged machine")
+    for pid in cfg["quality_populations"]:
+        if preg[pid]["status"] == "available" and preg[pid]["artifact"]["kind"] == "case-jsonl" and not any(k[1] == pid for k in q_idx):
+            limitations.append(f"population {pid} exists ({preg[pid]['role']}) but no ner-eval run measured it; ner-eval cannot yet ingest product corpora")
 
     return {
         "schema": "fastner-benchmarks.bakeoff-report/1",
@@ -191,6 +249,7 @@ def build_report(policy, cfg, pop_reg, quality, perf, root=ROOT):
         "views": views,
         "population_quality": pop_quality,
         "pareto": {"dimensions": [d["id"] for d in dims], "frontier": front, "dominated": dominated, "incomplete": incomplete},
+        "slice_sizes": slice_sizes,
         "known_limitations": limitations,
     }
 
@@ -214,9 +273,9 @@ def render_markdown(r):
     L += ["## Populations (never pooled)", "", "| population | role | status | cases | case origins | runs |", "|---|---|---|---|---|---|"]
     for p in r["populations"]:
         L.append(f"| {p['id']} | {p['role']} | {p['status']} | {_fmt(p['case_count'])} | {', '.join(f'{k}={v}' for k, v in (p.get('origins') or {}).items()) or 'n/a'} | {', '.join(p['artifact_runs']) or 'none'} |")
-    L += ["", "## Pins", "", "| id | role | pin | version/revision | digest | size | config hash |", "|---|---|---|---|---|---|---|"]
+    L += ["", "## Pins", "", "| id | role | pin | version/revision | runtime commit | digest | size | config hash |", "|---|---|---|---|---|---|---|---|"]
     for p in r["pins"]:
-        L.append(f"| {p['id']} | {p['role']} | {p['pin_status']} | {_fmt(p['version'])} | {_fmt(p['artifact_digest'])} | {_fmt(p['model_size_bytes'])} | {p['config_hash'][:19]}… |")
+        L.append(f"| {p['id']} | {p['role']} | {p['pin_status']} | {_fmt(p['version'])} | {(p['runtime_commit'] or 'n/a')[:12]} | {_fmt((p['artifact_digest'] or '')[:19] or None)} | {_fmt(p['model_size_bytes'])} | {p['config_hash'][:19]}… |")
     for vid, v in r["views"].items():
         L += ["", f"## {v['title']}", ""]
         cols = v["dimensions"]
@@ -229,10 +288,10 @@ def render_markdown(r):
             L.append(f"| {row['model']} | " + " | ".join(_fmt(row.get(c)) for c in cols + extra) + " |")
     L += ["", "## Per-population quality", ""]
     for pid, rows in r["population_quality"].items():
-        L += [f"### {pid}", "", "| model | state | P | R | F1 |", "|---|---|---|---|---|"]
+        L += [f"### {pid}", "", "| model | state | strict P | strict R | strict F1 | lenient F1 |", "|---|---|---|---|---|---|"]
         for row in rows:
             o = row.get("overall") or {}
-            L.append(f"| {row['model']} | {row['state']}{' — ' + row['reason'] if row.get('reason') else ''} | {_fmt(o.get('precision'))} | {_fmt(o.get('recall'))} | {_fmt(o.get('f1'))} |")
+            L.append(f"| {row['model']} | {row['state']}{' — ' + row['reason'] if row.get('reason') else ''} | {_fmt(o.get('precision'))} | {_fmt(o.get('recall'))} | {_fmt(o.get('f1'))} | {_fmt(o.get('lenient_f1'))} |")
         L.append("")
     pa = r["pareto"]
     L += ["## Pareto frontier (candidates only)", "",

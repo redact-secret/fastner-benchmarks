@@ -1,54 +1,47 @@
-# Consumed ner-eval artifact contract (DRAFT, consumer-side)
+# ner-eval artifact contract (as consumed)
 
-`ner-eval` has not frozen its artifact schema (its ARCHITECTURE.md says "must be versioned").
-This is what `fnbench` **assumes it will receive**. It is a request to ner-eval, not a
-definition: if ner-eval's real schema differs, fnbench adapts at the loader, and
-metric semantics stay ner-eval's.
+The earlier draft contract is replaced: `ner-eval` now emits real artifacts
+(`ner-eval.artifacts/1`, run manifest `ner-eval.run-manifest/1`, measurement protocol
+`ner-eval.match/1.1.0`, performance protocol `ner-eval.perf-protocol/1.1.0`, slices
+`ner-eval.person-slices/2`). Their schema and metric semantics belong to ner-eval; this repo only reads them.
 
-Layout read by the generator: `artifacts/bakeoff/<bakeoff_id>/{quality,perf}/*.json`.
-
-## Quality artifact (`schema: "ner-eval.quality/draft"`)
-```json
-{
-  "schema": "ner-eval.quality/draft",
-  "run_id": "...", "evaluator_version": "...", "metric_protocol_version": "...",
-  "corpus": {"id": "<registered population id>", "case_count": 0, "digest": "sha256:..."},
-  "model": {"id": "<pin id>", "artifact_digest": "sha256:..."},
-  "adapter": {"id": "...", "version": "..."}, "config_hash": "sha256:...",
-  "status": "ok | unavailable", "reason": "required when unavailable",
-  "metrics": {
-    "overall": {"precision": 0.0, "recall": 0.0, "f1": 0.0, "tp": 0, "fp": 0, "fn": 0},
-    "slices": {"language=en": {"precision": 0.0, "recall": 0.0, "f1": 0.0, "tp": 0, "fp": 0, "fn": 0}}
-  }
-}
+## Flow
 ```
-Slice keys are ner-eval slice-engine `key=value` strings (`difficulty=ambiguous`, `seen=false`,
-`language=ko`, `shape=single-token`, `collision=common-word`, ...).
-
-## Perf artifact (`schema: "ner-eval.perf/draft"`)
-```json
-{
-  "schema": "ner-eval.perf/draft", "run_id": "...", "evaluator_version": "...",
-  "model": {"id": "<pin id>", "artifact_digest": "sha256:..."},
-  "environment": {"id": "...", "cpu": "...", "os": "...", "toolchain": "..."},
-  "status": "ok | unavailable", "reason": "...",
-  "startup_ms": 0, "latency_ms": {"p50": 0, "p95": 0}, "throughput_docs_per_s": 0,
-  "peak_rss_mb": 0, "model_size_bytes": 0, "binary_size_bytes": 0, "wasm_size_bytes": 0,
-  "binary_delta_bytes": 0, "wasm_delta_bytes": 0
-}
+ner-eval results/<run>/  --fnbench ingest-->  artifacts/bakeoff/<bakeoff_id>/{quality,perf}/<pin id>.json
+                                              + ingest-manifest.json (source run id, ner-eval commit, file sha256)
+artifacts/ --fnbench report/promotion/support/qualify--> reports/
 ```
-Deltas are against the same runtime built without the candidate model/code; baseline identity
-is ner-eval's to record.
+`python -m fnbench ingest [--source ../ner-eval/results/alpha1-full]` verifies the run and writes
+normalized, **aggregate-only** artifacts. `make validate` re-ingests when the sibling checkout exists
+and skips otherwise; the committed artifacts are what reports are generated from.
 
-## Rules enforced by fnbench
-- Artifact `corpus.id` must be exactly one registered population; case counts/digests must match.
-- `model.id` must be a known pin; if the pin is resolved, `model.artifact_digest` must equal it.
-  Artifacts for unresolved pins are excluded and reported (cannot qualify anything).
-- One artifact per (model, population) and per model for perf; duplicates are an error.
-- All quality artifacts must share one `metric_protocol_version`.
-- Missing field = not measured; `status: unavailable` = unavailable with reason. Neither is zero.
-- Perf artifacts from different `environment.id`s are not comparable; perf dimensions are then
-  withheld from ranking and the report says so.
+## What ingest enforces (hard failure, no partial output)
+- run id equals `source_run.ner_eval_run_id` in `policy/candidates.json`;
+- corpus snapshot id, content digest and case count equal the pinned `ner-evidence-public` identity;
+- every adapter has a pin; model digest, size, model version / revision and (for candidates) the runtime commit equal the pin;
+- each quality artifact matches its run-manifest entry (adapter id, artifact digest);
+- performance artifacts match a quality artifact, and share the index's hardware class;
+- every resolved pin has an artifact in the run.
 
-## Handoff
-Open question for ner-eval: confirm/freeze these fields (see issue opened in ner-eval).
+## Normalized schemas
+`fastner-benchmarks.quality/2`: run/source provenance, `corpus {id, snapshot_id, case_count, digest}`,
+`model {id, adapter_id, artifact_digest}`, `status` (`unavailable` carries `reason`), and
+`metrics {overall, slices}` where each block is `{cases, strict{P,R,F1}, lenient{P,R,F1}, counts}`.
+Slice keys drop ner-eval's `person/` prefix (`language=en`, `difficulty=ambiguous`, `seen=false`,
+`shape=single-token`, `collision=organization`, ...). Undefined metrics stay `null`.
+
+`fastner-benchmarks.perf/2`: `environment.id` = ner-eval hardware class, `transport`, `cells`
+(batch size, requested/effective threads, cases/s, per-case p50/p95 µs, peak RSS + scope, cold
+startup/first-batch µs) and `sizes {model_bytes, binary_bytes, wasm_bytes}` from role-tagged
+artifacts. Policy dimensions are derived by `perf_summary` (definitions in
+`policy/qualification-policy.json`): latency = batch 1 / 1 thread p95; throughput = largest batch /
+1 thread; startup = median cold run; RSS = max over 1-thread cells.
+
+## Dropped on ingest
+Diagnostics, per-case/fixture records, `per_projection`, `per_kind`. The snapshot is
+`redistribution: internal-only`; committed artifacts contain aggregates and ids only (tested).
+
+## Known gaps (handoffs)
+- ner-eval cannot yet run or ingest product case-jsonl corpora, so regression/adversarial are unmeasured.
+- ner-eval's README "largest batch" column mixes thread counts (see the issue filed on ner-eval); this repo reads the cells directly.
+- Artifacts carry no binary/WASM *delta* against a runtime baseline, so reports show sizes only.
