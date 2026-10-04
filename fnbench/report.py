@@ -211,9 +211,9 @@ def render_markdown(r):
          f"- Evaluator: {', '.join(r['evaluator_versions']) or 'none (no artifacts)'}",
          f"- Performance environment: {', '.join(r['performance_environments']) or 'none'}",
          "- `n/a` means not measured or unavailable. It is never zero.", ""]
-    L += ["## Populations (never pooled)", "", "| population | role | status | cases | runs |", "|---|---|---|---|---|"]
+    L += ["## Populations (never pooled)", "", "| population | role | status | cases | case origins | runs |", "|---|---|---|---|---|---|"]
     for p in r["populations"]:
-        L.append(f"| {p['id']} | {p['role']} | {p['status']} | {_fmt(p['case_count'])} | {', '.join(p['artifact_runs']) or 'none'} |")
+        L.append(f"| {p['id']} | {p['role']} | {p['status']} | {_fmt(p['case_count'])} | {', '.join(f'{k}={v}' for k, v in (p.get('origins') or {}).items()) or 'n/a'} | {', '.join(p['artifact_runs']) or 'none'} |")
     L += ["", "## Pins", "", "| id | role | pin | version/revision | digest | size | config hash |", "|---|---|---|---|---|---|---|"]
     for p in r["pins"]:
         L.append(f"| {p['id']} | {p['role']} | {p['pin_status']} | {_fmt(p['version'])} | {_fmt(p['artifact_digest'])} | {_fmt(p['model_size_bytes'])} | {p['config_hash'][:19]}… |")

@@ -47,6 +47,11 @@ def validate_registry(reg):
             errs.append(f"{pid}: holdout must be private-aggregates-only")
         if p.get("status") == "available" and p["identity"].get("corpus_version") is None and p["artifact"].get("kind") != "ner-evidence-snapshot":
             errs.append(f"{pid}: available population needs identity version")
+    for c in reg.get("companions", []):
+        if c.get("counts_in_denominator"):
+            errs.append(f"companion {c['id']} must not count in a denominator")
+        if not (ROOT / c["path"]).exists():
+            errs.append(f"companion {c['id']}: {c['path']} does not exist")
     roles = [p.get("role") for p in reg["populations"]]
     if len(roles) != len(set(roles)):
         errs.append("each role must map to exactly one population")
@@ -109,4 +114,9 @@ def accounting_table(reg, quality_artifacts, root=ROOT):
         rows[cid]["artifact_runs"].append(qa["run_id"])
     for r in rows.values():
         r["artifact_runs"].sort()
+    from .corpus import CORPORA, describe
+    for cid in CORPORA:
+        if cid in rows and rows[cid]["case_count"] is not None:
+            d = describe(cid, root)
+            rows[cid].update(content_digest=d["content_digest"], origins=d["origins"])
     return [rows[k] for k in sorted(rows)]

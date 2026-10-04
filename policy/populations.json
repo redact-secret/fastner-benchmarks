@@ -70,7 +70,7 @@
       "title": "FastNER product regression corpus",
       "role": "regression-gate",
       "owner": "fastner-benchmarks",
-      "status": "planned",
+      "status": "available",
       "identity": {
         "corpus_id": "fastner-regression",
         "corpus_version": "0.1.0"
@@ -87,15 +87,14 @@
         "personal_data": false,
         "custody": "fastner-benchmarks"
       },
-      "publication": "public",
-      "blocked_by": "Corpus is created by issue #7; this entry flips to available when the generated JSONL exists."
+      "publication": "public"
     },
     {
       "id": "fastner-adversarial",
       "title": "FastNER adversarial product corpus",
       "role": "adversarial-gate",
       "owner": "fastner-benchmarks",
-      "status": "planned",
+      "status": "available",
       "identity": {
         "corpus_id": "fastner-adversarial",
         "corpus_version": "0.1.0"
@@ -112,8 +111,7 @@
         "personal_data": false,
         "custody": "fastner-benchmarks"
       },
-      "publication": "public",
-      "blocked_by": "Corpus is created by issue #7; this entry flips to available when the generated JSONL exists."
+      "publication": "public"
     },
     {
       "id": "candidate-specific",
@@ -162,6 +160,22 @@
         "custody": "unassigned; text never stored in this repo"
       },
       "publication": "private-aggregates-only"
+    }
+  ],
+  "companions": [
+    {
+      "id": "fastner-runtime-contracts",
+      "path": "corpora/regression/runtime-contracts.json",
+      "kind": "runtime-contracts",
+      "belongs_to": "fastner-regression",
+      "counts_in_denominator": false
+    },
+    {
+      "id": "fastner-perf-workloads",
+      "path": "corpora/performance/workloads.json",
+      "kind": "performance-workloads",
+      "belongs_to": null,
+      "counts_in_denominator": false
     }
   ]
 }

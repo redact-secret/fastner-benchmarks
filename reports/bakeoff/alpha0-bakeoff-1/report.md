@@ -10,13 +10,13 @@
 
 ## Populations (never pooled)
 
-| population | role | status | cases | runs |
-|---|---|---|---|---|
-| candidate-specific | candidate-diagnostic | planned | n/a | none |
-| fastner-adversarial | adversarial-gate | planned | n/a | none |
-| fastner-regression | regression-gate | planned | n/a | none |
-| ner-evidence-public | quality-floor | pending-pin | n/a | none |
-| protected-holdout | holdout-gate | planned | n/a | none |
+| population | role | status | cases | case origins | runs |
+|---|---|---|---|---|---|
+| candidate-specific | candidate-diagnostic | planned | n/a | n/a | none |
+| fastner-adversarial | adversarial-gate | available | 37 | seed-taxonomy=37 | none |
+| fastner-regression | regression-gate | available | 52 | seed-taxonomy=52 | none |
+| ner-evidence-public | quality-floor | pending-pin | n/a | n/a | none |
+| protected-holdout | holdout-gate | planned | n/a | n/a | none |
 
 ## Pins
 
@@ -251,8 +251,6 @@ No collision slices measured.
 - ref-bert-base-ner: pin unresolved (Revision/digest not yet resolved; resolve and verify in a networked pinning step.)
 - ref-gliner-multi: pin unresolved (Exact checkpoint, revision and digest not yet resolved; resolve and verify in a networked pinning step.)
 - population ner-evidence-public is pending-pin: ner-evidence has not released an immutable snapshot (snapshot manifest with content digest). Pin it here once released.
-- population fastner-regression is planned: Corpus is created by issue #7; this entry flips to available when the generated JSONL exists.
-- population fastner-adversarial is planned: Corpus is created by issue #7; this entry flips to available when the generated JSONL exists.
 - fastner-a-statistical: incomplete on 17 dimension(s), excluded from Pareto ranking
 - fastner-b-linear-crf: incomplete on 17 dimension(s), excluded from Pareto ranking
 - fastner-c-compact-neural: incomplete on 17 dimension(s), excluded from Pareto ranking

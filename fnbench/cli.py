@@ -40,6 +40,8 @@ def _lazy(mod, fn="main"):
 
 
 COMMANDS = {
+    "corpus": ("build/check product corpora from .src.jsonl", _lazy("corpus")),
+    "workloads": ("build/check reproducible performance workloads", _lazy("workloads")),
     "promotion": ("evaluate the promotion rule and write the ADR handoff", _lazy("promotion")),
     "report": ("generate the bakeoff report from artifacts", _lazy("report")),
 }

@@ -1,0 +1,113 @@
+{
+  "generator": "fnbench.workloads xorshift64* v1 (own PRNG, independent of the Python version)",
+  "schema": "fastner-benchmarks.workloads/1",
+  "workload_set_version": "0.1.0",
+  "workloads": [
+    {
+      "content_digest": "sha256:73e442bf68f47bee5304403a4eeaec173f8f19391500304fbe888e048407cc56",
+      "description": "Many short English chat-like messages",
+      "doc_count": 2000,
+      "id": "perf-short-chat-en",
+      "language": "en",
+      "name_rate": 0.3,
+      "seed": 101,
+      "sentences": [
+        1,
+        2
+      ],
+      "total_bytes": 106003,
+      "total_chars": 106003
+    },
+    {
+      "content_digest": "sha256:fdf4e5836ab4b43170141ce9894b0e61b3ebfd153d6c11e6a1d2f464a005640a",
+      "description": "Many short Korean chat-like messages",
+      "doc_count": 2000,
+      "id": "perf-short-chat-ko",
+      "language": "ko",
+      "name_rate": 0.3,
+      "seed": 102,
+      "sentences": [
+        1,
+        2
+      ],
+      "total_bytes": 112748,
+      "total_chars": 45068
+    },
+    {
+      "content_digest": "sha256:d87660ed99bbd60dbb328090a6b3d11f68b9c5559a00d548915441bacad70a4d",
+      "description": "Medium paragraphs mixing English and Korean sentences",
+      "doc_count": 500,
+      "id": "perf-paragraph-mixed",
+      "language": "mixed",
+      "name_rate": 0.25,
+      "seed": 103,
+      "sentences": [
+        5,
+        9
+      ],
+      "total_bytes": 131371,
+      "total_chars": 91229
+    },
+    {
+      "content_digest": "sha256:e43536d79fcef1d13e5bd4b0f6f9c9a5e2ebde3cd2205d7c0163ecae64367160",
+      "description": "Long English documents (throughput and memory)",
+      "doc_count": 40,
+      "id": "perf-long-document-en",
+      "language": "en",
+      "name_rate": 0.15,
+      "seed": 104,
+      "sentences": [
+        300,
+        400
+      ],
+      "total_bytes": 515991,
+      "total_chars": 515991
+    },
+    {
+      "content_digest": "sha256:696430e4e5a566ac9048a830942b57f68c99291bb5743943425163d43dfcc813",
+      "description": "Name-dense English text (decoder stress)",
+      "doc_count": 300,
+      "id": "perf-name-dense-en",
+      "language": "en",
+      "name_rate": 0.9,
+      "seed": 105,
+      "sentences": [
+        3,
+        6
+      ],
+      "total_bytes": 42973,
+      "total_chars": 42973
+    },
+    {
+      "content_digest": "sha256:570c616e3083ea87d86d410718b6a609aa726d4d0ae4829cfc669da69e7e7d73",
+      "description": "Korean text with no names (false-positive and fast-path cost)",
+      "doc_count": 300,
+      "id": "perf-name-free-ko",
+      "language": "ko",
+      "name_rate": 0.0,
+      "seed": 106,
+      "sentences": [
+        3,
+        6
+      ],
+      "total_bytes": 52402,
+      "total_chars": 21422
+    },
+    {
+      "content_digest": "sha256:96cc586117539aa6d0e75db5da201cb5090d38497671897928df607a2027becb",
+      "description": "Single very long whitespace-free tokens (tokenizer worst case)",
+      "doc_count": 20,
+      "id": "perf-pathological-long-token",
+      "language": "pathological",
+      "name_rate": 0.0,
+      "seed": 107,
+      "sentences": [
+        1,
+        1
+      ],
+      "token_chars": 20000,
+      "total_bytes": 400000,
+      "total_chars": 400000
+    }
+  ]
+}

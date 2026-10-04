@@ -15,8 +15,6 @@
     "ref-bert-base-ner: pin unresolved (Revision/digest not yet resolved; resolve and verify in a networked pinning step.)",
     "ref-gliner-multi: pin unresolved (Exact checkpoint, revision and digest not yet resolved; resolve and verify in a networked pinning step.)",
     "population ner-evidence-public is pending-pin: ner-evidence has not released an immutable snapshot (snapshot manifest with content digest). Pin it here once released.",
-    "population fastner-regression is planned: Corpus is created by issue #7; this entry flips to available when the generated JSONL exists.",
-    "population fastner-adversarial is planned: Corpus is created by issue #7; this entry flips to available when the generated JSONL exists.",
     "fastner-a-statistical: incomplete on 17 dimension(s), excluded from Pareto ranking",
     "fastner-b-linear-crf: incomplete on 17 dimension(s), excluded from Pareto ranking",
     "fastner-c-compact-neural: incomplete on 17 dimension(s), excluded from Pareto ranking",
@@ -440,11 +438,15 @@
     },
     {
       "artifact_runs": [],
-      "case_count": null,
+      "case_count": 37,
+      "content_digest": "sha256:b86a7d66e9889ab88a5ef21b192d89665de4495769544dadf6d295c7ca81ede4",
       "id": "fastner-adversarial",
       "identity": {
         "corpus_id": "fastner-adversarial",
         "corpus_version": "0.1.0"
+      },
+      "origins": {
+        "seed-taxonomy": 37
       },
       "provenance": {
         "custody": "fastner-benchmarks",
@@ -454,16 +456,20 @@
         "synthetic": true
       },
       "role": "adversarial-gate",
-      "status": "planned",
+      "status": "available",
       "title": "FastNER adversarial product corpus"
     },
     {
       "artifact_runs": [],
-      "case_count": null,
+      "case_count": 52,
+      "content_digest": "sha256:3dbdbfea6e16153d413e718f163b36958388c1a33057a1469babcb8f5f5c1bae",
       "id": "fastner-regression",
       "identity": {
         "corpus_id": "fastner-regression",
         "corpus_version": "0.1.0"
+      },
+      "origins": {
+        "seed-taxonomy": 52
       },
       "provenance": {
         "custody": "fastner-benchmarks",
@@ -473,7 +479,7 @@
         "synthetic": true
       },
       "role": "regression-gate",
-      "status": "planned",
+      "status": "available",
       "title": "FastNER product regression corpus"
     },
     {

@@ -1,0 +1,14 @@
+{
+  "schema": "fastner-benchmarks.workloads-src/1",
+  "workload_set_version": "0.1.0",
+  "generator": "fnbench.workloads xorshift64* v1 (own PRNG, independent of the Python version)",
+  "workloads": [
+    {"id": "perf-short-chat-en", "description": "Many short English chat-like messages", "seed": 101, "doc_count": 2000, "language": "en", "sentences": [1, 2], "name_rate": 0.3},
+    {"id": "perf-short-chat-ko", "description": "Many short Korean chat-like messages", "seed": 102, "doc_count": 2000, "language": "ko", "sentences": [1, 2], "name_rate": 0.3},
+    {"id": "perf-paragraph-mixed", "description": "Medium paragraphs mixing English and Korean sentences", "seed": 103, "doc_count": 500, "language": "mixed", "sentences": [5, 9], "name_rate": 0.25},
+    {"id": "perf-long-document-en", "description": "Long English documents (throughput and memory)", "seed": 104, "doc_count": 40, "language": "en", "sentences": [300, 400], "name_rate": 0.15},
+    {"id": "perf-name-dense-en", "description": "Name-dense English text (decoder stress)", "seed": 105, "doc_count": 300, "language": "en", "sentences": [3, 6], "name_rate": 0.9},
+    {"id": "perf-name-free-ko", "description": "Korean text with no names (false-positive and fast-path cost)", "seed": 106, "doc_count": 300, "language": "ko", "sentences": [3, 6], "name_rate": 0.0},
+    {"id": "perf-pathological-long-token", "description": "Single very long whitespace-free tokens (tokenizer worst case)", "seed": 107, "doc_count": 20, "language": "pathological", "sentences": [1, 1], "name_rate": 0.0, "token_chars": 20000}
+  ]
+}

@@ -48,8 +48,6 @@ Target repo: `fastner`. Policy 0.1.0, promotion rule 0.1.0.
 - ref-bert-base-ner: pin unresolved (Revision/digest not yet resolved; resolve and verify in a networked pinning step.)
 - ref-gliner-multi: pin unresolved (Exact checkpoint, revision and digest not yet resolved; resolve and verify in a networked pinning step.)
 - population ner-evidence-public is pending-pin: ner-evidence has not released an immutable snapshot (snapshot manifest with content digest). Pin it here once released.
-- population fastner-regression is planned: Corpus is created by issue #7; this entry flips to available when the generated JSONL exists.
-- population fastner-adversarial is planned: Corpus is created by issue #7; this entry flips to available when the generated JSONL exists.
 - fastner-a-statistical: incomplete on 17 dimension(s), excluded from Pareto ranking
 - fastner-b-linear-crf: incomplete on 17 dimension(s), excluded from Pareto ranking
 - fastner-c-compact-neural: incomplete on 17 dimension(s), excluded from Pareto ranking
