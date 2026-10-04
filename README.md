@@ -2,7 +2,23 @@
 
 Product qualification and comparative benchmarking for FastNER.
 
-> **Status:** Private architecture phase.
+> **Status:** Private architecture phase. Qualification policy 0.1.0 (Alpha 0). Current record:
+> **REMAIN IN ALPHA**, because no runtime, evaluator artifacts or evidence snapshot exist yet.
+
+## Quick start
+
+```bash
+make validate                  # tests + checks that every generated output is current
+python -m fnbench report       # bakeoff report from policy + ner-eval artifacts
+python -m fnbench promotion    # promotion decision + ADR handoff for fastner
+python -m fnbench support      # support matrix
+python -m fnbench qualify      # qualification record + Beta-entry decision
+python -m fnbench corpus       # rebuild product corpora from *.src.jsonl
+```
+
+Docs: `docs/QUALIFICATION_POLICY.md`, `POPULATIONS.md`, `BAKEOFF_CONFIG.md`, `ARTIFACT_CONTRACT.md`,
+`PROMOTION_RULE.md`, `SUPPORT_MATRIX.md`, `QUALIFICATION_RECORD.md`, `corpora/README.md`.
+Generated outputs live in `reports/` and are never hand-edited.
 
 This repository is where FastNER-specific interpretation lives.
 
