@@ -20,7 +20,13 @@
       "run-395459fbb4ecb4da:fastner-transformer",
       "run-395459fbb4ecb4da:hf-dslim-bert-base-ner-d1a3e8f",
       "run-395459fbb4ecb4da:hf-leo97-koelectra-small-v3-modu-ner-bb9d562",
-      "run-395459fbb4ecb4da:spacy-en-core-web-sm-3.8.0"
+      "run-395459fbb4ecb4da:spacy-en-core-web-sm-3.8.0",
+      "run-810f86b911170c68:control-capitalized-run",
+      "run-810f86b911170c68:control-null",
+      "run-810f86b911170c68:fastner-crf",
+      "run-fa7c74ef7884624a:control-capitalized-run",
+      "run-fa7c74ef7884624a:control-null",
+      "run-fa7c74ef7884624a:fastner-crf"
     ]
   },
   "bakeoff_id": "alpha1-full",
@@ -30,9 +36,12 @@
   "known_limitations": [
     "ref-gliner-multi: pin unresolved (Not run in alpha1-full: ner-eval has no GLiNER adapter yet (ner-eval docs/REFERENCE_ADAPTERS.md). Planned reference.)",
     "Pareto dominance uses raw point estimates with no noise tolerance; a tiny latency difference can keep a candidate off the dominated list, so the frontier is a screen, not a ranking",
+    "population candidate-specific (candidate-diagnostic) is committed but unmeasured: no ner-eval run has used it yet, and it never feeds shared gates",
     "population ner-evidence-public: Not a holdout: FastNER candidates were not trained on it, but it was run three times against successive FastNER builds (fastner ADR-0002 process disclosure); FastNER numbers are likely optimistic relative to references that were never tuned against it.",
     "population ner-evidence-public: All text is project-authored synthetic with no independent review; seen/unseen is a name-rarity proxy, not training-data membership.",
     "population ner-evidence-public: Small slices (organization 33, location 52, mixed-script 36 cases) are anecdote-sized; no confidence intervals are computed.",
+    "fastner-adversarial: slices under 50 cases are anecdote-sized and have no confidence intervals: collision=common-word (6 cases), collision=location (2 cases), collision=organization (3 cases), context=no-person (0 cases), difficulty=ambiguous (0 cases), difficulty=unambiguous (0 cases), language=en (23 cases), language=ko (9 cases), script=mixed (6 cases), seen=false (18 cases), seen=true (0 cases), shape=multi-token (25 cases), shape=single-token (0 cases)",
+    "fastner-regression: slices under 50 cases are anecdote-sized and have no confidence intervals: collision=common-word (24 cases), collision=location (4 cases), collision=organization (2 cases), context=no-person (0 cases), difficulty=ambiguous (30 cases), difficulty=unambiguous (0 cases), language=en (34 cases), language=ko (18 cases), script=mixed (0 cases), seen=false (15 cases), seen=true (0 cases), shape=multi-token (28 cases), shape=single-token (2 cases)",
     "ner-evidence-public: slices under 50 cases are anecdote-sized and have no confidence intervals: collision=organization (33 cases), script=mixed (36 cases)",
     "ref-spacy-en: license unverified (public-release gate)",
     "ref-koelectra-ko: license unverified (public-release gate)",
@@ -43,10 +52,26 @@
     "peak RSS scope differs across adapters (adapter-process, evaluator-process-upper-bound); controls are evaluator-process upper bounds, not comparable to adapter-process values",
     "external-process adapters include JSON-lines transport and process spawn in latency/startup, so those values overstate the in-process library cost",
     "runtime binary size is the shared evaluation shim, identical for all FastNER candidates, so it does not discriminate between them; WASM size is a per-candidate probe module",
-    "throughput is order-of-magnitude only: cells with identical effective configuration differ by up to 2.9x (fastner-b-linear-crf batch 16 (2.9x), fastner-d-tiny-transformer batch 1 (2.1x), fastner-d-tiny-transformer batch 16 (1.8x), control-capitalized-run batch 1 (1.5x)); the protocol samples 20 batches per cell on an unmanaged machine",
-    "population fastner-regression exists (regression-gate) but no ner-eval run measured it; ner-eval cannot yet ingest product corpora",
-    "population fastner-adversarial exists (adversarial-gate) but no ner-eval run measured it; ner-eval cannot yet ingest product corpora"
+    "fastner-b-linear-crf was measured at 2 runtime commits (007805d on ner-evidence-public; 89c4134 on fastner-adversarial, fastner-regression); model digest identical; 007805d: pinned commit; 89c4134: docs/README and one comment line in crates/fastner/Cargo.toml; no code, model or candidate change",
+    "population fastner-regression was measured only for fastner-b-linear-crf (plus controls); other pinned models are not measured on it",
+    "population fastner-adversarial was measured only for fastner-b-linear-crf (plus controls); other pinned models are not measured on it",
+    "throughput is order-of-magnitude only: cells with identical effective configuration differ by up to 2.9x (fastner-b-linear-crf batch 16 (2.9x), fastner-d-tiny-transformer batch 1 (2.1x), fastner-d-tiny-transformer batch 16 (1.8x), control-capitalized-run batch 1 (1.5x)); the protocol samples 20 batches per cell on an unmanaged machine"
   ],
+  "measured_runtime_commits": {
+    "fastner-a-statistical": [
+      "007805d3e83bb6c72f604cdcdd2e338c7b6ea753"
+    ],
+    "fastner-b-linear-crf": [
+      "007805d3e83bb6c72f604cdcdd2e338c7b6ea753",
+      "89c4134d67f1d7d0033dba040ed9bc533d05c214"
+    ],
+    "fastner-c-compact-neural": [
+      "007805d3e83bb6c72f604cdcdd2e338c7b6ea753"
+    ],
+    "fastner-d-tiny-transformer": [
+      "007805d3e83bb6c72f604cdcdd2e338c7b6ea753"
+    ]
+  },
   "metric_protocol_versions": [
     "ner-eval.match/1.1.0"
   ],
@@ -324,7 +349,108 @@
       },
       {
         "model": "fastner-b-linear-crf",
-        "state": "not-measured"
+        "overall": {
+          "cases": 37,
+          "f1": 0.7017543859649122,
+          "lenient_f1": 0.8421052631578947,
+          "precision": 0.7142857142857143,
+          "recall": 0.6896551724137931
+        },
+        "run_id": "run-810f86b911170c68:fastner-crf",
+        "slices": {
+          "collision=common-word": {
+            "cases": 6,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "collision=location": {
+            "cases": 2,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": 0.0,
+            "recall": null
+          },
+          "collision=organization": {
+            "cases": 3,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "context=no-person": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "difficulty=ambiguous": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "difficulty=unambiguous": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "language=en": {
+            "cases": 23,
+            "f1": 0.625,
+            "lenient_f1": 0.8125,
+            "precision": 0.625,
+            "recall": 0.625
+          },
+          "language=ko": {
+            "cases": 9,
+            "f1": 0.6,
+            "lenient_f1": 0.8000000000000002,
+            "precision": 0.6,
+            "recall": 0.6
+          },
+          "script=mixed": {
+            "cases": 6,
+            "f1": 0.823529411764706,
+            "lenient_f1": 0.9411764705882353,
+            "precision": 0.875,
+            "recall": 0.7777777777777778
+          },
+          "seen=false": {
+            "cases": 18,
+            "f1": 0.6666666666666666,
+            "lenient_f1": 0.8666666666666666,
+            "precision": 0.7142857142857143,
+            "recall": 0.625
+          },
+          "seen=true": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "shape=multi-token": {
+            "cases": 25,
+            "f1": 0.7407407407407408,
+            "lenient_f1": 0.888888888888889,
+            "precision": 0.8,
+            "recall": 0.6896551724137931
+          },
+          "shape=single-token": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          }
+        },
+        "state": "ok"
       },
       {
         "model": "fastner-c-compact-neural",
@@ -352,11 +478,213 @@
       },
       {
         "model": "control-null",
-        "state": "not-measured"
+        "overall": {
+          "cases": 37,
+          "f1": null,
+          "lenient_f1": null,
+          "precision": null,
+          "recall": 0.0
+        },
+        "run_id": "run-810f86b911170c68:control-null",
+        "slices": {
+          "collision=common-word": {
+            "cases": 6,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "collision=location": {
+            "cases": 2,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "collision=organization": {
+            "cases": 3,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "context=no-person": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "difficulty=ambiguous": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "difficulty=unambiguous": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "language=en": {
+            "cases": 23,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "language=ko": {
+            "cases": 9,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "script=mixed": {
+            "cases": 6,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "seen=false": {
+            "cases": 18,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "seen=true": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "shape=multi-token": {
+            "cases": 25,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "shape=single-token": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          }
+        },
+        "state": "ok"
       },
       {
         "model": "control-capitalized-run",
-        "state": "not-measured"
+        "overall": {
+          "cases": 37,
+          "f1": 0.4262295081967213,
+          "lenient_f1": 0.5901639344262296,
+          "precision": 0.40625,
+          "recall": 0.4482758620689655
+        },
+        "run_id": "run-810f86b911170c68:control-capitalized-run",
+        "slices": {
+          "collision=common-word": {
+            "cases": 6,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": 0.0,
+            "recall": null
+          },
+          "collision=location": {
+            "cases": 2,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": 0.0,
+            "recall": null
+          },
+          "collision=organization": {
+            "cases": 3,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": 0.0,
+            "recall": null
+          },
+          "context=no-person": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "difficulty=ambiguous": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "difficulty=unambiguous": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "language=en": {
+            "cases": 23,
+            "f1": 0.380952380952381,
+            "lenient_f1": 0.6190476190476191,
+            "precision": 0.3076923076923077,
+            "recall": 0.5
+          },
+          "language=ko": {
+            "cases": 9,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "script=mixed": {
+            "cases": 6,
+            "f1": 0.6250000000000001,
+            "lenient_f1": 0.75,
+            "precision": 0.7142857142857143,
+            "recall": 0.5555555555555556
+          },
+          "seen=false": {
+            "cases": 18,
+            "f1": 0.5,
+            "lenient_f1": 0.7222222222222223,
+            "precision": 0.45,
+            "recall": 0.5625
+          },
+          "seen=true": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "shape=multi-token": {
+            "cases": 25,
+            "f1": 0.4999999999999999,
+            "lenient_f1": 0.6923076923076923,
+            "precision": 0.5652173913043478,
+            "recall": 0.4482758620689655
+          },
+          "shape=single-token": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          }
+        },
+        "state": "ok"
       }
     ],
     "fastner-regression": [
@@ -366,7 +694,108 @@
       },
       {
         "model": "fastner-b-linear-crf",
-        "state": "not-measured"
+        "overall": {
+          "cases": 52,
+          "f1": 0.8571428571428572,
+          "lenient_f1": 0.8831168831168831,
+          "precision": 0.8461538461538461,
+          "recall": 0.868421052631579
+        },
+        "run_id": "run-fa7c74ef7884624a:fastner-crf",
+        "slices": {
+          "collision=common-word": {
+            "cases": 24,
+            "f1": 0.6250000000000001,
+            "lenient_f1": 0.75,
+            "precision": 0.5555555555555556,
+            "recall": 0.7142857142857143
+          },
+          "collision=location": {
+            "cases": 4,
+            "f1": 1.0,
+            "lenient_f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "collision=organization": {
+            "cases": 2,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": 0.0,
+            "recall": null
+          },
+          "context=no-person": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "difficulty=ambiguous": {
+            "cases": 30,
+            "f1": 0.631578947368421,
+            "lenient_f1": 0.7368421052631579,
+            "precision": 0.5454545454545454,
+            "recall": 0.75
+          },
+          "difficulty=unambiguous": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "language=en": {
+            "cases": 34,
+            "f1": 0.8727272727272727,
+            "lenient_f1": 0.9090909090909091,
+            "precision": 0.8571428571428571,
+            "recall": 0.8888888888888888
+          },
+          "language=ko": {
+            "cases": 18,
+            "f1": 0.8181818181818182,
+            "lenient_f1": 0.8181818181818182,
+            "precision": 0.8181818181818182,
+            "recall": 0.8181818181818182
+          },
+          "script=mixed": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "seen=false": {
+            "cases": 15,
+            "f1": 0.9268292682926829,
+            "lenient_f1": 0.9268292682926829,
+            "precision": 0.95,
+            "recall": 0.9047619047619048
+          },
+          "seen=true": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "shape=multi-token": {
+            "cases": 28,
+            "f1": 0.8985507246376813,
+            "lenient_f1": 0.927536231884058,
+            "precision": 0.9393939393939394,
+            "recall": 0.8611111111111112
+          },
+          "shape=single-token": {
+            "cases": 2,
+            "f1": 1.0,
+            "lenient_f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0
+          }
+        },
+        "state": "ok"
       },
       {
         "model": "fastner-c-compact-neural",
@@ -394,11 +823,213 @@
       },
       {
         "model": "control-null",
-        "state": "not-measured"
+        "overall": {
+          "cases": 52,
+          "f1": null,
+          "lenient_f1": null,
+          "precision": null,
+          "recall": 0.0
+        },
+        "run_id": "run-fa7c74ef7884624a:control-null",
+        "slices": {
+          "collision=common-word": {
+            "cases": 24,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "collision=location": {
+            "cases": 4,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "collision=organization": {
+            "cases": 2,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "context=no-person": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "difficulty=ambiguous": {
+            "cases": 30,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "difficulty=unambiguous": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "language=en": {
+            "cases": 34,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "language=ko": {
+            "cases": 18,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "script=mixed": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "seen=false": {
+            "cases": 15,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "seen=true": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "shape=multi-token": {
+            "cases": 28,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "shape=single-token": {
+            "cases": 2,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          }
+        },
+        "state": "ok"
       },
       {
         "model": "control-capitalized-run",
-        "state": "not-measured"
+        "overall": {
+          "cases": 52,
+          "f1": 0.4835164835164836,
+          "lenient_f1": 0.5934065934065935,
+          "precision": 0.41509433962264153,
+          "recall": 0.5789473684210527
+        },
+        "run_id": "run-fa7c74ef7884624a:control-capitalized-run",
+        "slices": {
+          "collision=common-word": {
+            "cases": 24,
+            "f1": 0.5217391304347825,
+            "lenient_f1": 0.5217391304347825,
+            "precision": 0.375,
+            "recall": 0.8571428571428571
+          },
+          "collision=location": {
+            "cases": 4,
+            "f1": 0.33333333333333337,
+            "lenient_f1": 0.33333333333333337,
+            "precision": 0.2,
+            "recall": 1.0
+          },
+          "collision=organization": {
+            "cases": 2,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": 0.0,
+            "recall": null
+          },
+          "context=no-person": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "difficulty=ambiguous": {
+            "cases": 30,
+            "f1": 0.43750000000000006,
+            "lenient_f1": 0.43750000000000006,
+            "precision": 0.2916666666666667,
+            "recall": 0.875
+          },
+          "difficulty=unambiguous": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "language=en": {
+            "cases": 34,
+            "f1": 0.55,
+            "lenient_f1": 0.6749999999999999,
+            "precision": 0.41509433962264153,
+            "recall": 0.8148148148148148
+          },
+          "language=ko": {
+            "cases": 18,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "script=mixed": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "seen=false": {
+            "cases": 15,
+            "f1": 0.5833333333333334,
+            "lenient_f1": 0.7916666666666667,
+            "precision": 0.5185185185185185,
+            "recall": 0.6666666666666666
+          },
+          "seen=true": {
+            "cases": 0,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "shape=multi-token": {
+            "cases": 28,
+            "f1": 0.5797101449275361,
+            "lenient_f1": 0.7246376811594203,
+            "precision": 0.6060606060606061,
+            "recall": 0.5555555555555556
+          },
+          "shape=single-token": {
+            "cases": 2,
+            "f1": 0.6666666666666666,
+            "lenient_f1": 0.6666666666666666,
+            "precision": 0.5,
+            "recall": 1.0
+          }
+        },
+        "state": "ok"
       }
     ],
     "ner-evidence-public": [
@@ -1356,27 +1987,36 @@
   "populations": [
     {
       "artifact_runs": [],
-      "case_count": null,
+      "case_count": 46,
       "caveats": [],
+      "content_digest": "sha256:5962532da7f6f5866a859a933910f950bee13596704823bda7bf09dd28f5ed60",
       "id": "candidate-specific",
       "identity": {
+        "candidate": "fastner-b-linear-crf",
         "corpus_id": "candidate-specific",
-        "corpus_version": null
+        "corpus_version": "0.1.0"
       },
       "is_holdout": false,
+      "origins": {
+        "bakeoff-failure": 46
+      },
       "provenance": {
         "custody": "fastner-benchmarks",
-        "license": "project-internal",
+        "license": "project-internal; to be set before public release",
         "personal_data": false,
-        "source": "per-candidate failure analysis",
+        "source": "variants of failure classes observed for fastner-b-linear-crf in ner-eval product runs (lineage per case)",
         "synthetic": true
       },
       "role": "candidate-diagnostic",
-      "status": "planned",
+      "status": "available",
       "title": "Candidate-specific diagnostic cases"
     },
     {
-      "artifact_runs": [],
+      "artifact_runs": [
+        "run-810f86b911170c68:control-capitalized-run",
+        "run-810f86b911170c68:control-null",
+        "run-810f86b911170c68:fastner-crf"
+      ],
       "case_count": 37,
       "caveats": [],
       "content_digest": "sha256:b86a7d66e9889ab88a5ef21b192d89665de4495769544dadf6d295c7ca81ede4",
@@ -1401,7 +2041,11 @@
       "title": "FastNER adversarial product corpus"
     },
     {
-      "artifact_runs": [],
+      "artifact_runs": [
+        "run-fa7c74ef7884624a:control-capitalized-run",
+        "run-fa7c74ef7884624a:control-null",
+        "run-fa7c74ef7884624a:fastner-crf"
+      ],
       "case_count": 52,
       "caveats": [],
       "content_digest": "sha256:3dbdbfea6e16153d413e718f163b36958388c1a33057a1469babcb8f5f5c1bae",
@@ -1493,6 +2137,36 @@
   "rejected_artifacts": [],
   "schema": "fastner-benchmarks.bakeoff-report/1",
   "slice_sizes": {
+    "fastner-adversarial": {
+      "collision=common-word": 6,
+      "collision=location": 2,
+      "collision=organization": 3,
+      "context=no-person": 0,
+      "difficulty=ambiguous": 0,
+      "difficulty=unambiguous": 0,
+      "language=en": 23,
+      "language=ko": 9,
+      "script=mixed": 6,
+      "seen=false": 18,
+      "seen=true": 0,
+      "shape=multi-token": 25,
+      "shape=single-token": 0
+    },
+    "fastner-regression": {
+      "collision=common-word": 24,
+      "collision=location": 4,
+      "collision=organization": 2,
+      "context=no-person": 0,
+      "difficulty=ambiguous": 30,
+      "difficulty=unambiguous": 0,
+      "language=en": 34,
+      "language=ko": 18,
+      "script=mixed": 0,
+      "seen=false": 15,
+      "seen=true": 0,
+      "shape=multi-token": 28,
+      "shape=single-token": 2
+    },
     "ner-evidence-public": {
       "collision=common-word": 156,
       "collision=location": 52,

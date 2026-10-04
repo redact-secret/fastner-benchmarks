@@ -1,36 +1,11 @@
 {
-  "alpha_blockers": [
-    {
-      "criterion": "regression_measured",
-      "detail": "fastner-regression: not measured",
-      "next_action": "ner-eval: add ingestion of product case-jsonl corpora (corpora/regression) and run the selected candidate on it.",
-      "owner": "ner-eval",
-      "priority": 1,
-      "title": "Product regression corpus measured"
-    },
-    {
-      "criterion": "adversarial_measured",
-      "detail": "fastner-adversarial: not measured",
-      "next_action": "ner-eval: add ingestion of product case-jsonl corpora (corpora/adversarial) and run the selected candidate on it.",
-      "owner": "ner-eval",
-      "priority": 2,
-      "title": "Product adversarial corpus measured"
-    },
-    {
-      "criterion": "gates_ratified",
-      "detail": "proposed-unratified",
-      "next_action": "fastner-benchmarks maintainers: ratify or revise the proposed gate thresholds against a baseline that is not the tuned public snapshot alone (record baseline run ids in policy/support-gates.json).",
-      "owner": "fastner-benchmarks",
-      "priority": 3,
-      "title": "Support gate thresholds ratified against a real baseline"
-    }
-  ],
+  "alpha_blockers": [],
   "architecture_outcome": {
     "candidate": "fastner-b-linear-crf",
     "state": "promoted",
     "summary": "fastner-b-linear-crf is the only candidate on the frontier that passes every promotion guardrail"
   },
-  "beta_planning_note": "Deficits above are derived only from measured failing gates, ordered by relative shortfall (a screening heuristic, not a priority judgment). They are a candidate Beta backlog; Beta is not entered until the alpha blockers are resolved.",
+  "beta_planning_note": "Deficits above are derived only from measured failing gates and are the Beta backlog.",
   "criteria": [
     {
       "detail": "recommend",
@@ -65,17 +40,17 @@
       "title": "Pinned ner-evidence snapshot measured for the selected candidate"
     },
     {
-      "detail": "fastner-regression: not measured",
+      "detail": "fastner-regression: measured",
       "id": "regression_measured",
-      "met": false,
+      "met": true,
       "next_action": "ner-eval: add ingestion of product case-jsonl corpora (corpora/regression) and run the selected candidate on it.",
       "owner": "ner-eval",
       "title": "Product regression corpus measured"
     },
     {
-      "detail": "fastner-adversarial: not measured",
+      "detail": "fastner-adversarial: measured",
       "id": "adversarial_measured",
-      "met": false,
+      "met": true,
       "next_action": "ner-eval: add ingestion of product case-jsonl corpora (corpora/adversarial) and run the selected candidate on it.",
       "owner": "ner-eval",
       "title": "Product adversarial corpus measured"
@@ -97,17 +72,17 @@
       "title": "Each profile language has a pinned reference that is measured, or explicitly unavailable with a reason"
     },
     {
-      "detail": "proposed-unratified",
+      "detail": "ratified-as-beta-targets",
       "id": "gates_ratified",
-      "met": false,
+      "met": true,
       "next_action": "fastner-benchmarks maintainers: ratify or revise the proposed gate thresholds against a baseline that is not the tuned public snapshot alone (record baseline run ids in policy/support-gates.json).",
       "owner": "fastner-benchmarks",
       "title": "Support gate thresholds ratified against a real baseline"
     }
   ],
   "criteria_version": "0.2.0",
-  "decision": "REMAIN IN ALPHA",
-  "decision_reason": "architecture/product viability is not proven: regression_measured, adversarial_measured, gates_ratified",
+  "decision": "ENTER BETA",
+  "decision_reason": "every entry criterion is met",
   "measured_deficits_beta_suggestions": [
     {
       "area": "startup",
@@ -183,6 +158,42 @@
       "title": "Reduce false positives on ambiguous names"
     },
     {
+      "area": "adversarial-ko",
+      "caveat": "based on a 9-case slice of a seed corpus",
+      "evidence": [
+        {
+          "cases": 9,
+          "gate": "adversarial.ko_precision",
+          "op": ">=",
+          "profile": "PERSON/ko",
+          "relative_shortfall": 0.294118,
+          "threshold": 0.85,
+          "value": 0.6
+        }
+      ],
+      "priority": 4,
+      "relative_shortfall": 0.294118,
+      "title": "Reduce Korean particle false positives under adversarial input"
+    },
+    {
+      "area": "adversarial-en",
+      "caveat": "based on a 23-case slice of a seed corpus",
+      "evidence": [
+        {
+          "cases": 23,
+          "gate": "adversarial.en_precision",
+          "op": ">=",
+          "profile": "PERSON/en",
+          "relative_shortfall": 0.264706,
+          "threshold": 0.85,
+          "value": 0.625
+        }
+      ],
+      "priority": 5,
+      "relative_shortfall": 0.264706,
+      "title": "Reduce English false positives under adversarial input"
+    },
+    {
       "area": "quality-en",
       "evidence": [
         {
@@ -194,7 +205,7 @@
           "value": 0.6861233480176212
         }
       ],
-      "priority": 4,
+      "priority": 6,
       "relative_shortfall": 0.192796,
       "title": "Raise English entity F1 on the public snapshot"
     },
@@ -210,30 +221,49 @@
           "value": 0.6988472622478386
         }
       ],
-      "priority": 5,
+      "priority": 7,
       "relative_shortfall": 0.126441,
       "title": "Raise Korean entity F1 on the public snapshot"
+    },
+    {
+      "area": "tokenization-ko",
+      "caveat": "based on a 18-case slice of a seed corpus",
+      "evidence": [
+        {
+          "cases": 18,
+          "gate": "regression.ko_f1",
+          "op": ">=",
+          "profile": "PERSON/ko",
+          "relative_shortfall": 0.037433,
+          "threshold": 0.85,
+          "value": 0.8181818181818182
+        }
+      ],
+      "priority": 8,
+      "relative_shortfall": 0.037433,
+      "title": "Fix Korean tokenization and particle failures from the regression corpus"
+    },
+    {
+      "area": "tokenization-en",
+      "caveat": "based on a 34-case slice of a seed corpus",
+      "evidence": [
+        {
+          "cases": 34,
+          "gate": "regression.en_f1",
+          "op": ">=",
+          "profile": "PERSON/en",
+          "relative_shortfall": 0.030303,
+          "threshold": 0.9,
+          "value": 0.8727272727272727
+        }
+      ],
+      "priority": 9,
+      "relative_shortfall": 0.030303,
+      "title": "Fix English tokenization/boundary failures from the regression corpus"
     }
   ],
-  "measurement_gaps": [
-    {
-      "gate": "adversarial.en_precision",
-      "profile": "PERSON/en"
-    },
-    {
-      "gate": "regression.en_f1",
-      "profile": "PERSON/en"
-    },
-    {
-      "gate": "adversarial.ko_precision",
-      "profile": "PERSON/ko"
-    },
-    {
-      "gate": "regression.ko_f1",
-      "profile": "PERSON/ko"
-    }
-  ],
-  "outcome": "B",
+  "measurement_gaps": [],
+  "outcome": "A",
   "policy_version": "0.2.0",
   "promotion": {
     "decision": "recommend",
@@ -438,6 +468,10 @@
       }
     ],
     "fastner_runtime_commit": "007805d3e83bb6c72f604cdcdd2e338c7b6ea753",
+    "fastner_runtime_commits_measured": [
+      "007805d3e83bb6c72f604cdcdd2e338c7b6ea753",
+      "89c4134d67f1d7d0033dba040ed9bc533d05c214"
+    ],
     "fastner_runtime_version": "0.0.0",
     "metric_protocol_versions": [
       "ner-eval.match/1.1.0"
@@ -473,6 +507,10 @@
       "sha256:f3fbb386e42b91f4fdb03f500d91b2bead768a2569ff8a09148d3d38ff96ffdf"
     ],
     "regression_corpus": {
+      "candidate-specific": {
+        "case_count": 46,
+        "content_digest": "sha256:5962532da7f6f5866a859a933910f950bee13596704823bda7bf09dd28f5ed60"
+      },
       "fastner-adversarial": {
         "case_count": 37,
         "content_digest": "sha256:b86a7d66e9889ab88a5ef21b192d89665de4495769544dadf6d295c7ca81ede4"

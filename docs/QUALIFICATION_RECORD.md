@@ -25,9 +25,14 @@ Runtime version/commit, model digest, evidence snapshot identity, product corpus
 digests and case counts, evaluator and metric-protocol versions, peer pins, performance
 environment, policy and criteria versions.
 
-## Current result (CRF, `alpha1-full`)
+## Current result (CRF)
 Architecture: `fastner-b-linear-crf` **promoted** (ADR-0002 accepted and on fastner main).
-Product readiness: **REMAIN IN ALPHA**. Unmet criteria: regression and adversarial corpora measured,
-gate thresholds ratified. The measured-deficit backlog (collision and
-ambiguity false positives, EN/KO F1, startup) is generated from failing gates and listed as a
-*candidate* Beta backlog; it does not mean Beta was entered.
+Product readiness: **A. ENTER BETA**. All nine entry criteria are met: the architecture is promoted, the
+public snapshot and both product corpora are measured for CRF, every budget gate is measured, EN and KO
+references are measured, and the gate thresholds are ratified as Beta targets.
+
+Entering Beta is not a quality claim. Support stays `experimental`; the generated measured-deficit
+backlog is the Beta plan: startup (re-measure in-process), collision and ambiguous-name false
+positives, Korean particle and adversarial false positives, EN/KO F1, and the tokenization failures
+seen on the product corpora. Evidence caveats (public snapshot is not a holdout, tiny seed corpora)
+are carried into the generated record.

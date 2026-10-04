@@ -6,9 +6,9 @@
 
 fastner-b-linear-crf is the only candidate on the frontier that passes every promotion guardrail.
 
-## Product readiness: **B. REMAIN IN ALPHA**
+## Product readiness: **A. ENTER BETA**
 
-architecture/product viability is not proven: regression_measured, adversarial_measured, gates_ratified.
+every entry criterion is met.
 
 - Criteria 0.2.0, qualification policy 0.2.0
 - Architecture: recommend / promotion promoted
@@ -21,16 +21,17 @@ architecture/product viability is not proven: regression_measured, adversarial_m
 | Selection recorded as a fastner ADR (promotion_state = promoted) | yes | fastner | promoted |
 | Selected candidate pin fully resolved (runtime commit, model digest, adapter) | yes | fastner | resolved |
 | Pinned ner-evidence snapshot measured for the selected candidate | yes | ner-evidence | ner-evidence-public: measured |
-| Product regression corpus measured | **no** | ner-eval | fastner-regression: not measured |
-| Product adversarial corpus measured | **no** | ner-eval | fastner-adversarial: not measured |
+| Product regression corpus measured | yes | ner-eval | fastner-regression: measured |
+| Product adversarial corpus measured | yes | ner-eval | fastner-adversarial: measured |
 | Every size/performance budget gate has a measurement | yes | ner-eval | 14/14 budget gates measured |
 | Each profile language has a pinned reference that is measured, or explicitly unavailable with a reason | yes | fastner-benchmarks | en=ok, ko=ok |
-| Support gate thresholds ratified against a real baseline | **no** | fastner-benchmarks | proposed-unratified |
+| Support gate thresholds ratified against a real baseline | yes | fastner-benchmarks | ratified-as-beta-targets |
 
 ## Release identity
 
 - Candidate: fastner-b-linear-crf; runtime version 0.0.0; model digest sha256:a88941224b9bf20f419c14e6459366f4fcb65a7108ce7d589baa3f7ca8e694e7
 - Evidence snapshot: person-en-ko-alpha.1-65b5a0970bfe
+- candidate-specific: 46 cases, sha256:5962532da7f6f5866a859a933910f950bee13596704823bda7bf09dd28f5ed60
 - fastner-adversarial: 37 cases, sha256:b86a7d66e9889ab88a5ef21b192d89665de4495769544dadf6d295c7ca81ede4
 - fastner-regression: 52 cases, sha256:3dbdbfea6e16153d413e718f163b36958388c1a33057a1469babcb8f5f5c1bae
 - Evaluator: 0.1.0; protocol ner-eval.match/1.1.0; perf env sha256:f3fbb386e42b91f4fdb03f500d91b2bead768a2569ff8a09148d3d38ff96ffdf
@@ -55,15 +56,15 @@ architecture/product viability is not proven: regression_measured, adversarial_m
    - caveat: startup was measured through the external-process shim (includes process spawn and JSON-lines transport); re-measure in-process before sizing the work
 2. **Reduce false positives on person/organization/location collisions** (worst relative shortfall 62.0%): PERSON/en public.collision_precision_worst = 0.2661 vs >= 0.7; PERSON/ko public.collision_precision_worst = 0.2661 vs >= 0.7
 3. **Reduce false positives on ambiguous names** (worst relative shortfall 47.2%): PERSON/en public.ambiguous_precision = 0.4487 vs >= 0.85; PERSON/ko public.ambiguous_precision = 0.4487 vs >= 0.85
-4. **Raise English entity F1 on the public snapshot** (worst relative shortfall 19.3%): PERSON/en public.en_f1 = 0.6861 vs >= 0.85
-5. **Raise Korean entity F1 on the public snapshot** (worst relative shortfall 12.6%): PERSON/ko public.ko_f1 = 0.6988 vs >= 0.8
+4. **Reduce Korean particle false positives under adversarial input** (worst relative shortfall 29.4%): PERSON/ko adversarial.ko_precision = 0.6 vs >= 0.85 (n=9)
+   - caveat: based on a 9-case slice of a seed corpus
+5. **Reduce English false positives under adversarial input** (worst relative shortfall 26.5%): PERSON/en adversarial.en_precision = 0.625 vs >= 0.85 (n=23)
+   - caveat: based on a 23-case slice of a seed corpus
+6. **Raise English entity F1 on the public snapshot** (worst relative shortfall 19.3%): PERSON/en public.en_f1 = 0.6861 vs >= 0.85
+7. **Raise Korean entity F1 on the public snapshot** (worst relative shortfall 12.6%): PERSON/ko public.ko_f1 = 0.6988 vs >= 0.8
+8. **Fix Korean tokenization and particle failures from the regression corpus** (worst relative shortfall 3.7%): PERSON/ko regression.ko_f1 = 0.8182 vs >= 0.85 (n=18)
+   - caveat: based on a 18-case slice of a seed corpus
+9. **Fix English tokenization/boundary failures from the regression corpus** (worst relative shortfall 3.0%): PERSON/en regression.en_f1 = 0.8727 vs >= 0.9 (n=34)
+   - caveat: based on a 34-case slice of a seed corpus
 
-Measurement gaps (not deficits): PERSON/en:adversarial.en_precision, PERSON/en:regression.en_f1, PERSON/ko:adversarial.ko_precision, PERSON/ko:regression.ko_f1
-
-## Alpha blockers (prioritized)
-
-1. `regression_measured` (ner-eval; now: fastner-regression: not measured). Next: ner-eval: add ingestion of product case-jsonl corpora (corpora/regression) and run the selected candidate on it.
-2. `adversarial_measured` (ner-eval; now: fastner-adversarial: not measured). Next: ner-eval: add ingestion of product case-jsonl corpora (corpora/adversarial) and run the selected candidate on it.
-3. `gates_ratified` (fastner-benchmarks; now: proposed-unratified). Next: fastner-benchmarks maintainers: ratify or revise the proposed gate thresholds against a baseline that is not the tuned public snapshot alone (record baseline run ids in policy/support-gates.json).
-
-_Deficits above are derived only from measured failing gates, ordered by relative shortfall (a screening heuristic, not a priority judgment). They are a candidate Beta backlog; Beta is not entered until the alpha blockers are resolved._
+_Deficits above are derived only from measured failing gates and are the Beta backlog._

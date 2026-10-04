@@ -20,14 +20,15 @@ language-slice F1 on the regression corpus; language-slice precision on the adve
 and shared budgets: latency p95, throughput, startup, peak memory, model size, runtime binary
 size, WASM size. A gate with no measurement is `unmeasured`, never pass and never fail-as-zero.
 
-## Thresholds are proposals
-No baseline exists, so every number is a **proposal**
-(`thresholds_status: proposed-unratified`, `ratification: null`). Until a commit fills
-`ratification` (baseline run ids + who), the generator caps every profile at `experimental`.
-Ratifying means re-deriving numbers from the first real baseline and bumping `gate_set_version`.
+## Thresholds are ratified as Beta targets (gate set 0.3.0)
+The numbers were first proposals. They are now **adopted unchanged as the targets Beta must reach**
+(`thresholds_status: ratified-as-beta-targets`; baseline runs, ratifier and limits are recorded in
+`policy/support-gates.json`). They were not fitted to the baseline: CRF fails most quality gates, which
+is the Beta backlog. Without a `ratification` record the generator still caps support at `experimental`.
+Re-ratify, with revised numbers if needed, when a protected holdout exists and before any move toward stable.
+Gates on the tiny product corpora show their slice size (`n=`, flagged low-n under 50 cases).
 
-## Current output (CRF, `alpha1-full`)
-PERSON/en and PERSON/ko are **experimental**: measured, but gates fail (EN/KO F1, ambiguous-name
-precision, collision precision, startup), regression/adversarial gates are unmeasured, and thresholds are
-unratified. See `reports/support/support-matrix.md`.
+## Current output (CRF)
+PERSON/en and PERSON/ko are **experimental**: promoted architecture, ratified gates, every gate measured,
+but several fail (EN/KO F1, ambiguous-name precision, collision precision, adversarial precision, startup). See `reports/support/support-matrix.md`.
 Failing proposed gates are information about the gap, not a verdict on the proposals themselves.

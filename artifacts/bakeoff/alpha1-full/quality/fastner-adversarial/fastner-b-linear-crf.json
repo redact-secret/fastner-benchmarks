@@ -1,0 +1,477 @@
+{
+  "corpus": {
+    "case_count": 37,
+    "digest": "sha256:b86a7d66e9889ab88a5ef21b192d89665de4495769544dadf6d295c7ca81ede4",
+    "id": "fastner-adversarial",
+    "redistribution": null,
+    "snapshot_id": "fastner-adversarial"
+  },
+  "evaluator_version": "0.1.0",
+  "failures": [
+    {
+      "case_id": "fnb-adv-005",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-006",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-007",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-007",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-011",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-012",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-014",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-017",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-020",
+      "outcome": "false-positive",
+      "region": "asserted-negative"
+    },
+    {
+      "case_id": "fnb-adv-020",
+      "outcome": "false-positive",
+      "region": "asserted-negative"
+    },
+    {
+      "case_id": "fnb-adv-022",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-026",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-035",
+      "outcome": "false-positive",
+      "region": "asserted-negative"
+    }
+  ],
+  "metric_protocol_version": "ner-eval.match/1.1.0",
+  "metrics": {
+    "overall": {
+      "cases": 37,
+      "counts": {
+        "ambiguous": 0,
+        "boundary_overlap": 0,
+        "duplicate": 0,
+        "exact": 20,
+        "false_positive": 4,
+        "false_positive_asserted_negative": 3,
+        "gold_total": 29,
+        "miss": 5,
+        "over_wide": 0,
+        "pred_total": 28,
+        "under_wide": 4,
+        "wrong_type_gold": 0
+      },
+      "lenient": {
+        "f1": 0.8421052631578947,
+        "precision": 0.8571428571428571,
+        "recall": 0.8275862068965517
+      },
+      "strict": {
+        "f1": 0.7017543859649122,
+        "precision": 0.7142857142857143,
+        "recall": 0.6896551724137931
+      }
+    },
+    "slices": {
+      "collision=common-word": {
+        "cases": 6,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        }
+      },
+      "collision=location": {
+        "cases": 2,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 3,
+          "false_positive_asserted_negative": 3,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 3,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": 0.0,
+          "recall": null
+        },
+        "strict": {
+          "f1": null,
+          "precision": 0.0,
+          "recall": null
+        }
+      },
+      "collision=organization": {
+        "cases": 3,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        }
+      },
+      "context=no-person": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        }
+      },
+      "difficulty=ambiguous": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        }
+      },
+      "difficulty=unambiguous": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        }
+      },
+      "language=en": {
+        "cases": 23,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 10,
+          "false_positive": 3,
+          "false_positive_asserted_negative": 3,
+          "gold_total": 16,
+          "miss": 3,
+          "over_wide": 0,
+          "pred_total": 16,
+          "under_wide": 3,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": 0.8125,
+          "precision": 0.8125,
+          "recall": 0.8125
+        },
+        "strict": {
+          "f1": 0.625,
+          "precision": 0.625,
+          "recall": 0.625
+        }
+      },
+      "language=ko": {
+        "cases": 9,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 3,
+          "false_positive": 1,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 5,
+          "miss": 1,
+          "over_wide": 0,
+          "pred_total": 5,
+          "under_wide": 1,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": 0.8000000000000002,
+          "precision": 0.8,
+          "recall": 0.8
+        },
+        "strict": {
+          "f1": 0.6,
+          "precision": 0.6,
+          "recall": 0.6
+        }
+      },
+      "script=mixed": {
+        "cases": 6,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 7,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 9,
+          "miss": 1,
+          "over_wide": 0,
+          "pred_total": 8,
+          "under_wide": 1,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": 0.9411764705882353,
+          "precision": 1.0,
+          "recall": 0.8888888888888888
+        },
+        "strict": {
+          "f1": 0.823529411764706,
+          "precision": 0.875,
+          "recall": 0.7777777777777778
+        }
+      },
+      "seen=false": {
+        "cases": 18,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 10,
+          "false_positive": 1,
+          "false_positive_asserted_negative": 1,
+          "gold_total": 16,
+          "miss": 3,
+          "over_wide": 0,
+          "pred_total": 14,
+          "under_wide": 3,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": 0.8666666666666666,
+          "precision": 0.9285714285714286,
+          "recall": 0.8125
+        },
+        "strict": {
+          "f1": 0.6666666666666666,
+          "precision": 0.7142857142857143,
+          "recall": 0.625
+        }
+      },
+      "seen=true": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        }
+      },
+      "shape=multi-token": {
+        "cases": 25,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 20,
+          "false_positive": 1,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 29,
+          "miss": 5,
+          "over_wide": 0,
+          "pred_total": 25,
+          "under_wide": 4,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": 0.888888888888889,
+          "precision": 0.96,
+          "recall": 0.8275862068965517
+        },
+        "strict": {
+          "f1": 0.7407407407407408,
+          "precision": 0.8,
+          "recall": 0.6896551724137931
+        }
+      },
+      "shape=single-token": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        }
+      }
+    }
+  },
+  "model": {
+    "adapter_id": "fastner-crf",
+    "artifact_digest": "sha256:a88941224b9bf20f419c14e6459366f4fcb65a7108ce7d589baa3f7ca8e694e7",
+    "id": "fastner-b-linear-crf"
+  },
+  "run_id": "run-810f86b911170c68:fastner-crf",
+  "runtime_commit": "89c4134d67f1d7d0033dba040ed9bc533d05c214",
+  "schema": "fastner-benchmarks.quality/2",
+  "slice_spec": "ner-eval.person-slices/2",
+  "source": {
+    "artifact_digest": "sha256:0621ea43762c3657859bc8080d6266f387598dce57179173d1838c0382efafd3",
+    "artifact_file_sha256": "sha256:9d44c7ed0cd265b70d64cebfcde3c643eac2fcc1b8e42eb12a503d9d4014970b",
+    "ner_eval_run_id": "run-810f86b911170c68",
+    "ner_eval_run_manifest_digest": "sha256:4816e7ea543a2c4b32a0ea12c6bbe988eb97ac87a18c9361ea92bd7e6f81fbdf",
+    "path": "results/product-corpora/adversarial/quality/fastner-crf.quality.json"
+  },
+  "status": "ok"
+}

@@ -20,6 +20,10 @@ comparison point, not the assumed target.
 | planned reference | GLiNER multilingual: `unresolved` (ner-eval has no adapter yet) |
 | controls | ner-eval `control-null` and `control-capitalized-run` (calibration; shown, never ranked) |
 
+`source_runs` lists the pinned ner-eval runs (public snapshot + performance; regression; adversarial).
+`runtime.also_measured_at` records any additional runtime commit a candidate was measured at (CRF product runs:
+`89c4134`, model digest unchanged, docs/comment-only diff).
+
 Ingest cross-checks every artifact against these pins (digest, size, version/revision, runtime
 commit). Candidate `config` records the label map, threads, batch size and ner-eval's adapter
 config hash; `config_hash` is computed from it.

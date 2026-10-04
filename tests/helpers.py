@@ -32,6 +32,14 @@ def _counts():
 
 
 COUNTS = _counts()
+
+
+def _digests():
+    from fnbench.corpus import CORPORA, describe
+    return {k: describe(k)["content_digest"] for k in CORPORA}
+
+
+DIGESTS = _digests()
 SNAP = next(p for p in load_populations()["populations"] if p["id"] == "ner-evidence-public")["identity"]["snapshot_digest"]
 
 
@@ -44,7 +52,7 @@ def block(p, r, f1=None, cases=100):
 def quality(model, f1_scale=1.0, corpus="ner-evidence-public", run="q", proto="p1", status="ok"):
     a = {"schema": Q_SCHEMA, "run_id": f"{run}-{model}", "evaluator_version": "ev1", "metric_protocol_version": proto,
          "source": {"ner_eval_run_id": "test"},
-         "corpus": {"id": corpus, "case_count": COUNTS.get(corpus, 100), "digest": SNAP},
+         "corpus": {"id": corpus, "case_count": COUNTS.get(corpus, 100), "digest": DIGESTS.get(corpus, SNAP)},
          "model": {"id": model, "artifact_digest": DIG.get(model)}, "status": status}
     if status != "ok":
         a["reason"] = "adapter crashed"

@@ -13,6 +13,7 @@ from .util import ROOT, canonical_json, sha256_bytes, write_text
 CORPORA = {
     "fastner-regression": {"dir": "corpora/regression", "stem": "regression", "prefix": "fnb-reg-"},
     "fastner-adversarial": {"dir": "corpora/adversarial", "stem": "adversarial", "prefix": "fnb-adv-"},
+    "candidate-specific": {"dir": "corpora/candidate/fastner-b-linear-crf", "stem": "candidate", "prefix": "fnb-cand-b-"},
 }
 SLICE_KEYS = ["language", "script", "entity", "difficulty", "shape", "collision", "seen"]
 ORIGINS = {"seed-taxonomy", "bakeoff-failure", "production-bug"}
@@ -49,7 +50,7 @@ def build_case(src, corpus_id):
         "text": plain, "negative": not spans,
         "entities": [{"start": s, "end": e, "type": "PERSON", "surface": sf} for s, e, sf in spans],
         "slices": src["slices"], "rationale": src["rationale"],
-        **{k: src[k] for k in ("seen_basis", "contested") if k in src},
+        **{k: src[k] for k in ("seen_basis", "contested", "lineage") if k in src},
     }
 
 
@@ -104,7 +105,7 @@ def validate_cases(corpus_id, rows):
                 errs.append(f"{i}: text matches unsafe-publication pattern {pat.pattern!r}")
         if r["category"] == "unicode-homoglyph" and not any(ord(c) > 0x24f and c.isalpha() for c in r["text"]):
             errs.append(f"{i}: homoglyph case contains no non-Latin letter")
-        if r["category"] == "unicode-normalization" and unicodedata.is_normalized("NFC", r["text"]) and "Ｔ" not in r["text"]:
+        if r["category"] == "unicode-normalization" and unicodedata.is_normalized("NFC", r["text"]) and not any("\uff00" <= ch <= "\uffef" for ch in r["text"]):
             errs.append(f"{i}: normalization case is already NFC")
     if errs:
         raise CorpusError("; ".join(errs))

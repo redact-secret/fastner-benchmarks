@@ -21,7 +21,7 @@ def load_dir(directory):
     d = Path(directory)
     if not d.exists():
         return []
-    return [(f.name, json.loads(f.read_text(encoding="utf-8"))) for f in sorted(d.glob("*.json"))]
+    return [(str(f.relative_to(d)), json.loads(f.read_text(encoding="utf-8"))) for f in sorted(d.rglob("*.json"))]
 
 
 def _need(a, name, keys):

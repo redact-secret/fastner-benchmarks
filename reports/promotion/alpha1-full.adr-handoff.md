@@ -14,7 +14,7 @@ Target repo: `fastner`. Policy 0.2.0, promotion rule 0.1.0.
 ## Evidence
 
 - Metric protocol: ner-eval.match/1.1.0; evaluator: 0.1.0
-- Accepted artifacts: quality 9, perf 9
+- Accepted artifacts: quality 15, perf 9
 - Performance environment: sha256:f3fbb386e42b91f4fdb03f500d91b2bead768a2569ff8a09148d3d38ff96ffdf
 - Full report: `reports/bakeoff/alpha1-full/report.md`
 
@@ -41,9 +41,12 @@ Target repo: `fastner`. Policy 0.2.0, promotion rule 0.1.0.
 
 - ref-gliner-multi: pin unresolved (Not run in alpha1-full: ner-eval has no GLiNER adapter yet (ner-eval docs/REFERENCE_ADAPTERS.md). Planned reference.)
 - Pareto dominance uses raw point estimates with no noise tolerance; a tiny latency difference can keep a candidate off the dominated list, so the frontier is a screen, not a ranking
+- population candidate-specific (candidate-diagnostic) is committed but unmeasured: no ner-eval run has used it yet, and it never feeds shared gates
 - population ner-evidence-public: Not a holdout: FastNER candidates were not trained on it, but it was run three times against successive FastNER builds (fastner ADR-0002 process disclosure); FastNER numbers are likely optimistic relative to references that were never tuned against it.
 - population ner-evidence-public: All text is project-authored synthetic with no independent review; seen/unseen is a name-rarity proxy, not training-data membership.
 - population ner-evidence-public: Small slices (organization 33, location 52, mixed-script 36 cases) are anecdote-sized; no confidence intervals are computed.
+- fastner-adversarial: slices under 50 cases are anecdote-sized and have no confidence intervals: collision=common-word (6 cases), collision=location (2 cases), collision=organization (3 cases), context=no-person (0 cases), difficulty=ambiguous (0 cases), difficulty=unambiguous (0 cases), language=en (23 cases), language=ko (9 cases), script=mixed (6 cases), seen=false (18 cases), seen=true (0 cases), shape=multi-token (25 cases), shape=single-token (0 cases)
+- fastner-regression: slices under 50 cases are anecdote-sized and have no confidence intervals: collision=common-word (24 cases), collision=location (4 cases), collision=organization (2 cases), context=no-person (0 cases), difficulty=ambiguous (30 cases), difficulty=unambiguous (0 cases), language=en (34 cases), language=ko (18 cases), script=mixed (0 cases), seen=false (15 cases), seen=true (0 cases), shape=multi-token (28 cases), shape=single-token (2 cases)
 - ner-evidence-public: slices under 50 cases are anecdote-sized and have no confidence intervals: collision=organization (33 cases), script=mixed (36 cases)
 - ref-spacy-en: license unverified (public-release gate)
 - ref-koelectra-ko: license unverified (public-release gate)
@@ -54,9 +57,10 @@ Target repo: `fastner`. Policy 0.2.0, promotion rule 0.1.0.
 - peak RSS scope differs across adapters (adapter-process, evaluator-process-upper-bound); controls are evaluator-process upper bounds, not comparable to adapter-process values
 - external-process adapters include JSON-lines transport and process spawn in latency/startup, so those values overstate the in-process library cost
 - runtime binary size is the shared evaluation shim, identical for all FastNER candidates, so it does not discriminate between them; WASM size is a per-candidate probe module
+- fastner-b-linear-crf was measured at 2 runtime commits (007805d on ner-evidence-public; 89c4134 on fastner-adversarial, fastner-regression); model digest identical; 007805d: pinned commit; 89c4134: docs/README and one comment line in crates/fastner/Cargo.toml; no code, model or candidate change
+- population fastner-regression was measured only for fastner-b-linear-crf (plus controls); other pinned models are not measured on it
+- population fastner-adversarial was measured only for fastner-b-linear-crf (plus controls); other pinned models are not measured on it
 - throughput is order-of-magnitude only: cells with identical effective configuration differ by up to 2.9x (fastner-b-linear-crf batch 16 (2.9x), fastner-d-tiny-transformer batch 1 (2.1x), fastner-d-tiny-transformer batch 16 (1.8x), control-capitalized-run batch 1 (1.5x)); the protocol samples 20 batches per cell on an unmanaged machine
-- population fastner-regression exists (regression-gate) but no ner-eval run measured it; ner-eval cannot yet ingest product corpora
-- population fastner-adversarial exists (adversarial-gate) but no ner-eval run measured it; ner-eval cannot yet ingest product corpora
 
 ## Requested actions for fastner
 

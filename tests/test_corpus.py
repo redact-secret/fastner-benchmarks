@@ -47,18 +47,47 @@ class CorpusTests(unittest.TestCase):
             self.assertTrue(any(not r["negative"] for r in sub))
 
     def test_honest_origin_labels(self):
-        # No bakeoff has run: nothing may claim bakeoff-failure origin without lineage.
-        for cid in C.CORPORA:
+        for cid in ("fastner-regression", "fastner-adversarial"):
             for r in C.read_built(cid):
                 self.assertEqual(r["origin"], "seed-taxonomy")
+        for r in C.read_built("candidate-specific"):
+            self.assertEqual(r["origin"], "bakeoff-failure")
+            self.assertTrue(r["lineage"])
 
     # ---- isolation ----
     def test_ids_disjoint_and_prefixed(self):
         a = {r["id"] for r in C.read_built("fastner-regression")}
         b = {r["id"] for r in C.read_built("fastner-adversarial")}
-        self.assertFalse(a & b)
+        c = {r["id"] for r in C.read_built("candidate-specific")}
+        self.assertFalse((a & b) | (a & c) | (b & c))
+        self.assertTrue(all(i.startswith("fnb-cand-b-") for i in c))
         self.assertTrue(all(i.startswith("fnb-reg-") for i in a))
         self.assertTrue(all(i.startswith("fnb-adv-") for i in b))
+
+    def test_candidate_cases_trace_to_real_observed_failures(self):
+        """Each candidate-specific case must cite a real failure recorded in the ingested ner-eval artifacts."""
+        base = ROOT / "artifacts" / "bakeoff" / "alpha1-full" / "quality"
+        failures = {}
+        for pop in ("fastner-regression", "fastner-adversarial"):
+            art = json.loads((base / pop / "fastner-b-linear-crf.json").read_text())
+            for f in art["failures"]:
+                failures.setdefault(f["case_id"], set()).add(f["outcome"])
+            self.assertEqual(art["status"], "ok")
+        runs = {"run-fa7c74ef7884624a": "fnb-reg-", "run-810f86b911170c68": "fnb-adv-"}
+        parents = set()
+        for r in C.read_built("candidate-specific"):
+            lin = r["lineage"]
+            self.assertEqual(lin["candidate"], "fastner-b-linear-crf")
+            self.assertTrue(lin["parent_case"].startswith(runs[lin["ner_eval_run_id"]]))
+            self.assertIn(lin["parent_case"], failures, f"{r['id']}: parent was not an observed failure")
+            self.assertEqual(set(lin["parent_outcome"].split("+")), failures[lin["parent_case"]])
+            parents.add(lin["parent_case"])
+        self.assertEqual(parents, set(failures), "every observed failure class should have candidate variants")
+
+    def test_candidate_cases_are_new_not_copies_of_their_parents(self):
+        existing = {r["text"] for c in ("fastner-regression", "fastner-adversarial") for r in C.read_built(c)}
+        for r in C.read_built("candidate-specific"):
+            self.assertNotIn(r["text"], existing)
 
     def test_foreign_prefix_and_duplicates_rejected(self):
         rows = C.read_built("fastner-regression")

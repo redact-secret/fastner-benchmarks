@@ -56,21 +56,23 @@ def validate_gates(g, policy):
 
 
 def _value(gate, model, report):
+    """(value, cases): cases is the slice size for population/slice gates, else None."""
     src = gate["source"]
     if "dimension" in src:
-        return report["values"][model].get(src["dimension"])
+        return report["values"][model].get(src["dimension"]), None
     for row in report["population_quality"].get(src["population"], []):
         if row["model"] == model and row["state"] == "ok":
             block = row["overall"] if src.get("slice") is None else row["slices"].get(src["slice"])
-            return None if block is None else block.get(src["metric"])
-    return None
+            return (None, None) if block is None else (block.get(src["metric"]), block.get("cases"))
+    return None, None
 
 
-def evaluate_support(gates, report, decision, policy_version):
+def evaluate_support(gates, report, decision, policy_version, policy_min_cases=50):
     sel = decision.get("selected")
     pin = next((p for p in report["pins"] if p["id"] == sel), None) if sel else None
     ratified = gates["ratification"] is not None
     promoted = decision.get("promotion_state") == "promoted"
+    min_cases = policy_min_cases
     matrix = {"schema": "fastner-benchmarks.support-matrix/1", "policy_version": policy_version,
               "gate_set_version": gates["gate_set_version"], "thresholds_status": gates["thresholds_status"],
               "bakeoff_id": report["bakeoff_id"], "selected_architecture": sel,
@@ -80,11 +82,17 @@ def evaluate_support(gates, report, decision, policy_version):
         results, reasons = [], []
         measured_any = False
         for gate in prof["gates"]:
-            v = _value(gate, sel, report) if sel else None
+            v, cases = _value(gate, sel, report) if sel else (None, None)
             if v is not None:
                 measured_any = True
             res = "unmeasured" if v is None else ("pass" if OPS[gate["op"]](v, gate["threshold"]) else "fail")
-            results.append({"gate": gate["id"], "op": gate["op"], "threshold": gate["threshold"], "value": v, "result": res})
+            r = {"gate": gate["id"], "op": gate["op"], "threshold": gate["threshold"], "value": v, "result": res}
+            if cases is not None:
+                r["cases"] = cases
+                r["low_n"] = cases < min_cases
+            if gate.get("caveat"):
+                r["caveat"] = gate["caveat"]
+            results.append(r)
         counts = {r: sum(x["result"] == r for x in results) for r in ("pass", "fail", "unmeasured")}
         if not sel:
             status = "unsupported"
@@ -120,9 +128,10 @@ def render_markdown(m):
         c = p["gate_counts"]
         L.append(f"| {p['profile']} | **{p['status']}** | {c['pass']} | {c['fail']} | {c['unmeasured']} | {'; '.join(p['reasons']) or '-'} |")
     for p in m["profiles"]:
-        L += ["", f"## {p['profile']} gates", "", "| gate | requirement | value | result |", "|---|---|---|---|"]
+        L += ["", f"## {p['profile']} gates", "", "| gate | requirement | value | result | note |", "|---|---|---|---|---|"]
         for g in p["gates"]:
-            L.append(f"| {g['gate']} | {g['op']} {g['threshold']} | {'n/a' if g['value'] is None else g['value']} | {g['result']} |")
+            note = "; ".join(x for x in ([f"n={g['cases']} cases" + (" (low n)" if g.get("low_n") else "")] if "cases" in g else []) + ([g["caveat"]] if g.get("caveat") else []))
+            L.append(f"| {g['gate']} | {g['op']} {g['threshold']} | {'n/a' if g['value'] is None else round(g['value'], 4) if isinstance(g['value'], float) else g['value']} | {g['result']} | {note} |")
     return "\n".join(L) + "\n"
 
 
@@ -133,7 +142,7 @@ def generate():
     waivers = load_json(ROOT / rule["waivers"]["file"])["waivers"]
     refs = load_json(ROOT / rule["requires"]["adr_ref_recorded_in"])["refs"]
     dec = evaluate(rule, policy, rep, waivers, refs)
-    m = evaluate_support(gates, rep, dec, policy["policy_version"])
+    m = evaluate_support(gates, rep, dec, policy["policy_version"], policy.get("min_slice_cases", 50))
     return canonical_json(m), render_markdown(m)
 
 

@@ -396,6 +396,7 @@
     "id": "fastner-c-compact-neural"
   },
   "run_id": "run-395459fbb4ecb4da:fastner-neural",
+  "runtime_commit": "007805d3e83bb6c72f604cdcdd2e338c7b6ea753",
   "schema": "fastner-benchmarks.quality/2",
   "slice_spec": "ner-eval.person-slices/2",
   "source": {

@@ -1,13 +1,13 @@
 {
   "bakeoff_id": "alpha1-full",
-  "gate_set_version": "0.2.0",
+  "gate_set_version": "0.3.0",
   "policy_version": "0.2.0",
   "profiles": [
     {
       "gate_counts": {
-        "fail": 4,
+        "fail": 6,
         "pass": 7,
-        "unmeasured": 2
+        "unmeasured": 0
       },
       "gates": [
         {
@@ -39,20 +39,27 @@
           "value": 0.26605504587155965
         },
         {
+          "cases": 34,
+          "caveat": "tiny seed corpus; slice sizes shown, no confidence interval",
           "gate": "regression.en_f1",
+          "low_n": true,
           "op": ">=",
-          "result": "unmeasured",
+          "result": "fail",
           "threshold": 0.9,
-          "value": null
+          "value": 0.8727272727272727
         },
         {
+          "cases": 23,
+          "caveat": "tiny seed corpus; slice sizes shown, no confidence interval",
           "gate": "adversarial.en_precision",
+          "low_n": true,
           "op": ">=",
-          "result": "unmeasured",
+          "result": "fail",
           "threshold": 0.85,
-          "value": null
+          "value": 0.625
         },
         {
+          "caveat": "measured via external-process shim (includes spawn/transport)",
           "gate": "budget.latency_p95_ms",
           "op": "<=",
           "result": "pass",
@@ -60,6 +67,7 @@
           "value": 0.07
         },
         {
+          "caveat": "measured via external-process shim (includes spawn/transport)",
           "gate": "budget.throughput",
           "op": ">=",
           "result": "pass",
@@ -67,6 +75,7 @@
           "value": 198562.53137443122
         },
         {
+          "caveat": "measured via external-process shim (includes spawn/transport)",
           "gate": "budget.startup_ms",
           "op": "<=",
           "result": "fail",
@@ -104,9 +113,7 @@
       ],
       "profile": "PERSON/en",
       "reasons": [
-        "4 gate(s) failing",
-        "2 gate(s) unmeasured",
-        "gate thresholds are unratified proposals (no baseline ratification)"
+        "6 gate(s) failing"
       ],
       "required_populations": [
         "ner-evidence-public",
@@ -117,9 +124,9 @@
     },
     {
       "gate_counts": {
-        "fail": 4,
+        "fail": 6,
         "pass": 7,
-        "unmeasured": 2
+        "unmeasured": 0
       },
       "gates": [
         {
@@ -151,20 +158,27 @@
           "value": 0.26605504587155965
         },
         {
+          "cases": 18,
+          "caveat": "tiny seed corpus; slice sizes shown, no confidence interval",
           "gate": "regression.ko_f1",
+          "low_n": true,
           "op": ">=",
-          "result": "unmeasured",
+          "result": "fail",
           "threshold": 0.85,
-          "value": null
+          "value": 0.8181818181818182
         },
         {
+          "cases": 9,
+          "caveat": "tiny seed corpus; slice sizes shown, no confidence interval",
           "gate": "adversarial.ko_precision",
+          "low_n": true,
           "op": ">=",
-          "result": "unmeasured",
+          "result": "fail",
           "threshold": 0.85,
-          "value": null
+          "value": 0.6
         },
         {
+          "caveat": "measured via external-process shim (includes spawn/transport)",
           "gate": "budget.latency_p95_ms",
           "op": "<=",
           "result": "pass",
@@ -172,6 +186,7 @@
           "value": 0.07
         },
         {
+          "caveat": "measured via external-process shim (includes spawn/transport)",
           "gate": "budget.throughput",
           "op": ">=",
           "result": "pass",
@@ -179,6 +194,7 @@
           "value": 198562.53137443122
         },
         {
+          "caveat": "measured via external-process shim (includes spawn/transport)",
           "gate": "budget.startup_ms",
           "op": "<=",
           "result": "fail",
@@ -216,9 +232,7 @@
       ],
       "profile": "PERSON/ko",
       "reasons": [
-        "4 gate(s) failing",
-        "2 gate(s) unmeasured",
-        "gate thresholds are unratified proposals (no baseline ratification)"
+        "6 gate(s) failing"
       ],
       "required_populations": [
         "ner-evidence-public",
@@ -238,5 +252,5 @@
     "pin_status": "resolved",
     "version": "0.0.0"
   },
-  "thresholds_status": "proposed-unratified"
+  "thresholds_status": "ratified-as-beta-targets"
 }

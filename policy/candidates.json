@@ -70,7 +70,18 @@
           "native",
           "wasm"
         ],
-        "source": "redact-secret/fastner main (PR #10 merge 994f179); measured commit is an ancestor of main"
+        "source": "redact-secret/fastner main (PR #10 merge 994f179); measured commit is an ancestor of main",
+        "also_measured_at": [
+          {
+            "commit": "89c4134d67f1d7d0033dba040ed9bc533d05c214",
+            "runs": [
+              "run-fa7c74ef7884624a",
+              "run-810f86b911170c68"
+            ],
+            "model_digest_unchanged": true,
+            "diff_vs_pinned": "docs/README and one comment line in crates/fastner/Cargo.toml; no code, model or candidate change"
+          }
+        ]
       },
       "adapter": {
         "id": "fastner-eval-shim",
@@ -110,7 +121,18 @@
           "native",
           "wasm"
         ],
-        "source": "redact-secret/fastner main (PR #10 merge 994f179); measured commit is an ancestor of main"
+        "source": "redact-secret/fastner main (PR #10 merge 994f179); measured commit is an ancestor of main",
+        "also_measured_at": [
+          {
+            "commit": "89c4134d67f1d7d0033dba040ed9bc533d05c214",
+            "runs": [
+              "run-fa7c74ef7884624a",
+              "run-810f86b911170c68"
+            ],
+            "model_digest_unchanged": true,
+            "diff_vs_pinned": "docs/README and one comment line in crates/fastner/Cargo.toml; no code, model or candidate change"
+          }
+        ]
       },
       "adapter": {
         "id": "fastner-eval-shim",
@@ -150,7 +172,18 @@
           "native",
           "wasm"
         ],
-        "source": "redact-secret/fastner main (PR #10 merge 994f179); measured commit is an ancestor of main"
+        "source": "redact-secret/fastner main (PR #10 merge 994f179); measured commit is an ancestor of main",
+        "also_measured_at": [
+          {
+            "commit": "89c4134d67f1d7d0033dba040ed9bc533d05c214",
+            "runs": [
+              "run-fa7c74ef7884624a",
+              "run-810f86b911170c68"
+            ],
+            "model_digest_unchanged": true,
+            "diff_vs_pinned": "docs/README and one comment line in crates/fastner/Cargo.toml; no code, model or candidate change"
+          }
+        ]
       },
       "adapter": {
         "id": "fastner-eval-shim",
@@ -190,7 +223,18 @@
           "native",
           "wasm"
         ],
-        "source": "redact-secret/fastner main (PR #10 merge 994f179); measured commit is an ancestor of main"
+        "source": "redact-secret/fastner main (PR #10 merge 994f179); measured commit is an ancestor of main",
+        "also_measured_at": [
+          {
+            "commit": "89c4134d67f1d7d0033dba040ed9bc533d05c214",
+            "runs": [
+              "run-fa7c74ef7884624a",
+              "run-810f86b911170c68"
+            ],
+            "model_digest_unchanged": true,
+            "diff_vs_pinned": "docs/README and one comment line in crates/fastner/Cargo.toml; no code, model or candidate change"
+          }
+        ]
       },
       "adapter": {
         "id": "fastner-eval-shim",
@@ -476,5 +520,26 @@
     "ner_eval_run_id": "run-395459fbb4ecb4da",
     "ner_eval_path": "results/alpha1-full",
     "ner_eval_commit": "307548a97f8bb76329cf332764dbeb43408fdb2d"
-  }
+  },
+  "source_runs": [
+    {
+      "run_id": "run-395459fbb4ecb4da",
+      "path": "results/alpha1-full",
+      "kind": "snapshot-with-performance",
+      "population": "ner-evidence-public"
+    },
+    {
+      "run_id": "run-fa7c74ef7884624a",
+      "path": "results/product-corpora/regression",
+      "kind": "product-quality",
+      "population": "fastner-regression"
+    },
+    {
+      "run_id": "run-810f86b911170c68",
+      "path": "results/product-corpora/adversarial",
+      "kind": "product-quality",
+      "population": "fastner-adversarial"
+    }
+  ],
+  "ner_eval_commit_for_product_runs": "0f0038c"
 }
