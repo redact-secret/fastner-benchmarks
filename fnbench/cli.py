@@ -9,6 +9,7 @@ def main(argv=None):
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("policy-check", help="validate the qualification policy")
     sub.add_parser("populations-check", help="validate the population registry")
+    sub.add_parser("pins-check", help="validate candidate/reference pins")
     for name, mod in COMMANDS.items():
         sub.add_parser(name, help=mod[0])
     args, rest = ap.parse_known_args(argv)
@@ -21,6 +22,12 @@ def main(argv=None):
         r = load_populations()
         for p in r["populations"]:
             print(f"{p['id']:22} {p['role']:20} {p['status']}")
+        return 0
+    if args.cmd == "pins-check":
+        from .pins import load_candidates, pin_table
+        cfg = load_candidates()
+        for r in pin_table(cfg):
+            print(f"{r['id']:26} {r['role']:10} {r['pin_status']:11} missing={len(r['missing'])}")
         return 0
     return COMMANDS[args.cmd][1](rest)
 
