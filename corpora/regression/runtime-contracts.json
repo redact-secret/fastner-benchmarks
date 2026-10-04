@@ -1,0 +1,19 @@
+{
+  "schema": "fastner-benchmarks.runtime-contracts/1",
+  "contracts_version": "0.1.0",
+  "note": "Model-format and runtime requirements that the product must keep satisfying. They are NOT NER cases and never enter any NER denominator. fastner owns the model format; this file only states product expectations to be verified by fastner CI / ner-eval adapters.",
+  "origin": "seed-taxonomy",
+  "contracts": [
+    {"id": "fnb-rt-001", "category": "model-format", "requirement": "A truncated model artifact (cut at 50% of its bytes) is rejected, never partially loaded.", "expect": {"outcome": "reject", "error_class": "truncated"}},
+    {"id": "fnb-rt-002", "category": "model-format", "requirement": "Flipping one payload byte is detected by the artifact checksum.", "expect": {"outcome": "reject", "error_class": "checksum-mismatch"}},
+    {"id": "fnb-rt-003", "category": "model-format", "requirement": "An artifact declaring a newer format_version than the runtime supports is rejected with an explicit version error.", "expect": {"outcome": "reject", "error_class": "unsupported-format-version"}},
+    {"id": "fnb-rt-004", "category": "model-format", "requirement": "An artifact whose tokenizer_schema differs from the runtime tokenizer is rejected, not silently run.", "expect": {"outcome": "reject", "error_class": "tokenizer-schema-mismatch"}},
+    {"id": "fnb-rt-005", "category": "model-format", "requirement": "A model loads from an in-memory byte slice with no filesystem access.", "expect": {"outcome": "accept"}},
+    {"id": "fnb-rt-006", "category": "runtime", "requirement": "Identical input yields identical spans and confidences across repeated runs and separate loads.", "expect": {"outcome": "deterministic"}},
+    {"id": "fnb-rt-007", "category": "runtime", "requirement": "Every emitted span starts and ends on a UTF-8 character boundary for every case in both product corpora.", "expect": {"outcome": "valid-boundaries"}},
+    {"id": "fnb-rt-008", "category": "runtime", "requirement": "Confidence values lie in [0, 1].", "expect": {"outcome": "bounded-confidence"}},
+    {"id": "fnb-rt-009", "category": "runtime", "requirement": "Native and WASM builds emit identical spans on both product corpora.", "expect": {"outcome": "parity", "targets": ["native", "wasm"]}},
+    {"id": "fnb-rt-010", "category": "runtime", "requirement": "Empty, whitespace-only and the pathological long-token workload inputs complete within a bounded time without panic.", "expect": {"outcome": "bounded", "workload": "perf-pathological-long-token"}},
+    {"id": "fnb-rt-011", "category": "runtime", "requirement": "Inference performs no network access and no filesystem access.", "expect": {"outcome": "no-io"}}
+  ]
+}

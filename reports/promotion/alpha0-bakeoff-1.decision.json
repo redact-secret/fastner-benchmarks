@@ -1,0 +1,55 @@
+{
+  "adr_ref": null,
+  "bakeoff_id": "alpha0-bakeoff-1",
+  "candidates": {
+    "fastner-a-statistical": {
+      "eligible": false,
+      "evidence": "insufficient",
+      "evidence_gaps": [
+        "pin unresolved",
+        "missing dimensions: entity_precision, entity_recall, entity_f1, ambiguous_name_precision, unseen_name_recall, en_f1, ko_f1, single_token_recall, multi_token_f1, collision_precision_worst, latency_p95_ms, throughput_docs_per_s, startup_ms, peak_memory_mb, model_size_bytes, runtime_binary_size_bytes, wasm_size_bytes"
+      ],
+      "guardrails": {},
+      "on_frontier": false
+    },
+    "fastner-b-linear-crf": {
+      "eligible": false,
+      "evidence": "insufficient",
+      "evidence_gaps": [
+        "pin unresolved",
+        "missing dimensions: entity_precision, entity_recall, entity_f1, ambiguous_name_precision, unseen_name_recall, en_f1, ko_f1, single_token_recall, multi_token_f1, collision_precision_worst, latency_p95_ms, throughput_docs_per_s, startup_ms, peak_memory_mb, model_size_bytes, runtime_binary_size_bytes, wasm_size_bytes"
+      ],
+      "guardrails": {},
+      "on_frontier": false
+    },
+    "fastner-c-compact-neural": {
+      "eligible": false,
+      "evidence": "insufficient",
+      "evidence_gaps": [
+        "pin unresolved",
+        "missing dimensions: entity_precision, entity_recall, entity_f1, ambiguous_name_precision, unseen_name_recall, en_f1, ko_f1, single_token_recall, multi_token_f1, collision_precision_worst, latency_p95_ms, throughput_docs_per_s, startup_ms, peak_memory_mb, model_size_bytes, runtime_binary_size_bytes, wasm_size_bytes"
+      ],
+      "guardrails": {},
+      "on_frontier": false
+    },
+    "fastner-d-tiny-transformer": {
+      "eligible": false,
+      "evidence": "insufficient",
+      "evidence_gaps": [
+        "pin unresolved",
+        "missing dimensions: entity_precision, entity_recall, entity_f1, ambiguous_name_precision, unseen_name_recall, en_f1, ko_f1, single_token_recall, multi_token_f1, collision_precision_worst, latency_p95_ms, throughput_docs_per_s, startup_ms, peak_memory_mb, model_size_bytes, runtime_binary_size_bytes, wasm_size_bytes"
+      ],
+      "guardrails": {},
+      "on_frontier": false
+    }
+  },
+  "decision": "no-decision-insufficient-evidence",
+  "eligible": [],
+  "frontier": [],
+  "policy_version": "0.1.0",
+  "promotion_state": "not-promoted",
+  "reason": "populations not measured: ner-evidence-public",
+  "rule_version": "0.1.0",
+  "schema": "fastner-benchmarks.promotion-decision/1",
+  "selected": null
+}

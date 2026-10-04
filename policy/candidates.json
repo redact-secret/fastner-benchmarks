@@ -1,0 +1,83 @@
+{
+  "schema": "fastner-benchmarks.candidates/1",
+  "bakeoff_id": "alpha0-bakeoff-1",
+  "policy_version": "0.1.0",
+  "entity_scope": ["PERSON"],
+  "languages": ["en", "ko"],
+  "quality_populations": ["ner-evidence-public", "fastner-regression", "fastner-adversarial"],
+  "protocol": {
+    "metric_protocol": "ner-eval (authoritative; version recorded in each artifact)",
+    "perf": {"warmup_iterations": 20, "measured_iterations": 200, "batch_sizes": [1, 32], "cold_start_runs": 10, "requires_same_environment_id": true},
+    "seed": 20261004
+  },
+  "pin_requirements": {
+    "candidate": ["runtime.commit", "runtime.version", "adapter.id", "adapter.version", "model.artifact_digest", "model.size_bytes", "model.format_version", "config"],
+    "reference": ["model.revision", "model.artifact_digest", "model.size_bytes", "runtime.name", "runtime.version", "adapter.id", "adapter.version", "config", "license"]
+  },
+  "candidates": [
+    {
+      "id": "fastner-a-statistical", "class": "A-statistical", "role": "candidate", "display": "Statistical baseline (shape, char n-grams, lexical priors)",
+      "pin_status": "unresolved", "blocked_by": "fastner has no implementation yet (docs-only repository); no model artifact or runtime commit exists.",
+      "runtime": {"name": "fastner", "commit": null, "version": null, "targets": ["native", "wasm"]},
+      "adapter": {"id": "ner-eval-native-rust", "version": null},
+      "model": {"artifact_digest": null, "size_bytes": null, "format_version": null},
+      "config": {"tokenizer": "fastner-unicode-v0", "features": ["token-shape", "char-ngram", "local-context", "lexical-prior", "negative-evidence"], "decoder": "greedy"}
+    },
+    {
+      "id": "fastner-b-linear-crf", "class": "B-linear-crf", "role": "candidate", "display": "Sparse/hashed linear model + linear-chain CRF",
+      "pin_status": "unresolved", "blocked_by": "fastner has no implementation yet (docs-only repository); no model artifact or runtime commit exists.",
+      "runtime": {"name": "fastner", "commit": null, "version": null, "targets": ["native", "wasm"]},
+      "adapter": {"id": "ner-eval-native-rust", "version": null},
+      "model": {"artifact_digest": null, "size_bytes": null, "format_version": null},
+      "config": {"tokenizer": "fastner-unicode-v0", "features": ["hashed-sparse", "language-specific"], "quantization": "int8", "decoder": "viterbi-linear-chain"}
+    },
+    {
+      "id": "fastner-c-compact-neural", "class": "C-compact-neural", "role": "candidate", "display": "Char/subword embeddings + small contextual encoder",
+      "pin_status": "unresolved", "blocked_by": "fastner has no implementation yet (docs-only repository); no model artifact or runtime commit exists.",
+      "runtime": {"name": "fastner", "commit": null, "version": null, "targets": ["native", "wasm"]},
+      "adapter": {"id": "ner-eval-native-rust", "version": null},
+      "model": {"artifact_digest": null, "size_bytes": null, "format_version": null},
+      "config": {"tokenizer": "fastner-unicode-v0", "encoder": "small-contextual", "quantization": "int8", "decoder": "compact"}
+    },
+    {
+      "id": "fastner-d-tiny-transformer", "class": "D-tiny-transformer", "role": "candidate", "display": "Tiny Transformer reference point (not the assumed target)",
+      "pin_status": "unresolved", "blocked_by": "fastner has no implementation yet (docs-only repository); no model artifact or runtime commit exists.",
+      "runtime": {"name": "fastner", "commit": null, "version": null, "targets": ["native", "wasm"]},
+      "adapter": {"id": "ner-eval-native-rust", "version": null},
+      "model": {"artifact_digest": null, "size_bytes": null, "format_version": null},
+      "config": {"tokenizer": "fastner-unicode-v0", "encoder": "tiny-transformer", "quantization": "int8", "decoder": "softmax-bio"}
+    },
+    {
+      "id": "ref-spacy-en", "role": "reference", "display": "spaCy en_core_web_sm (English PERSON)",
+      "pin_status": "unresolved", "availability": "unresolved", "blocked_by": "Revision/digest not yet resolved; resolve and verify in a networked pinning step.",
+      "languages": ["en"],
+      "model": {"name": "en_core_web_sm", "revision": null, "artifact_digest": null, "size_bytes": null},
+      "runtime": {"name": "spacy", "version": null}, "adapter": {"id": "ner-eval-python-shim", "version": null},
+      "config": {"label_map": {"PERSON": "PERSON"}}, "license": null
+    },
+    {
+      "id": "ref-spacy-ko", "role": "reference", "display": "spaCy ko_core_news_sm (Korean PERSON)",
+      "pin_status": "unresolved", "availability": "unresolved", "blocked_by": "Revision/digest not yet resolved; resolve and verify in a networked pinning step.",
+      "languages": ["ko"],
+      "model": {"name": "ko_core_news_sm", "revision": null, "artifact_digest": null, "size_bytes": null},
+      "runtime": {"name": "spacy", "version": null}, "adapter": {"id": "ner-eval-python-shim", "version": null},
+      "config": {"label_map": {"PS": "PERSON", "PERSON": "PERSON"}}, "license": null
+    },
+    {
+      "id": "ref-bert-base-ner", "role": "reference", "display": "dslim/bert-base-NER (English PERSON)",
+      "pin_status": "unresolved", "availability": "unresolved", "blocked_by": "Revision/digest not yet resolved; resolve and verify in a networked pinning step.",
+      "languages": ["en"],
+      "model": {"name": "dslim/bert-base-NER", "revision": null, "artifact_digest": null, "size_bytes": null},
+      "runtime": {"name": "transformers", "version": null}, "adapter": {"id": "ner-eval-python-shim", "version": null},
+      "config": {"label_map": {"PER": "PERSON"}, "aggregation": "first"}, "license": null
+    },
+    {
+      "id": "ref-gliner-multi", "role": "reference", "display": "GLiNER multilingual (EN+KO zero-shot PERSON)",
+      "pin_status": "unresolved", "availability": "unresolved", "blocked_by": "Exact checkpoint, revision and digest not yet resolved; resolve and verify in a networked pinning step.",
+      "languages": ["en", "ko"],
+      "model": {"name": "urchade/gliner_multi-v2.1", "revision": null, "artifact_digest": null, "size_bytes": null},
+      "runtime": {"name": "gliner", "version": null}, "adapter": {"id": "ner-eval-python-shim", "version": null},
+      "config": {"labels": ["person"], "threshold": 0.5}, "license": null
+    }
+  ]
+}

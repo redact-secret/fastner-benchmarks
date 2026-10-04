@@ -1,0 +1,28 @@
+{
+  "schema": "fastner-benchmarks.policy/1",
+  "policy_version": "0.1.0",
+  "status": "alpha-0",
+  "no_single_score": true,
+  "forbidden_aggregate_keys": ["score", "overall_score", "composite", "composite_score", "universal_score", "rank_score", "weighted_score"],
+  "missing_value_rule": "unavailable-is-never-zero",
+  "decision_method": "pareto-frontier",
+  "dimensions": [
+    {"id": "entity_precision", "group": "quality", "title": "Entity precision (public snapshot)", "direction": "max", "unit": "ratio", "source": {"artifact": "quality", "population": "ner-evidence-public", "metric": "precision", "slice": null}},
+    {"id": "entity_recall", "group": "quality", "title": "Entity recall (public snapshot)", "direction": "max", "unit": "ratio", "source": {"artifact": "quality", "population": "ner-evidence-public", "metric": "recall", "slice": null}},
+    {"id": "entity_f1", "group": "quality", "title": "Entity F1 (public snapshot)", "direction": "max", "unit": "ratio", "source": {"artifact": "quality", "population": "ner-evidence-public", "metric": "f1", "slice": null}},
+    {"id": "ambiguous_name_precision", "group": "quality", "title": "Ambiguous-name precision", "direction": "max", "unit": "ratio", "source": {"artifact": "quality", "population": "ner-evidence-public", "metric": "precision", "slice": "difficulty=ambiguous"}},
+    {"id": "unseen_name_recall", "group": "quality", "title": "Unseen-name recall", "direction": "max", "unit": "ratio", "source": {"artifact": "quality", "population": "ner-evidence-public", "metric": "recall", "slice": "seen=false"}},
+    {"id": "en_f1", "group": "language", "title": "English F1", "direction": "max", "unit": "ratio", "source": {"artifact": "quality", "population": "ner-evidence-public", "metric": "f1", "slice": "language=en"}},
+    {"id": "ko_f1", "group": "language", "title": "Korean F1", "direction": "max", "unit": "ratio", "source": {"artifact": "quality", "population": "ner-evidence-public", "metric": "f1", "slice": "language=ko"}},
+    {"id": "single_token_recall", "group": "shape", "title": "Single-token name recall", "direction": "max", "unit": "ratio", "source": {"artifact": "quality", "population": "ner-evidence-public", "metric": "recall", "slice": "shape=single-token"}},
+    {"id": "multi_token_f1", "group": "shape", "title": "Multi-token name F1", "direction": "max", "unit": "ratio", "source": {"artifact": "quality", "population": "ner-evidence-public", "metric": "f1", "slice": "shape=multi-token"}},
+    {"id": "collision_precision_worst", "group": "collision", "title": "Worst collision-slice precision", "direction": "max", "unit": "ratio", "source": {"artifact": "quality", "population": "ner-evidence-public", "metric": "precision", "slice_prefix": "collision=", "reduce": "min"}},
+    {"id": "latency_p95_ms", "group": "performance", "title": "Warm latency p95", "direction": "min", "unit": "ms", "source": {"artifact": "perf", "field": "latency_ms.p95"}},
+    {"id": "throughput_docs_per_s", "group": "performance", "title": "Batch throughput", "direction": "max", "unit": "docs/s", "source": {"artifact": "perf", "field": "throughput_docs_per_s"}},
+    {"id": "startup_ms", "group": "performance", "title": "Cold startup", "direction": "min", "unit": "ms", "source": {"artifact": "perf", "field": "startup_ms"}},
+    {"id": "peak_memory_mb", "group": "performance", "title": "Peak memory", "direction": "min", "unit": "MiB", "source": {"artifact": "perf", "field": "peak_rss_mb"}},
+    {"id": "model_size_bytes", "group": "size", "title": "Model artifact size", "direction": "min", "unit": "bytes", "source": {"artifact": "perf", "field": "model_size_bytes"}},
+    {"id": "runtime_binary_size_bytes", "group": "size", "title": "Runtime binary size", "direction": "min", "unit": "bytes", "source": {"artifact": "perf", "field": "binary_size_bytes"}},
+    {"id": "wasm_size_bytes", "group": "size", "title": "WASM size", "direction": "min", "unit": "bytes", "source": {"artifact": "perf", "field": "wasm_size_bytes"}}
+  ]
+}

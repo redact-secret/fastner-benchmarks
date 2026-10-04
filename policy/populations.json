@@ -1,0 +1,181 @@
+{
+  "schema": "fastner-benchmarks.populations/1",
+  "policy_version": "0.1.0",
+  "rules": {
+    "never_merge_denominators": true,
+    "required_fields": [
+      "id",
+      "title",
+      "role",
+      "owner",
+      "status",
+      "identity",
+      "artifact",
+      "provenance",
+      "publication"
+    ],
+    "required_provenance_fields": [
+      "source",
+      "license",
+      "synthetic",
+      "personal_data",
+      "custody"
+    ],
+    "roles": [
+      "quality-floor",
+      "regression-gate",
+      "adversarial-gate",
+      "candidate-diagnostic",
+      "holdout-gate"
+    ],
+    "statuses": [
+      "available",
+      "pending-pin",
+      "planned"
+    ],
+    "publications": [
+      "public",
+      "public-aggregates-only",
+      "private-aggregates-only"
+    ]
+  },
+  "populations": [
+    {
+      "id": "ner-evidence-public",
+      "title": "Public/shared ner-evidence snapshot",
+      "role": "quality-floor",
+      "owner": "ner-evidence",
+      "status": "pending-pin",
+      "blocked_by": "ner-evidence has not released an immutable snapshot (snapshot manifest with content digest). Pin it here once released.",
+      "identity": {
+        "snapshot_id": null,
+        "snapshot_digest": null,
+        "case_count": null
+      },
+      "artifact": {
+        "kind": "ner-evidence-snapshot",
+        "path": null
+      },
+      "provenance": {
+        "source": "ner-evidence snapshot manifest",
+        "license": "per ner-evidence source manifest",
+        "synthetic": null,
+        "personal_data": null,
+        "custody": "ner-evidence (canonical, not modified here)"
+      },
+      "publication": "public"
+    },
+    {
+      "id": "fastner-regression",
+      "title": "FastNER product regression corpus",
+      "role": "regression-gate",
+      "owner": "fastner-benchmarks",
+      "status": "available",
+      "identity": {
+        "corpus_id": "fastner-regression",
+        "corpus_version": "0.1.0"
+      },
+      "artifact": {
+        "kind": "case-jsonl",
+        "path": "corpora/regression/regression.jsonl",
+        "source_path": "corpora/regression/regression.src.jsonl"
+      },
+      "provenance": {
+        "source": "authored in this repo",
+        "license": "project-internal; to be set before public release",
+        "synthetic": true,
+        "personal_data": false,
+        "custody": "fastner-benchmarks"
+      },
+      "publication": "public"
+    },
+    {
+      "id": "fastner-adversarial",
+      "title": "FastNER adversarial product corpus",
+      "role": "adversarial-gate",
+      "owner": "fastner-benchmarks",
+      "status": "available",
+      "identity": {
+        "corpus_id": "fastner-adversarial",
+        "corpus_version": "0.1.0"
+      },
+      "artifact": {
+        "kind": "case-jsonl",
+        "path": "corpora/adversarial/adversarial.jsonl",
+        "source_path": "corpora/adversarial/adversarial.src.jsonl"
+      },
+      "provenance": {
+        "source": "authored in this repo",
+        "license": "project-internal; to be set before public release",
+        "synthetic": true,
+        "personal_data": false,
+        "custody": "fastner-benchmarks"
+      },
+      "publication": "public"
+    },
+    {
+      "id": "candidate-specific",
+      "title": "Candidate-specific diagnostic cases",
+      "role": "candidate-diagnostic",
+      "owner": "fastner-benchmarks",
+      "status": "planned",
+      "blocked_by": "No candidate has produced failures yet. Cases live under corpora/candidate/<candidate-id>/ and never feed shared gates.",
+      "identity": {
+        "corpus_id": "candidate-specific",
+        "corpus_version": null
+      },
+      "artifact": {
+        "kind": "case-jsonl-dir",
+        "path": "corpora/candidate/"
+      },
+      "provenance": {
+        "source": "per-candidate failure analysis",
+        "license": "project-internal",
+        "synthetic": true,
+        "personal_data": false,
+        "custody": "fastner-benchmarks"
+      },
+      "publication": "public"
+    },
+    {
+      "id": "protected-holdout",
+      "title": "Future protected/holdout corpus",
+      "role": "holdout-gate",
+      "owner": "external-custodian",
+      "status": "planned",
+      "blocked_by": "No holdout exists. Custody, access rules and a no-training-leak attestation are required before use.",
+      "identity": {
+        "corpus_id": "protected-holdout",
+        "corpus_version": null
+      },
+      "artifact": {
+        "kind": "external-aggregates",
+        "path": null
+      },
+      "provenance": {
+        "source": "unassigned",
+        "license": "unassigned",
+        "synthetic": null,
+        "personal_data": null,
+        "custody": "unassigned; text never stored in this repo"
+      },
+      "publication": "private-aggregates-only"
+    }
+  ],
+  "companions": [
+    {
+      "id": "fastner-runtime-contracts",
+      "path": "corpora/regression/runtime-contracts.json",
+      "kind": "runtime-contracts",
+      "belongs_to": "fastner-regression",
+      "counts_in_denominator": false
+    },
+    {
+      "id": "fastner-perf-workloads",
+      "path": "corpora/performance/workloads.json",
+      "kind": "performance-workloads",
+      "belongs_to": null,
+      "counts_in_denominator": false
+    }
+  ]
+}
