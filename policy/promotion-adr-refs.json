@@ -9,8 +9,10 @@
       "decision": "fastner-b-linear-crf",
       "pr": "redact-secret/fastner#10",
       "commit": "007805d3e83bb6c72f604cdcdd2e338c7b6ea753",
-      "on_main": false,
-      "note": "Accepted in the ADR text but the PR is still open. Flip on_main to true (and record the merge commit) once merged; promotion_state becomes promoted only then."
+      "on_main": true,
+      "note": "ADR-0002 accepted and merged to fastner main (PR #10 merge 994f179; docs PR #11 makes it the architecture of record). Measured runtime commit 007805d3 is an ancestor of main.",
+      "merge_commit": "994f1795179f65f6140504b69d38ca7705afeeb3",
+      "source_of_truth_commit": "89c4134"
     }
   }
 }

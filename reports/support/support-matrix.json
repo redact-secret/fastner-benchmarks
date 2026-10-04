@@ -106,7 +106,6 @@
       "reasons": [
         "4 gate(s) failing",
         "2 gate(s) unmeasured",
-        "architecture not promoted (state: adr-accepted-pending-merge); promotion needs an accepted fastner ADR on fastner main",
         "gate thresholds are unratified proposals (no baseline ratification)"
       ],
       "required_populations": [
@@ -219,7 +218,6 @@
       "reasons": [
         "4 gate(s) failing",
         "2 gate(s) unmeasured",
-        "architecture not promoted (state: adr-accepted-pending-merge); promotion needs an accepted fastner ADR on fastner main",
         "gate thresholds are unratified proposals (no baseline ratification)"
       ],
       "required_populations": [
@@ -230,7 +228,7 @@
       "status": "experimental"
     }
   ],
-  "promotion_state": "adr-accepted-pending-merge",
+  "promotion_state": "promoted",
   "schema": "fastner-benchmarks.support-matrix/1",
   "selected_architecture": "fastner-b-linear-crf",
   "selected_pin": {

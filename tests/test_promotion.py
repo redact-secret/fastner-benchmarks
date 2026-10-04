@@ -145,7 +145,7 @@ class EvaluateTests(unittest.TestCase):
         self.assertEqual((out / f"{bid}.decision.json").read_text(), js)
         self.assertEqual((out / f"{bid}.adr-handoff.md").read_text(), md)
         self.assertIn('"selected": "fastner-b-linear-crf"', js)
-        self.assertIn("adr-accepted-pending-merge", js)
+        self.assertIn('"promotion_state": "promoted"', js)
 
 
 if __name__ == "__main__":

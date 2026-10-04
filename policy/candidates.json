@@ -70,7 +70,7 @@
           "native",
           "wasm"
         ],
-        "source": "redact-secret/fastner#10 head (alpha/architecture-bakeoff); PR open, not on main at pin time"
+        "source": "redact-secret/fastner main (PR #10 merge 994f179); measured commit is an ancestor of main"
       },
       "adapter": {
         "id": "fastner-eval-shim",
@@ -110,7 +110,7 @@
           "native",
           "wasm"
         ],
-        "source": "redact-secret/fastner#10 head (alpha/architecture-bakeoff); PR open, not on main at pin time"
+        "source": "redact-secret/fastner main (PR #10 merge 994f179); measured commit is an ancestor of main"
       },
       "adapter": {
         "id": "fastner-eval-shim",
@@ -150,7 +150,7 @@
           "native",
           "wasm"
         ],
-        "source": "redact-secret/fastner#10 head (alpha/architecture-bakeoff); PR open, not on main at pin time"
+        "source": "redact-secret/fastner main (PR #10 merge 994f179); measured commit is an ancestor of main"
       },
       "adapter": {
         "id": "fastner-eval-shim",
@@ -190,7 +190,7 @@
           "native",
           "wasm"
         ],
-        "source": "redact-secret/fastner#10 head (alpha/architecture-bakeoff); PR open, not on main at pin time"
+        "source": "redact-secret/fastner main (PR #10 merge 994f179); measured commit is an ancestor of main"
       },
       "adapter": {
         "id": "fastner-eval-shim",

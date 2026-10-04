@@ -1,19 +1,11 @@
 {
   "alpha_blockers": [
     {
-      "criterion": "architecture_promoted",
-      "detail": "adr-accepted-pending-merge",
-      "next_action": "fastner: merge the ADR (fastner#10) so it is on main, then set on_main in policy/promotion-adr-refs.json.",
-      "owner": "fastner",
-      "priority": 1,
-      "title": "Selection recorded as a fastner ADR (promotion_state = promoted)"
-    },
-    {
       "criterion": "regression_measured",
       "detail": "fastner-regression: not measured",
       "next_action": "ner-eval: add ingestion of product case-jsonl corpora (corpora/regression) and run the selected candidate on it.",
       "owner": "ner-eval",
-      "priority": 2,
+      "priority": 1,
       "title": "Product regression corpus measured"
     },
     {
@@ -21,7 +13,7 @@
       "detail": "fastner-adversarial: not measured",
       "next_action": "ner-eval: add ingestion of product case-jsonl corpora (corpora/adversarial) and run the selected candidate on it.",
       "owner": "ner-eval",
-      "priority": 3,
+      "priority": 2,
       "title": "Product adversarial corpus measured"
     },
     {
@@ -29,13 +21,13 @@
       "detail": "proposed-unratified",
       "next_action": "fastner-benchmarks maintainers: ratify or revise the proposed gate thresholds against a baseline that is not the tuned public snapshot alone (record baseline run ids in policy/support-gates.json).",
       "owner": "fastner-benchmarks",
-      "priority": 4,
+      "priority": 3,
       "title": "Support gate thresholds ratified against a real baseline"
     }
   ],
   "architecture_outcome": {
     "candidate": "fastner-b-linear-crf",
-    "state": "adr-accepted-pending-merge",
+    "state": "promoted",
     "summary": "fastner-b-linear-crf is the only candidate on the frontier that passes every promotion guardrail"
   },
   "beta_planning_note": "Deficits above are derived only from measured failing gates, ordered by relative shortfall (a screening heuristic, not a priority judgment). They are a candidate Beta backlog; Beta is not entered until the alpha blockers are resolved.",
@@ -49,9 +41,9 @@
       "title": "Architecture selected by the promotion rule"
     },
     {
-      "detail": "adr-accepted-pending-merge",
+      "detail": "promoted",
       "id": "architecture_promoted",
-      "met": false,
+      "met": true,
       "next_action": "fastner: merge the ADR (fastner#10) so it is on main, then set on_main in policy/promotion-adr-refs.json.",
       "owner": "fastner",
       "title": "Selection recorded as a fastner ADR (promotion_state = promoted)"
@@ -115,7 +107,7 @@
   ],
   "criteria_version": "0.2.0",
   "decision": "REMAIN IN ALPHA",
-  "decision_reason": "architecture/product viability is not proven: architecture_promoted, regression_measured, adversarial_measured, gates_ratified",
+  "decision_reason": "architecture/product viability is not proven: regression_measured, adversarial_measured, gates_ratified",
   "measured_deficits_beta_suggestions": [
     {
       "area": "startup",
@@ -246,7 +238,7 @@
   "promotion": {
     "decision": "recommend",
     "reason": "single frontier candidate passing all guardrails",
-    "state": "adr-accepted-pending-merge"
+    "state": "promoted"
   },
   "record": "alpha1-first-candidate-qualification",
   "references": [
