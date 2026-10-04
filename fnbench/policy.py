@@ -32,6 +32,11 @@ def validate_policy(policy):
         errs.append("decision_method must be pareto-frontier")
     if policy.get("missing_value_rule") != "unavailable-is-never-zero":
         errs.append("missing_value_rule must be unavailable-is-never-zero")
+    if policy.get("quality_match_mode") != "strict":
+        errs.append("quality_match_mode must be strict (lenient is displayed, never substituted)")
+    ps = policy.get("perf_summary", {})
+    if not {"threads", "latency_batch", "definitions"} <= set(ps):
+        errs.append("perf_summary needs threads, latency_batch and definitions")
     forbidden = set(policy.get("forbidden_aggregate_keys", []))
     dims = policy.get("dimensions", [])
     ids = [d.get("id") for d in dims]
@@ -51,6 +56,8 @@ def validate_policy(policy):
         src = d.get("source", {})
         if src.get("artifact") not in ("quality", "perf"):
             errs.append(f"{d.get('id')}: source.artifact must be quality|perf")
+        if src.get("artifact") == "quality" and src.get("match", "strict") != "strict":
+            errs.append(f"{d.get('id')}: quality dimensions use strict matching")
         if "weight" in d:
             errs.append(f"{d.get('id')}: weights imply a composite score and are not allowed")
     if errs:

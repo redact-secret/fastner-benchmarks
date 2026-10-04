@@ -37,9 +37,22 @@ class PopulationTests(unittest.TestCase):
         with self.assertRaises(P.PopulationError):
             P.account_artifact(self.reg, qa("some-other-corpus"))
 
-    def test_pending_population_cannot_qualify(self):
+    def test_planned_population_cannot_qualify(self):
         with self.assertRaises(P.PopulationError):
-            P.account_artifact(self.reg, qa("ner-evidence-public", 10))
+            P.account_artifact(self.reg, qa("candidate-specific", 10))
+
+    def test_public_snapshot_is_pinned_and_identity_enforced(self):
+        pub = P.by_id(self.reg)["ner-evidence-public"]
+        ident = pub["identity"]
+        self.assertEqual(pub["status"], "available")
+        self.assertEqual(ident["case_count"], 545)
+        self.assertFalse(pub["is_holdout"])
+        self.assertTrue(pub["caveats"])
+        self.assertEqual(P.account_artifact(self.reg, qa("ner-evidence-public", 545, ident["snapshot_digest"])), "ner-evidence-public")
+        with self.assertRaises(P.PopulationError):
+            P.account_artifact(self.reg, qa("ner-evidence-public", 544, ident["snapshot_digest"]))
+        with self.assertRaises(P.PopulationError):
+            P.account_artifact(self.reg, qa("ner-evidence-public", 545, "sha256:" + "0" * 64))
 
     def test_denominators_never_combined(self):
         with self.assertRaises(P.PopulationError):
