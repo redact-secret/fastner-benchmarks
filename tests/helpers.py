@@ -71,7 +71,7 @@ def world():
     qs = [quality("fastner-a-statistical", 0.80), quality("fastner-b-linear-crf", 0.92),
           quality("fastner-c-compact-neural", 1.0), quality("fastner-d-tiny-transformer", 0.99)]
     ps = [perf("fastner-a-statistical", 2, 3000, 5, 10, 100, 1000, 800),
-          perf("fastner-b-linear-crf", 3, 2500, 8, 15, 500, 1500, 1200),
-          perf("fastner-c-compact-neural", 6, 1500, 30, 60, 5000, 6000, 5500),
+          perf("fastner-b-linear-crf", 3, 2500, 8, 15, 300, 1500, 1200),
+          perf("fastner-c-compact-neural", 6, 1500, 30, 60, 800, 6000, 5500),
           perf("fastner-d-tiny-transformer", 20, 300, 200, 300, 50000, 60000, 55000)]
     return load_policy(), resolved_cfg(), pop_reg(), qs, ps

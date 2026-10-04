@@ -40,6 +40,7 @@ def _lazy(mod, fn="main"):
 
 
 COMMANDS = {
+    "promotion": ("evaluate the promotion rule and write the ADR handoff", _lazy("promotion")),
     "report": ("generate the bakeoff report from artifacts", _lazy("report")),
 }
 
