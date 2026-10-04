@@ -8,3 +8,4 @@ validate: test
 	$(PY) -m fnbench policy-check
 	$(PY) -m fnbench populations-check
 	$(PY) -m fnbench pins-check
+	$(PY) -m fnbench report --check

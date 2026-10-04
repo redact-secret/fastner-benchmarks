@@ -32,11 +32,16 @@ def main(argv=None):
     return COMMANDS[args.cmd][1](rest)
 
 
-COMMANDS = {}  # populated by later modules via register()
+def _lazy(mod, fn="main"):
+    def run(rest):
+        import importlib
+        return getattr(importlib.import_module(f"fnbench.{mod}"), fn)(rest)
+    return run
 
 
-def register(name, helptext, fn):
-    COMMANDS[name] = (helptext, fn)
+COMMANDS = {
+    "report": ("generate the bakeoff report from artifacts", _lazy("report")),
+}
 
 
 if __name__ == "__main__":

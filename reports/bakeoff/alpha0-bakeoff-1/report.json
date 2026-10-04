@@ -1,0 +1,1240 @@
+{
+  "accepted_artifacts": {
+    "perf": [],
+    "quality": []
+  },
+  "bakeoff_id": "alpha0-bakeoff-1",
+  "evaluator_versions": [],
+  "known_limitations": [
+    "fastner-a-statistical: pin unresolved (fastner has no implementation yet (docs-only repository); no model artifact or runtime commit exists.)",
+    "fastner-b-linear-crf: pin unresolved (fastner has no implementation yet (docs-only repository); no model artifact or runtime commit exists.)",
+    "fastner-c-compact-neural: pin unresolved (fastner has no implementation yet (docs-only repository); no model artifact or runtime commit exists.)",
+    "fastner-d-tiny-transformer: pin unresolved (fastner has no implementation yet (docs-only repository); no model artifact or runtime commit exists.)",
+    "ref-spacy-en: pin unresolved (Revision/digest not yet resolved; resolve and verify in a networked pinning step.)",
+    "ref-spacy-ko: pin unresolved (Revision/digest not yet resolved; resolve and verify in a networked pinning step.)",
+    "ref-bert-base-ner: pin unresolved (Revision/digest not yet resolved; resolve and verify in a networked pinning step.)",
+    "ref-gliner-multi: pin unresolved (Exact checkpoint, revision and digest not yet resolved; resolve and verify in a networked pinning step.)",
+    "population ner-evidence-public is pending-pin: ner-evidence has not released an immutable snapshot (snapshot manifest with content digest). Pin it here once released.",
+    "population fastner-regression is planned: Corpus is created by issue #7; this entry flips to available when the generated JSONL exists.",
+    "population fastner-adversarial is planned: Corpus is created by issue #7; this entry flips to available when the generated JSONL exists.",
+    "fastner-a-statistical: incomplete on 17 dimension(s), excluded from Pareto ranking",
+    "fastner-b-linear-crf: incomplete on 17 dimension(s), excluded from Pareto ranking",
+    "fastner-c-compact-neural: incomplete on 17 dimension(s), excluded from Pareto ranking",
+    "fastner-d-tiny-transformer: incomplete on 17 dimension(s), excluded from Pareto ranking",
+    "No accepted ner-eval artifacts: every value in this report is 'not measured'."
+  ],
+  "metric_protocol_versions": [],
+  "no_single_score": true,
+  "pareto": {
+    "dimensions": [
+      "entity_precision",
+      "entity_recall",
+      "entity_f1",
+      "ambiguous_name_precision",
+      "unseen_name_recall",
+      "en_f1",
+      "ko_f1",
+      "single_token_recall",
+      "multi_token_f1",
+      "collision_precision_worst",
+      "latency_p95_ms",
+      "throughput_docs_per_s",
+      "startup_ms",
+      "peak_memory_mb",
+      "model_size_bytes",
+      "runtime_binary_size_bytes",
+      "wasm_size_bytes"
+    ],
+    "dominated": {},
+    "frontier": [],
+    "incomplete": {
+      "fastner-a-statistical": [
+        "entity_precision",
+        "entity_recall",
+        "entity_f1",
+        "ambiguous_name_precision",
+        "unseen_name_recall",
+        "en_f1",
+        "ko_f1",
+        "single_token_recall",
+        "multi_token_f1",
+        "collision_precision_worst",
+        "latency_p95_ms",
+        "throughput_docs_per_s",
+        "startup_ms",
+        "peak_memory_mb",
+        "model_size_bytes",
+        "runtime_binary_size_bytes",
+        "wasm_size_bytes"
+      ],
+      "fastner-b-linear-crf": [
+        "entity_precision",
+        "entity_recall",
+        "entity_f1",
+        "ambiguous_name_precision",
+        "unseen_name_recall",
+        "en_f1",
+        "ko_f1",
+        "single_token_recall",
+        "multi_token_f1",
+        "collision_precision_worst",
+        "latency_p95_ms",
+        "throughput_docs_per_s",
+        "startup_ms",
+        "peak_memory_mb",
+        "model_size_bytes",
+        "runtime_binary_size_bytes",
+        "wasm_size_bytes"
+      ],
+      "fastner-c-compact-neural": [
+        "entity_precision",
+        "entity_recall",
+        "entity_f1",
+        "ambiguous_name_precision",
+        "unseen_name_recall",
+        "en_f1",
+        "ko_f1",
+        "single_token_recall",
+        "multi_token_f1",
+        "collision_precision_worst",
+        "latency_p95_ms",
+        "throughput_docs_per_s",
+        "startup_ms",
+        "peak_memory_mb",
+        "model_size_bytes",
+        "runtime_binary_size_bytes",
+        "wasm_size_bytes"
+      ],
+      "fastner-d-tiny-transformer": [
+        "entity_precision",
+        "entity_recall",
+        "entity_f1",
+        "ambiguous_name_precision",
+        "unseen_name_recall",
+        "en_f1",
+        "ko_f1",
+        "single_token_recall",
+        "multi_token_f1",
+        "collision_precision_worst",
+        "latency_p95_ms",
+        "throughput_docs_per_s",
+        "startup_ms",
+        "peak_memory_mb",
+        "model_size_bytes",
+        "runtime_binary_size_bytes",
+        "wasm_size_bytes"
+      ]
+    }
+  },
+  "performance_environments": [],
+  "pins": [
+    {
+      "adapter": "ner-eval-native-rust",
+      "artifact_digest": null,
+      "availability": "n/a",
+      "blocked_by": "fastner has no implementation yet (docs-only repository); no model artifact or runtime commit exists.",
+      "class": "A-statistical",
+      "config_hash": "sha256:01c2e44c48abad3a08c77d244ea6fa14598321f40c6475e21dbc86893789f634",
+      "display": "Statistical baseline (shape, char n-grams, lexical priors)",
+      "id": "fastner-a-statistical",
+      "missing": [
+        "runtime.commit",
+        "runtime.version",
+        "adapter.version",
+        "model.artifact_digest",
+        "model.size_bytes",
+        "model.format_version"
+      ],
+      "model_size_bytes": null,
+      "pin_status": "unresolved",
+      "role": "candidate",
+      "runtime": "fastner",
+      "version": null
+    },
+    {
+      "adapter": "ner-eval-native-rust",
+      "artifact_digest": null,
+      "availability": "n/a",
+      "blocked_by": "fastner has no implementation yet (docs-only repository); no model artifact or runtime commit exists.",
+      "class": "B-linear-crf",
+      "config_hash": "sha256:759b1115ed78ffd3b9b8cd5494596cad718dd327222da674c2623177c6db5bb7",
+      "display": "Sparse/hashed linear model + linear-chain CRF",
+      "id": "fastner-b-linear-crf",
+      "missing": [
+        "runtime.commit",
+        "runtime.version",
+        "adapter.version",
+        "model.artifact_digest",
+        "model.size_bytes",
+        "model.format_version"
+      ],
+      "model_size_bytes": null,
+      "pin_status": "unresolved",
+      "role": "candidate",
+      "runtime": "fastner",
+      "version": null
+    },
+    {
+      "adapter": "ner-eval-native-rust",
+      "artifact_digest": null,
+      "availability": "n/a",
+      "blocked_by": "fastner has no implementation yet (docs-only repository); no model artifact or runtime commit exists.",
+      "class": "C-compact-neural",
+      "config_hash": "sha256:b710cb69d96ff1923d43d433f14a16d05ff2bea6b82e82db4d30c4f9eb8d8071",
+      "display": "Char/subword embeddings + small contextual encoder",
+      "id": "fastner-c-compact-neural",
+      "missing": [
+        "runtime.commit",
+        "runtime.version",
+        "adapter.version",
+        "model.artifact_digest",
+        "model.size_bytes",
+        "model.format_version"
+      ],
+      "model_size_bytes": null,
+      "pin_status": "unresolved",
+      "role": "candidate",
+      "runtime": "fastner",
+      "version": null
+    },
+    {
+      "adapter": "ner-eval-native-rust",
+      "artifact_digest": null,
+      "availability": "n/a",
+      "blocked_by": "fastner has no implementation yet (docs-only repository); no model artifact or runtime commit exists.",
+      "class": "D-tiny-transformer",
+      "config_hash": "sha256:b24c2caf8a4c82059ee2acaab76d2691be6eb50b436080663d8ef90855291958",
+      "display": "Tiny Transformer reference point (not the assumed target)",
+      "id": "fastner-d-tiny-transformer",
+      "missing": [
+        "runtime.commit",
+        "runtime.version",
+        "adapter.version",
+        "model.artifact_digest",
+        "model.size_bytes",
+        "model.format_version"
+      ],
+      "model_size_bytes": null,
+      "pin_status": "unresolved",
+      "role": "candidate",
+      "runtime": "fastner",
+      "version": null
+    },
+    {
+      "adapter": "ner-eval-python-shim",
+      "artifact_digest": null,
+      "availability": "unresolved",
+      "blocked_by": "Revision/digest not yet resolved; resolve and verify in a networked pinning step.",
+      "class": null,
+      "config_hash": "sha256:dabfeabb13031f6d52107e6f827eafb450baaf23a21314b01855406c9016b3f8",
+      "display": "spaCy en_core_web_sm (English PERSON)",
+      "id": "ref-spacy-en",
+      "missing": [
+        "model.revision",
+        "model.artifact_digest",
+        "model.size_bytes",
+        "runtime.version",
+        "adapter.version",
+        "license"
+      ],
+      "model_size_bytes": null,
+      "pin_status": "unresolved",
+      "role": "reference",
+      "runtime": "spacy",
+      "version": null
+    },
+    {
+      "adapter": "ner-eval-python-shim",
+      "artifact_digest": null,
+      "availability": "unresolved",
+      "blocked_by": "Revision/digest not yet resolved; resolve and verify in a networked pinning step.",
+      "class": null,
+      "config_hash": "sha256:ae33fa0c1c1bcd1d3d5c4e15f5c4053ee21fa55c434b52307ea808e3ddc4bf0b",
+      "display": "spaCy ko_core_news_sm (Korean PERSON)",
+      "id": "ref-spacy-ko",
+      "missing": [
+        "model.revision",
+        "model.artifact_digest",
+        "model.size_bytes",
+        "runtime.version",
+        "adapter.version",
+        "license"
+      ],
+      "model_size_bytes": null,
+      "pin_status": "unresolved",
+      "role": "reference",
+      "runtime": "spacy",
+      "version": null
+    },
+    {
+      "adapter": "ner-eval-python-shim",
+      "artifact_digest": null,
+      "availability": "unresolved",
+      "blocked_by": "Revision/digest not yet resolved; resolve and verify in a networked pinning step.",
+      "class": null,
+      "config_hash": "sha256:9db2eefa427a6fd7082d93ea40e774519f32b4c7c761e39b67a4175fab0e6ea5",
+      "display": "dslim/bert-base-NER (English PERSON)",
+      "id": "ref-bert-base-ner",
+      "missing": [
+        "model.revision",
+        "model.artifact_digest",
+        "model.size_bytes",
+        "runtime.version",
+        "adapter.version",
+        "license"
+      ],
+      "model_size_bytes": null,
+      "pin_status": "unresolved",
+      "role": "reference",
+      "runtime": "transformers",
+      "version": null
+    },
+    {
+      "adapter": "ner-eval-python-shim",
+      "artifact_digest": null,
+      "availability": "unresolved",
+      "blocked_by": "Exact checkpoint, revision and digest not yet resolved; resolve and verify in a networked pinning step.",
+      "class": null,
+      "config_hash": "sha256:e93e8d567cb71fee5d43fb45444e31e9e9569824ea97cc3c923ef7ae3b3d4d03",
+      "display": "GLiNER multilingual (EN+KO zero-shot PERSON)",
+      "id": "ref-gliner-multi",
+      "missing": [
+        "model.revision",
+        "model.artifact_digest",
+        "model.size_bytes",
+        "runtime.version",
+        "adapter.version",
+        "license"
+      ],
+      "model_size_bytes": null,
+      "pin_status": "unresolved",
+      "role": "reference",
+      "runtime": "gliner",
+      "version": null
+    }
+  ],
+  "policy_version": "0.1.0",
+  "population_quality": {
+    "fastner-adversarial": [
+      {
+        "model": "fastner-a-statistical",
+        "state": "not-measured"
+      },
+      {
+        "model": "fastner-b-linear-crf",
+        "state": "not-measured"
+      },
+      {
+        "model": "fastner-c-compact-neural",
+        "state": "not-measured"
+      },
+      {
+        "model": "fastner-d-tiny-transformer",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-spacy-en",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-spacy-ko",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-bert-base-ner",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-gliner-multi",
+        "state": "not-measured"
+      }
+    ],
+    "fastner-regression": [
+      {
+        "model": "fastner-a-statistical",
+        "state": "not-measured"
+      },
+      {
+        "model": "fastner-b-linear-crf",
+        "state": "not-measured"
+      },
+      {
+        "model": "fastner-c-compact-neural",
+        "state": "not-measured"
+      },
+      {
+        "model": "fastner-d-tiny-transformer",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-spacy-en",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-spacy-ko",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-bert-base-ner",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-gliner-multi",
+        "state": "not-measured"
+      }
+    ],
+    "ner-evidence-public": [
+      {
+        "model": "fastner-a-statistical",
+        "state": "not-measured"
+      },
+      {
+        "model": "fastner-b-linear-crf",
+        "state": "not-measured"
+      },
+      {
+        "model": "fastner-c-compact-neural",
+        "state": "not-measured"
+      },
+      {
+        "model": "fastner-d-tiny-transformer",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-spacy-en",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-spacy-ko",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-bert-base-ner",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-gliner-multi",
+        "state": "not-measured"
+      }
+    ]
+  },
+  "populations": [
+    {
+      "artifact_runs": [],
+      "case_count": null,
+      "id": "candidate-specific",
+      "identity": {
+        "corpus_id": "candidate-specific",
+        "corpus_version": null
+      },
+      "provenance": {
+        "custody": "fastner-benchmarks",
+        "license": "project-internal",
+        "personal_data": false,
+        "source": "per-candidate failure analysis",
+        "synthetic": true
+      },
+      "role": "candidate-diagnostic",
+      "status": "planned",
+      "title": "Candidate-specific diagnostic cases"
+    },
+    {
+      "artifact_runs": [],
+      "case_count": null,
+      "id": "fastner-adversarial",
+      "identity": {
+        "corpus_id": "fastner-adversarial",
+        "corpus_version": "0.1.0"
+      },
+      "provenance": {
+        "custody": "fastner-benchmarks",
+        "license": "project-internal; to be set before public release",
+        "personal_data": false,
+        "source": "authored in this repo",
+        "synthetic": true
+      },
+      "role": "adversarial-gate",
+      "status": "planned",
+      "title": "FastNER adversarial product corpus"
+    },
+    {
+      "artifact_runs": [],
+      "case_count": null,
+      "id": "fastner-regression",
+      "identity": {
+        "corpus_id": "fastner-regression",
+        "corpus_version": "0.1.0"
+      },
+      "provenance": {
+        "custody": "fastner-benchmarks",
+        "license": "project-internal; to be set before public release",
+        "personal_data": false,
+        "source": "authored in this repo",
+        "synthetic": true
+      },
+      "role": "regression-gate",
+      "status": "planned",
+      "title": "FastNER product regression corpus"
+    },
+    {
+      "artifact_runs": [],
+      "case_count": null,
+      "id": "ner-evidence-public",
+      "identity": {
+        "case_count": null,
+        "snapshot_digest": null,
+        "snapshot_id": null
+      },
+      "provenance": {
+        "custody": "ner-evidence (canonical, not modified here)",
+        "license": "per ner-evidence source manifest",
+        "personal_data": null,
+        "source": "ner-evidence snapshot manifest",
+        "synthetic": null
+      },
+      "role": "quality-floor",
+      "status": "pending-pin",
+      "title": "Public/shared ner-evidence snapshot"
+    },
+    {
+      "artifact_runs": [],
+      "case_count": null,
+      "id": "protected-holdout",
+      "identity": {
+        "corpus_id": "protected-holdout",
+        "corpus_version": null
+      },
+      "provenance": {
+        "custody": "unassigned; text never stored in this repo",
+        "license": "unassigned",
+        "personal_data": null,
+        "source": "unassigned",
+        "synthetic": null
+      },
+      "role": "holdout-gate",
+      "status": "planned",
+      "title": "Future protected/holdout corpus"
+    }
+  ],
+  "rejected_artifacts": [],
+  "schema": "fastner-benchmarks.bakeoff-report/1",
+  "unavailable": {},
+  "values": {
+    "fastner-a-statistical": {
+      "ambiguous_name_precision": null,
+      "collision_precision_worst": null,
+      "en_f1": null,
+      "entity_f1": null,
+      "entity_precision": null,
+      "entity_recall": null,
+      "ko_f1": null,
+      "latency_p95_ms": null,
+      "model_size_bytes": null,
+      "multi_token_f1": null,
+      "peak_memory_mb": null,
+      "runtime_binary_size_bytes": null,
+      "single_token_recall": null,
+      "startup_ms": null,
+      "throughput_docs_per_s": null,
+      "unseen_name_recall": null,
+      "wasm_size_bytes": null
+    },
+    "fastner-b-linear-crf": {
+      "ambiguous_name_precision": null,
+      "collision_precision_worst": null,
+      "en_f1": null,
+      "entity_f1": null,
+      "entity_precision": null,
+      "entity_recall": null,
+      "ko_f1": null,
+      "latency_p95_ms": null,
+      "model_size_bytes": null,
+      "multi_token_f1": null,
+      "peak_memory_mb": null,
+      "runtime_binary_size_bytes": null,
+      "single_token_recall": null,
+      "startup_ms": null,
+      "throughput_docs_per_s": null,
+      "unseen_name_recall": null,
+      "wasm_size_bytes": null
+    },
+    "fastner-c-compact-neural": {
+      "ambiguous_name_precision": null,
+      "collision_precision_worst": null,
+      "en_f1": null,
+      "entity_f1": null,
+      "entity_precision": null,
+      "entity_recall": null,
+      "ko_f1": null,
+      "latency_p95_ms": null,
+      "model_size_bytes": null,
+      "multi_token_f1": null,
+      "peak_memory_mb": null,
+      "runtime_binary_size_bytes": null,
+      "single_token_recall": null,
+      "startup_ms": null,
+      "throughput_docs_per_s": null,
+      "unseen_name_recall": null,
+      "wasm_size_bytes": null
+    },
+    "fastner-d-tiny-transformer": {
+      "ambiguous_name_precision": null,
+      "collision_precision_worst": null,
+      "en_f1": null,
+      "entity_f1": null,
+      "entity_precision": null,
+      "entity_recall": null,
+      "ko_f1": null,
+      "latency_p95_ms": null,
+      "model_size_bytes": null,
+      "multi_token_f1": null,
+      "peak_memory_mb": null,
+      "runtime_binary_size_bytes": null,
+      "single_token_recall": null,
+      "startup_ms": null,
+      "throughput_docs_per_s": null,
+      "unseen_name_recall": null,
+      "wasm_size_bytes": null
+    },
+    "ref-bert-base-ner": {
+      "ambiguous_name_precision": null,
+      "collision_precision_worst": null,
+      "en_f1": null,
+      "entity_f1": null,
+      "entity_precision": null,
+      "entity_recall": null,
+      "ko_f1": null,
+      "latency_p95_ms": null,
+      "model_size_bytes": null,
+      "multi_token_f1": null,
+      "peak_memory_mb": null,
+      "runtime_binary_size_bytes": null,
+      "single_token_recall": null,
+      "startup_ms": null,
+      "throughput_docs_per_s": null,
+      "unseen_name_recall": null,
+      "wasm_size_bytes": null
+    },
+    "ref-gliner-multi": {
+      "ambiguous_name_precision": null,
+      "collision_precision_worst": null,
+      "en_f1": null,
+      "entity_f1": null,
+      "entity_precision": null,
+      "entity_recall": null,
+      "ko_f1": null,
+      "latency_p95_ms": null,
+      "model_size_bytes": null,
+      "multi_token_f1": null,
+      "peak_memory_mb": null,
+      "runtime_binary_size_bytes": null,
+      "single_token_recall": null,
+      "startup_ms": null,
+      "throughput_docs_per_s": null,
+      "unseen_name_recall": null,
+      "wasm_size_bytes": null
+    },
+    "ref-spacy-en": {
+      "ambiguous_name_precision": null,
+      "collision_precision_worst": null,
+      "en_f1": null,
+      "entity_f1": null,
+      "entity_precision": null,
+      "entity_recall": null,
+      "ko_f1": null,
+      "latency_p95_ms": null,
+      "model_size_bytes": null,
+      "multi_token_f1": null,
+      "peak_memory_mb": null,
+      "runtime_binary_size_bytes": null,
+      "single_token_recall": null,
+      "startup_ms": null,
+      "throughput_docs_per_s": null,
+      "unseen_name_recall": null,
+      "wasm_size_bytes": null
+    },
+    "ref-spacy-ko": {
+      "ambiguous_name_precision": null,
+      "collision_precision_worst": null,
+      "en_f1": null,
+      "entity_f1": null,
+      "entity_precision": null,
+      "entity_recall": null,
+      "ko_f1": null,
+      "latency_p95_ms": null,
+      "model_size_bytes": null,
+      "multi_token_f1": null,
+      "peak_memory_mb": null,
+      "runtime_binary_size_bytes": null,
+      "single_token_recall": null,
+      "startup_ms": null,
+      "throughput_docs_per_s": null,
+      "unseen_name_recall": null,
+      "wasm_size_bytes": null
+    }
+  },
+  "views": {
+    "ambiguity_precision": {
+      "dimensions": [
+        "ambiguous_name_precision"
+      ],
+      "rows": [
+        {
+          "ambiguous_name_precision": null,
+          "model": "fastner-a-statistical"
+        },
+        {
+          "ambiguous_name_precision": null,
+          "model": "fastner-b-linear-crf"
+        },
+        {
+          "ambiguous_name_precision": null,
+          "model": "fastner-c-compact-neural"
+        },
+        {
+          "ambiguous_name_precision": null,
+          "model": "fastner-d-tiny-transformer"
+        },
+        {
+          "ambiguous_name_precision": null,
+          "model": "ref-spacy-en"
+        },
+        {
+          "ambiguous_name_precision": null,
+          "model": "ref-spacy-ko"
+        },
+        {
+          "ambiguous_name_precision": null,
+          "model": "ref-bert-base-ner"
+        },
+        {
+          "ambiguous_name_precision": null,
+          "model": "ref-gliner-multi"
+        }
+      ],
+      "title": "Ambiguous-name precision"
+    },
+    "binary_size": {
+      "dimensions": [
+        "runtime_binary_size_bytes"
+      ],
+      "rows": [
+        {
+          "delta_bytes": null,
+          "model": "fastner-a-statistical",
+          "runtime_binary_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "fastner-b-linear-crf",
+          "runtime_binary_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "fastner-c-compact-neural",
+          "runtime_binary_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "fastner-d-tiny-transformer",
+          "runtime_binary_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "ref-spacy-en",
+          "runtime_binary_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "ref-spacy-ko",
+          "runtime_binary_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "ref-bert-base-ner",
+          "runtime_binary_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "ref-gliner-multi",
+          "runtime_binary_size_bytes": null
+        }
+      ],
+      "title": "Runtime binary size"
+    },
+    "collision_slices": {
+      "dimensions": [],
+      "rows": [
+        {
+          "model": "fastner-a-statistical"
+        },
+        {
+          "model": "fastner-b-linear-crf"
+        },
+        {
+          "model": "fastner-c-compact-neural"
+        },
+        {
+          "model": "fastner-d-tiny-transformer"
+        },
+        {
+          "model": "ref-spacy-en"
+        },
+        {
+          "model": "ref-spacy-ko"
+        },
+        {
+          "model": "ref-bert-base-ner"
+        },
+        {
+          "model": "ref-gliner-multi"
+        }
+      ],
+      "title": "Collision slices (precision)"
+    },
+    "global_quality": {
+      "dimensions": [
+        "entity_precision",
+        "entity_recall",
+        "entity_f1"
+      ],
+      "rows": [
+        {
+          "entity_f1": null,
+          "entity_precision": null,
+          "entity_recall": null,
+          "model": "fastner-a-statistical"
+        },
+        {
+          "entity_f1": null,
+          "entity_precision": null,
+          "entity_recall": null,
+          "model": "fastner-b-linear-crf"
+        },
+        {
+          "entity_f1": null,
+          "entity_precision": null,
+          "entity_recall": null,
+          "model": "fastner-c-compact-neural"
+        },
+        {
+          "entity_f1": null,
+          "entity_precision": null,
+          "entity_recall": null,
+          "model": "fastner-d-tiny-transformer"
+        },
+        {
+          "entity_f1": null,
+          "entity_precision": null,
+          "entity_recall": null,
+          "model": "ref-spacy-en"
+        },
+        {
+          "entity_f1": null,
+          "entity_precision": null,
+          "entity_recall": null,
+          "model": "ref-spacy-ko"
+        },
+        {
+          "entity_f1": null,
+          "entity_precision": null,
+          "entity_recall": null,
+          "model": "ref-bert-base-ner"
+        },
+        {
+          "entity_f1": null,
+          "entity_precision": null,
+          "entity_recall": null,
+          "model": "ref-gliner-multi"
+        }
+      ],
+      "title": "Global quality (public snapshot)"
+    },
+    "language_quality": {
+      "dimensions": [
+        "en_f1",
+        "ko_f1"
+      ],
+      "rows": [
+        {
+          "en_f1": null,
+          "ko_f1": null,
+          "model": "fastner-a-statistical"
+        },
+        {
+          "en_f1": null,
+          "ko_f1": null,
+          "model": "fastner-b-linear-crf"
+        },
+        {
+          "en_f1": null,
+          "ko_f1": null,
+          "model": "fastner-c-compact-neural"
+        },
+        {
+          "en_f1": null,
+          "ko_f1": null,
+          "model": "fastner-d-tiny-transformer"
+        },
+        {
+          "en_f1": null,
+          "ko_f1": null,
+          "model": "ref-spacy-en"
+        },
+        {
+          "en_f1": null,
+          "ko_f1": null,
+          "model": "ref-spacy-ko"
+        },
+        {
+          "en_f1": null,
+          "ko_f1": null,
+          "model": "ref-bert-base-ner"
+        },
+        {
+          "en_f1": null,
+          "ko_f1": null,
+          "model": "ref-gliner-multi"
+        }
+      ],
+      "title": "EN / KO quality"
+    },
+    "latency": {
+      "dimensions": [
+        "latency_p95_ms"
+      ],
+      "rows": [
+        {
+          "latency_p95_ms": null,
+          "model": "fastner-a-statistical"
+        },
+        {
+          "latency_p95_ms": null,
+          "model": "fastner-b-linear-crf"
+        },
+        {
+          "latency_p95_ms": null,
+          "model": "fastner-c-compact-neural"
+        },
+        {
+          "latency_p95_ms": null,
+          "model": "fastner-d-tiny-transformer"
+        },
+        {
+          "latency_p95_ms": null,
+          "model": "ref-spacy-en"
+        },
+        {
+          "latency_p95_ms": null,
+          "model": "ref-spacy-ko"
+        },
+        {
+          "latency_p95_ms": null,
+          "model": "ref-bert-base-ner"
+        },
+        {
+          "latency_p95_ms": null,
+          "model": "ref-gliner-multi"
+        }
+      ],
+      "title": "Latency (warm p95)"
+    },
+    "memory": {
+      "dimensions": [
+        "peak_memory_mb"
+      ],
+      "rows": [
+        {
+          "model": "fastner-a-statistical",
+          "peak_memory_mb": null
+        },
+        {
+          "model": "fastner-b-linear-crf",
+          "peak_memory_mb": null
+        },
+        {
+          "model": "fastner-c-compact-neural",
+          "peak_memory_mb": null
+        },
+        {
+          "model": "fastner-d-tiny-transformer",
+          "peak_memory_mb": null
+        },
+        {
+          "model": "ref-spacy-en",
+          "peak_memory_mb": null
+        },
+        {
+          "model": "ref-spacy-ko",
+          "peak_memory_mb": null
+        },
+        {
+          "model": "ref-bert-base-ner",
+          "peak_memory_mb": null
+        },
+        {
+          "model": "ref-gliner-multi",
+          "peak_memory_mb": null
+        }
+      ],
+      "title": "Peak memory"
+    },
+    "model_size": {
+      "dimensions": [
+        "model_size_bytes"
+      ],
+      "rows": [
+        {
+          "model": "fastner-a-statistical",
+          "model_size_bytes": null
+        },
+        {
+          "model": "fastner-b-linear-crf",
+          "model_size_bytes": null
+        },
+        {
+          "model": "fastner-c-compact-neural",
+          "model_size_bytes": null
+        },
+        {
+          "model": "fastner-d-tiny-transformer",
+          "model_size_bytes": null
+        },
+        {
+          "model": "ref-spacy-en",
+          "model_size_bytes": null
+        },
+        {
+          "model": "ref-spacy-ko",
+          "model_size_bytes": null
+        },
+        {
+          "model": "ref-bert-base-ner",
+          "model_size_bytes": null
+        },
+        {
+          "model": "ref-gliner-multi",
+          "model_size_bytes": null
+        }
+      ],
+      "title": "Model size"
+    },
+    "shape_quality": {
+      "dimensions": [
+        "single_token_recall",
+        "multi_token_f1"
+      ],
+      "rows": [
+        {
+          "model": "fastner-a-statistical",
+          "multi_token_f1": null,
+          "single_token_recall": null
+        },
+        {
+          "model": "fastner-b-linear-crf",
+          "multi_token_f1": null,
+          "single_token_recall": null
+        },
+        {
+          "model": "fastner-c-compact-neural",
+          "multi_token_f1": null,
+          "single_token_recall": null
+        },
+        {
+          "model": "fastner-d-tiny-transformer",
+          "multi_token_f1": null,
+          "single_token_recall": null
+        },
+        {
+          "model": "ref-spacy-en",
+          "multi_token_f1": null,
+          "single_token_recall": null
+        },
+        {
+          "model": "ref-spacy-ko",
+          "multi_token_f1": null,
+          "single_token_recall": null
+        },
+        {
+          "model": "ref-bert-base-ner",
+          "multi_token_f1": null,
+          "single_token_recall": null
+        },
+        {
+          "model": "ref-gliner-multi",
+          "multi_token_f1": null,
+          "single_token_recall": null
+        }
+      ],
+      "title": "Single / multi-token behaviour"
+    },
+    "startup": {
+      "dimensions": [
+        "startup_ms"
+      ],
+      "rows": [
+        {
+          "model": "fastner-a-statistical",
+          "startup_ms": null
+        },
+        {
+          "model": "fastner-b-linear-crf",
+          "startup_ms": null
+        },
+        {
+          "model": "fastner-c-compact-neural",
+          "startup_ms": null
+        },
+        {
+          "model": "fastner-d-tiny-transformer",
+          "startup_ms": null
+        },
+        {
+          "model": "ref-spacy-en",
+          "startup_ms": null
+        },
+        {
+          "model": "ref-spacy-ko",
+          "startup_ms": null
+        },
+        {
+          "model": "ref-bert-base-ner",
+          "startup_ms": null
+        },
+        {
+          "model": "ref-gliner-multi",
+          "startup_ms": null
+        }
+      ],
+      "title": "Startup (cold)"
+    },
+    "throughput": {
+      "dimensions": [
+        "throughput_docs_per_s"
+      ],
+      "rows": [
+        {
+          "model": "fastner-a-statistical",
+          "throughput_docs_per_s": null
+        },
+        {
+          "model": "fastner-b-linear-crf",
+          "throughput_docs_per_s": null
+        },
+        {
+          "model": "fastner-c-compact-neural",
+          "throughput_docs_per_s": null
+        },
+        {
+          "model": "fastner-d-tiny-transformer",
+          "throughput_docs_per_s": null
+        },
+        {
+          "model": "ref-spacy-en",
+          "throughput_docs_per_s": null
+        },
+        {
+          "model": "ref-spacy-ko",
+          "throughput_docs_per_s": null
+        },
+        {
+          "model": "ref-bert-base-ner",
+          "throughput_docs_per_s": null
+        },
+        {
+          "model": "ref-gliner-multi",
+          "throughput_docs_per_s": null
+        }
+      ],
+      "title": "Throughput"
+    },
+    "unseen_recall": {
+      "dimensions": [
+        "unseen_name_recall"
+      ],
+      "rows": [
+        {
+          "model": "fastner-a-statistical",
+          "unseen_name_recall": null
+        },
+        {
+          "model": "fastner-b-linear-crf",
+          "unseen_name_recall": null
+        },
+        {
+          "model": "fastner-c-compact-neural",
+          "unseen_name_recall": null
+        },
+        {
+          "model": "fastner-d-tiny-transformer",
+          "unseen_name_recall": null
+        },
+        {
+          "model": "ref-spacy-en",
+          "unseen_name_recall": null
+        },
+        {
+          "model": "ref-spacy-ko",
+          "unseen_name_recall": null
+        },
+        {
+          "model": "ref-bert-base-ner",
+          "unseen_name_recall": null
+        },
+        {
+          "model": "ref-gliner-multi",
+          "unseen_name_recall": null
+        }
+      ],
+      "title": "Unseen-name recall"
+    },
+    "wasm_size": {
+      "dimensions": [
+        "wasm_size_bytes"
+      ],
+      "rows": [
+        {
+          "delta_bytes": null,
+          "model": "fastner-a-statistical",
+          "wasm_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "fastner-b-linear-crf",
+          "wasm_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "fastner-c-compact-neural",
+          "wasm_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "fastner-d-tiny-transformer",
+          "wasm_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "ref-spacy-en",
+          "wasm_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "ref-spacy-ko",
+          "wasm_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "ref-bert-base-ner",
+          "wasm_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "ref-gliner-multi",
+          "wasm_size_bytes": null
+        }
+      ],
+      "title": "WASM size"
+    }
+  }
+}

@@ -84,6 +84,8 @@ def account_artifact(reg, quality_artifact, root=ROOT):
     if pop["status"] == "pending-pin" or pop["status"] == "planned":
         raise PopulationError(f"population {cid} is {pop['status']}; artifacts against it cannot qualify anything")
     expected = count_cases(pop, root)
+    if expected is None:
+        expected = pop["identity"].get("case_count")
     if expected is not None and corpus.get("case_count") != expected:
         raise PopulationError(f"{cid}: artifact case_count {corpus.get('case_count')} != registered {expected}")
     ident = pop["identity"]
