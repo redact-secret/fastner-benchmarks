@@ -26,8 +26,8 @@ digests and case counts, evaluator and metric-protocol versions, peer pins, perf
 environment, policy and criteria versions.
 
 ## Current result (CRF, `alpha1-full`)
-Architecture: `fastner-b-linear-crf` recommended; ADR accepted, pending merge.
-Product readiness: **REMAIN IN ALPHA**. Unmet criteria: ADR on fastner main, regression and
-adversarial corpora measured, gate thresholds ratified. The measured-deficit backlog (collision and
+Architecture: `fastner-b-linear-crf` **promoted** (ADR-0002 accepted and on fastner main).
+Product readiness: **REMAIN IN ALPHA**. Unmet criteria: regression and adversarial corpora measured,
+gate thresholds ratified. The measured-deficit backlog (collision and
 ambiguity false positives, EN/KO F1, startup) is generated from failing gates and listed as a
 *candidate* Beta backlog; it does not mean Beta was entered.

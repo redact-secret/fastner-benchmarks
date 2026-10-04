@@ -8,7 +8,7 @@ Target repo: `fastner`. Policy 0.2.0, promotion rule 0.1.0.
 
 - Outcome: **recommend**
 - Selected: fastner-b-linear-crf
-- Promotion state: **adr-accepted-pending-merge** (effective only when the fastner ADR is accepted, names this architecture and is on fastner main; recorded in `policy/promotion-adr-refs.json`)
+- Promotion state: **promoted** (effective only when the fastner ADR is accepted, names this architecture and is on fastner main; recorded in `policy/promotion-adr-refs.json`)
 - Reason: single frontier candidate passing all guardrails
 
 ## Evidence
@@ -45,10 +45,6 @@ Target repo: `fastner`. Policy 0.2.0, promotion rule 0.1.0.
 - population ner-evidence-public: All text is project-authored synthetic with no independent review; seen/unseen is a name-rarity proxy, not training-data membership.
 - population ner-evidence-public: Small slices (organization 33, location 52, mixed-script 36 cases) are anecdote-sized; no confidence intervals are computed.
 - ner-evidence-public: slices under 50 cases are anecdote-sized and have no confidence intervals: collision=organization (33 cases), script=mixed (36 cases)
-- fastner-a-statistical: runtime commit 007805d3e83b comes from an unmerged fastner PR (redact-secret/fastner#10 head (alpha/architecture-bakeoff); PR open, not on main at pin time)
-- fastner-b-linear-crf: runtime commit 007805d3e83b comes from an unmerged fastner PR (redact-secret/fastner#10 head (alpha/architecture-bakeoff); PR open, not on main at pin time)
-- fastner-c-compact-neural: runtime commit 007805d3e83b comes from an unmerged fastner PR (redact-secret/fastner#10 head (alpha/architecture-bakeoff); PR open, not on main at pin time)
-- fastner-d-tiny-transformer: runtime commit 007805d3e83b comes from an unmerged fastner PR (redact-secret/fastner#10 head (alpha/architecture-bakeoff); PR open, not on main at pin time)
 - ref-spacy-en: license unverified (public-release gate)
 - ref-koelectra-ko: license unverified (public-release gate)
 - performance protocol: Cells run serially on an otherwise unmanaged machine; the protocol does not control CPU frequency, thermal state or background load.
@@ -64,6 +60,6 @@ Target repo: `fastner`. Policy 0.2.0, promotion rule 0.1.0.
 
 ## Requested actions for fastner
 
-- fastner ADR recorded: `docs/adr/0002-production-architecture.md` (redact-secret/fastner#10, status accepted, decision fastner-b-linear-crf, on main: False).
-1. Merge the ADR so it is the source of truth on `main`, then set `on_main` and the merge commit in `policy/promotion-adr-refs.json`; promotion becomes effective then.
+- fastner ADR recorded: `docs/adr/0002-production-architecture.md` (redact-secret/fastner#10, status accepted, decision fastner-b-linear-crf, on main: True).
+1. Nothing further; the ADR is on main.
 2. Keep the measured runtime commit and model digests (see the report pins) in the ADR's provenance.

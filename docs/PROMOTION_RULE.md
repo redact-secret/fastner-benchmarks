@@ -47,6 +47,6 @@ matching, on main).
 ## Current state (bakeoff `alpha1-full`)
 The rule recommends `fastner-b-linear-crf`: the only candidate on the frontier passing every
 guardrail (the others fall outside the quality, language and ambiguity floors). fastner ADR-0002
-selects the same architecture and is accepted, but PR fastner#10 is still open, so the state is
-`adr-accepted-pending-merge`. Guardrails are relative to the best measured candidate, so the winner
+selects the same architecture, is accepted and is on fastner `main` (merge `994f179`), so the state is
+`promoted`. Guardrails are relative to the best measured candidate, so the winner
 passes them by construction; absolute quality is judged by the support gates, not this rule.

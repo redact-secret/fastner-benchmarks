@@ -28,6 +28,6 @@ Ratifying means re-deriving numbers from the first real baseline and bumping `ga
 
 ## Current output (CRF, `alpha1-full`)
 PERSON/en and PERSON/ko are **experimental**: measured, but gates fail (EN/KO F1, ambiguous-name
-precision, collision precision, startup), regression/adversarial gates are unmeasured, the ADR is
-not yet on fastner main, and thresholds are unratified. See `reports/support/support-matrix.md`.
+precision, collision precision, startup), regression/adversarial gates are unmeasured, and thresholds are
+unratified. See `reports/support/support-matrix.md`.
 Failing proposed gates are information about the gap, not a verdict on the proposals themselves.
