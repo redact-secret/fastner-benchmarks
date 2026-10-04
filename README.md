@@ -2,9 +2,9 @@
 
 Product qualification and comparative benchmarking for FastNER.
 
-> **Status:** Private architecture phase. Qualification policy 0.2.0. Current record (real `ner-eval`
-> run `run-395459fbb4ecb4da`): **CRF (architecture B) promoted** (promotion rule + fastner ADR-0002 on main); product
-> readiness **REMAIN IN ALPHA**. See `reports/qualification/`.
+> **Status:** Private architecture phase. Qualification policy 0.2.0. **CRF (architecture B) promoted**; product
+> readiness **ENTER BETA** with support `experimental` (real `ner-eval` runs on the public snapshot and both
+> product corpora). See `reports/qualification/`.
 
 ## Quick start
 

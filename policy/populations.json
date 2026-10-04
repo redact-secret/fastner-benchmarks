@@ -134,19 +134,20 @@
       "title": "Candidate-specific diagnostic cases",
       "role": "candidate-diagnostic",
       "owner": "fastner-benchmarks",
-      "status": "planned",
-      "blocked_by": "No candidate has produced failures yet. Cases live under corpora/candidate/<candidate-id>/ and never feed shared gates.",
+      "status": "available",
       "identity": {
         "corpus_id": "candidate-specific",
-        "corpus_version": null
+        "corpus_version": "0.1.0",
+        "candidate": "fastner-b-linear-crf"
       },
       "artifact": {
-        "kind": "case-jsonl-dir",
-        "path": "corpora/candidate/"
+        "kind": "case-jsonl",
+        "path": "corpora/candidate/fastner-b-linear-crf/candidate.jsonl",
+        "source_path": "corpora/candidate/fastner-b-linear-crf/candidate.src.jsonl"
       },
       "provenance": {
-        "source": "per-candidate failure analysis",
-        "license": "project-internal",
+        "source": "variants of failure classes observed for fastner-b-linear-crf in ner-eval product runs (lineage per case)",
+        "license": "project-internal; to be set before public release",
         "synthetic": true,
         "personal_data": false,
         "custody": "fastner-benchmarks"

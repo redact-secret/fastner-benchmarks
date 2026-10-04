@@ -12,9 +12,9 @@
 
 | population | role | status | cases | case origins | runs |
 |---|---|---|---|---|---|
-| candidate-specific | candidate-diagnostic | planned | n/a | n/a | none |
-| fastner-adversarial | adversarial-gate | available | 37 | seed-taxonomy=37 | none |
-| fastner-regression | regression-gate | available | 52 | seed-taxonomy=52 | none |
+| candidate-specific | candidate-diagnostic | available | 46 | bakeoff-failure=46 | none |
+| fastner-adversarial | adversarial-gate | available | 37 | seed-taxonomy=37 | run-810f86b911170c68:control-capitalized-run, run-810f86b911170c68:control-null, run-810f86b911170c68:fastner-crf |
+| fastner-regression | regression-gate | available | 52 | seed-taxonomy=52 | run-fa7c74ef7884624a:control-capitalized-run, run-fa7c74ef7884624a:control-null, run-fa7c74ef7884624a:fastner-crf |
 | ner-evidence-public | quality-floor | available | 545 | n/a | run-395459fbb4ecb4da:control-capitalized-run, run-395459fbb4ecb4da:control-null, run-395459fbb4ecb4da:fastner-crf, run-395459fbb4ecb4da:fastner-neural, run-395459fbb4ecb4da:fastner-stat, run-395459fbb4ecb4da:fastner-transformer, run-395459fbb4ecb4da:hf-dslim-bert-base-ner-d1a3e8f, run-395459fbb4ecb4da:hf-leo97-koelectra-small-v3-modu-ner-bb9d562, run-395459fbb4ecb4da:spacy-en-core-web-sm-3.8.0 |
 | protected-holdout | holdout-gate | planned | n/a | n/a | none |
 
@@ -250,30 +250,30 @@
 | model | state | strict P | strict R | strict F1 | lenient F1 |
 |---|---|---|---|---|---|
 | fastner-a-statistical | not-measured | n/a | n/a | n/a | n/a |
-| fastner-b-linear-crf | not-measured | n/a | n/a | n/a | n/a |
+| fastner-b-linear-crf | ok | 0.8462 | 0.8684 | 0.8571 | 0.8831 |
 | fastner-c-compact-neural | not-measured | n/a | n/a | n/a | n/a |
 | fastner-d-tiny-transformer | not-measured | n/a | n/a | n/a | n/a |
 | ref-spacy-en | not-measured | n/a | n/a | n/a | n/a |
 | ref-bert-base-ner | not-measured | n/a | n/a | n/a | n/a |
 | ref-koelectra-ko | not-measured | n/a | n/a | n/a | n/a |
 | ref-gliner-multi | not-measured | n/a | n/a | n/a | n/a |
-| control-null | not-measured | n/a | n/a | n/a | n/a |
-| control-capitalized-run | not-measured | n/a | n/a | n/a | n/a |
+| control-null | ok | n/a | 0.0000 | n/a | n/a |
+| control-capitalized-run | ok | 0.4151 | 0.5789 | 0.4835 | 0.5934 |
 
 ### fastner-adversarial
 
 | model | state | strict P | strict R | strict F1 | lenient F1 |
 |---|---|---|---|---|---|
 | fastner-a-statistical | not-measured | n/a | n/a | n/a | n/a |
-| fastner-b-linear-crf | not-measured | n/a | n/a | n/a | n/a |
+| fastner-b-linear-crf | ok | 0.7143 | 0.6897 | 0.7018 | 0.8421 |
 | fastner-c-compact-neural | not-measured | n/a | n/a | n/a | n/a |
 | fastner-d-tiny-transformer | not-measured | n/a | n/a | n/a | n/a |
 | ref-spacy-en | not-measured | n/a | n/a | n/a | n/a |
 | ref-bert-base-ner | not-measured | n/a | n/a | n/a | n/a |
 | ref-koelectra-ko | not-measured | n/a | n/a | n/a | n/a |
 | ref-gliner-multi | not-measured | n/a | n/a | n/a | n/a |
-| control-null | not-measured | n/a | n/a | n/a | n/a |
-| control-capitalized-run | not-measured | n/a | n/a | n/a | n/a |
+| control-null | ok | n/a | 0.0000 | n/a | n/a |
+| control-capitalized-run | ok | 0.4062 | 0.4483 | 0.4262 | 0.5902 |
 
 ## Pareto frontier (candidates only)
 
@@ -283,9 +283,12 @@
 
 - ref-gliner-multi: pin unresolved (Not run in alpha1-full: ner-eval has no GLiNER adapter yet (ner-eval docs/REFERENCE_ADAPTERS.md). Planned reference.)
 - Pareto dominance uses raw point estimates with no noise tolerance; a tiny latency difference can keep a candidate off the dominated list, so the frontier is a screen, not a ranking
+- population candidate-specific (candidate-diagnostic) is committed but unmeasured: no ner-eval run has used it yet, and it never feeds shared gates
 - population ner-evidence-public: Not a holdout: FastNER candidates were not trained on it, but it was run three times against successive FastNER builds (fastner ADR-0002 process disclosure); FastNER numbers are likely optimistic relative to references that were never tuned against it.
 - population ner-evidence-public: All text is project-authored synthetic with no independent review; seen/unseen is a name-rarity proxy, not training-data membership.
 - population ner-evidence-public: Small slices (organization 33, location 52, mixed-script 36 cases) are anecdote-sized; no confidence intervals are computed.
+- fastner-adversarial: slices under 50 cases are anecdote-sized and have no confidence intervals: collision=common-word (6 cases), collision=location (2 cases), collision=organization (3 cases), context=no-person (0 cases), difficulty=ambiguous (0 cases), difficulty=unambiguous (0 cases), language=en (23 cases), language=ko (9 cases), script=mixed (6 cases), seen=false (18 cases), seen=true (0 cases), shape=multi-token (25 cases), shape=single-token (0 cases)
+- fastner-regression: slices under 50 cases are anecdote-sized and have no confidence intervals: collision=common-word (24 cases), collision=location (4 cases), collision=organization (2 cases), context=no-person (0 cases), difficulty=ambiguous (30 cases), difficulty=unambiguous (0 cases), language=en (34 cases), language=ko (18 cases), script=mixed (0 cases), seen=false (15 cases), seen=true (0 cases), shape=multi-token (28 cases), shape=single-token (2 cases)
 - ner-evidence-public: slices under 50 cases are anecdote-sized and have no confidence intervals: collision=organization (33 cases), script=mixed (36 cases)
 - ref-spacy-en: license unverified (public-release gate)
 - ref-koelectra-ko: license unverified (public-release gate)
@@ -296,6 +299,7 @@
 - peak RSS scope differs across adapters (adapter-process, evaluator-process-upper-bound); controls are evaluator-process upper bounds, not comparable to adapter-process values
 - external-process adapters include JSON-lines transport and process spawn in latency/startup, so those values overstate the in-process library cost
 - runtime binary size is the shared evaluation shim, identical for all FastNER candidates, so it does not discriminate between them; WASM size is a per-candidate probe module
+- fastner-b-linear-crf was measured at 2 runtime commits (007805d on ner-evidence-public; 89c4134 on fastner-adversarial, fastner-regression); model digest identical; 007805d: pinned commit; 89c4134: docs/README and one comment line in crates/fastner/Cargo.toml; no code, model or candidate change
+- population fastner-regression was measured only for fastner-b-linear-crf (plus controls); other pinned models are not measured on it
+- population fastner-adversarial was measured only for fastner-b-linear-crf (plus controls); other pinned models are not measured on it
 - throughput is order-of-magnitude only: cells with identical effective configuration differ by up to 2.9x (fastner-b-linear-crf batch 16 (2.9x), fastner-d-tiny-transformer batch 1 (2.1x), fastner-d-tiny-transformer batch 16 (1.8x), control-capitalized-run batch 1 (1.5x)); the protocol samples 20 batches per cell on an unmanaged machine
-- population fastner-regression exists (regression-gate) but no ner-eval run measured it; ner-eval cannot yet ingest product corpora
-- population fastner-adversarial exists (adversarial-gate) but no ner-eval run measured it; ner-eval cannot yet ingest product corpora

@@ -43,8 +43,7 @@ def matrix(world, ratified=False, refs=None, gates=None):
     rep = R.build_report(pol, cfg, reg, qs, ps)
     dec = evaluate(RULE, pol, rep, [], refs or {})
     g = copy.deepcopy(gates or GATES)
-    if ratified:
-        g["ratification"] = {"baseline_run_ids": ["x"], "by": "test"}
+    g["ratification"] = {"baseline_run_ids": ["x"], "by": "test"} if ratified else None
     return S.evaluate_support(g, rep, dec, pol["policy_version"]), dec
 
 
@@ -56,7 +55,9 @@ class SupportTests(unittest.TestCase):
     def test_gates_valid(self):
         self.assertEqual({p["id"] for p in GATES["profiles"]}, {"PERSON/en", "PERSON/ko"})
         self.assertFalse(GATES["stable_enabled"])
-        self.assertIsNone(GATES["ratification"])
+        self.assertEqual(GATES["thresholds_status"], "ratified-as-beta-targets")
+        self.assertEqual(len(GATES["ratification"]["baseline_run_ids"]), 3)
+        self.assertTrue(GATES["ratification"]["scope_and_limits"])
 
     def test_no_evidence_is_unsupported_not_failed(self):
         m, _ = matrix(H.world()[:3] + ([], []))

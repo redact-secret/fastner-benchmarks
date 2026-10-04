@@ -8,9 +8,9 @@ own identity, provenance, artifact, and **role**:
 | Population | Role | Owner | Status |
 |---|---|---|---|
 | `ner-evidence-public` | quality floor | ner-evidence | available: snapshot `person-en-ko-alpha.1-65b5a0970bfe` (545 cases), **not a holdout** |
-| `fastner-regression` | regression gate | this repo | available (52 cases); not yet measured by ner-eval |
-| `fastner-adversarial` | adversarial gate | this repo | available (37 cases); not yet measured by ner-eval |
-| `candidate-specific` | candidate diagnostic only | this repo | planned |
+| `fastner-regression` | regression gate | this repo | available (52 cases); measured for CRF (`run-fa7c74ef7884624a`) |
+| `fastner-adversarial` | adversarial gate | this repo | available (37 cases); measured for CRF (`run-810f86b911170c68`) |
+| `candidate-specific` | candidate diagnostic only | this repo | available (46 cases, origin `bakeoff-failure`); unmeasured |
 | `protected-holdout` | holdout gate | external custodian | planned |
 
 ## Rules

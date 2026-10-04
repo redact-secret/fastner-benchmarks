@@ -96,6 +96,10 @@ def account_artifact(reg, quality_artifact, root=ROOT):
     ident = pop["identity"]
     if ident.get("snapshot_digest") and corpus.get("digest") != ident["snapshot_digest"]:
         raise PopulationError(f"{cid}: corpus digest does not match pinned snapshot digest")
+    if pop["artifact"]["kind"] == "case-jsonl":
+        from .corpus import CORPORA, describe
+        if cid in CORPORA and corpus.get("digest") != describe(cid, root)["content_digest"]:
+            raise PopulationError(f"{cid}: artifact was measured on a different corpus version (content digest differs from the committed corpus)")
     return cid
 
 

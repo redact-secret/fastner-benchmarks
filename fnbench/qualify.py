@@ -63,11 +63,18 @@ def beta_suggestions(criteria, matrix):
             key = (t["area"], prof["profile"]) if lang_specific else t["area"]  # shared deficits are listed once
             cur = items.get(key)
             ev = {"profile": prof["profile"], "gate": g["gate"], "value": g["value"], "op": g["op"], "threshold": g["threshold"], "relative_shortfall": round(short, 6)}
+            if g.get("cases") is not None:
+                ev["cases"] = g["cases"]
             if cur is None:
                 items[key] = {"title": t["title"], "area": t["area"], "evidence": [ev], "relative_shortfall": round(short, 6), **({"caveat": t["caveat"]} if "caveat" in t else {})}
+                cur = items[key]
             else:
                 cur["evidence"].append(ev)
                 cur["relative_shortfall"] = max(cur["relative_shortfall"], round(short, 6))
+            if g.get("low_n"):
+                note = f"based on a {g['cases']}-case slice of a seed corpus"
+                if note not in cur.get("caveat", ""):
+                    cur["caveat"] = (cur["caveat"] + "; " if cur.get("caveat") else "") + note
     out = sorted(items.values(), key=lambda x: (-x["relative_shortfall"], x["area"], x["evidence"][0]["profile"]))
     for i, it in enumerate(out, 1):
         it["priority"] = i
@@ -118,6 +125,7 @@ def qualify(criteria, policy, cfg, pop_reg, report, decision, matrix, gates, roo
                             "architecture/product viability is not proven: " + ", ".join(c["id"] for c in unmet)),
         "release_identity": {
             "fastner_runtime_commit": pin["runtime_commit"] if pin else None,
+            "fastner_runtime_commits_measured": report.get("measured_runtime_commits", {}).get(sel, []) if sel else [],
             "fastner_runtime_version": pin["version"] if pin else None,
             "model_artifact_digest": pin["artifact_digest"] if pin else None,
             "candidate": sel,
@@ -167,7 +175,7 @@ def render_markdown(r):
     if r["measured_deficits_beta_suggestions"]:
         L += ["", "## Measured deficits (candidate Beta backlog)", ""]
         for s in r["measured_deficits_beta_suggestions"]:
-            L.append(f"{s['priority']}. **{s['title']}** (worst relative shortfall {s['relative_shortfall']:.1%}): " + "; ".join(f"{e['profile']} {e['gate']} = {e['value']:.4g} vs {e['op']} {e['threshold']}" for e in s["evidence"]))
+            L.append(f"{s['priority']}. **{s['title']}** (worst relative shortfall {s['relative_shortfall']:.1%}): " + "; ".join(f"{e['profile']} {e['gate']} = {e['value']:.4g} vs {e['op']} {e['threshold']}" + (f" (n={e['cases']})" if "cases" in e else "") for e in s["evidence"]))
             if s.get("caveat"):
                 L.append(f"   - caveat: {s['caveat']}")
     if r["measurement_gaps"]:

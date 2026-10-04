@@ -1,6 +1,6 @@
 {
   "schema": "fastner-benchmarks.support-gates/1",
-  "gate_set_version": "0.2.0",
+  "gate_set_version": "0.3.0",
   "policy_version": "0.2.0",
   "statuses": [
     "unsupported",
@@ -14,9 +14,24 @@
     "provisional": "Selected architecture promoted (ADR recorded), pins resolved, every gate passes, gate set ratified against a real baseline.",
     "stable": "Not reachable at Alpha. Requires stable_requirements below."
   },
-  "thresholds_status": "proposed-unratified",
-  "ratification": null,
-  "ratification_rule": "No baseline measurements exist, so every number below is a PROPOSAL. A profile cannot become provisional until `ratification` records the baseline run ids and who ratified; until then the generator caps support at experimental.",
+  "thresholds_status": "ratified-as-beta-targets",
+  "ratification": {
+    "baseline_run_ids": [
+      "run-395459fbb4ecb4da",
+      "run-fa7c74ef7884624a",
+      "run-810f86b911170c68"
+    ],
+    "by": "fastner-benchmarks maintainer role, exercised by Claude Code under the project owner's standing instruction to decide without further confirmation",
+    "date": "2026-10-04",
+    "decision": "Thresholds are adopted unchanged as the targets Beta must reach for `provisional`. They were NOT fitted to the baseline: CRF fails most quality gates, which is the intended Beta backlog.",
+    "scope_and_limits": [
+      "Baseline = one public snapshot that is not a holdout and was run against successive FastNER builds, plus two tiny seed product corpora (52 and 37 cases).",
+      "Ratification does not make anything provisional: every gate must pass, with an accepted ADR on fastner main.",
+      "Re-ratify, with revised numbers if needed, when a protected holdout exists and before any move toward stable.",
+      "Startup/latency/throughput gates are ratified with a measurement caveat: ner-eval measures them through an external-process shim."
+    ]
+  },
+  "ratification_rule": "Adopted thresholds are targets, not claims. A profile becomes provisional only when every gate passes, the ADR is on fastner main, and this ratification record exists.",
   "stable_enabled": false,
   "stable_requirements": [
     "stable_enabled=true (policy decision after Beta evidence)",
@@ -80,7 +95,8 @@
             "population": "fastner-regression",
             "slice": "language=en",
             "metric": "f1"
-          }
+          },
+          "caveat": "tiny seed corpus; slice sizes shown, no confidence interval"
         },
         {
           "id": "adversarial.en_precision",
@@ -91,7 +107,8 @@
             "population": "fastner-adversarial",
             "slice": "language=en",
             "metric": "precision"
-          }
+          },
+          "caveat": "tiny seed corpus; slice sizes shown, no confidence interval"
         },
         {
           "id": "budget.latency_p95_ms",
@@ -100,7 +117,8 @@
           "threshold": 5,
           "source": {
             "dimension": "latency_p95_ms"
-          }
+          },
+          "caveat": "measured via external-process shim (includes spawn/transport)"
         },
         {
           "id": "budget.throughput",
@@ -109,7 +127,8 @@
           "threshold": 500,
           "source": {
             "dimension": "throughput_docs_per_s"
-          }
+          },
+          "caveat": "measured via external-process shim (includes spawn/transport)"
         },
         {
           "id": "budget.startup_ms",
@@ -118,7 +137,8 @@
           "threshold": 50,
           "source": {
             "dimension": "startup_ms"
-          }
+          },
+          "caveat": "measured via external-process shim (includes spawn/transport)"
         },
         {
           "id": "budget.peak_memory_mb",
@@ -213,7 +233,8 @@
             "population": "fastner-regression",
             "slice": "language=ko",
             "metric": "f1"
-          }
+          },
+          "caveat": "tiny seed corpus; slice sizes shown, no confidence interval"
         },
         {
           "id": "adversarial.ko_precision",
@@ -224,7 +245,8 @@
             "population": "fastner-adversarial",
             "slice": "language=ko",
             "metric": "precision"
-          }
+          },
+          "caveat": "tiny seed corpus; slice sizes shown, no confidence interval"
         },
         {
           "id": "budget.latency_p95_ms",
@@ -233,7 +255,8 @@
           "threshold": 5,
           "source": {
             "dimension": "latency_p95_ms"
-          }
+          },
+          "caveat": "measured via external-process shim (includes spawn/transport)"
         },
         {
           "id": "budget.throughput",
@@ -242,7 +265,8 @@
           "threshold": 500,
           "source": {
             "dimension": "throughput_docs_per_s"
-          }
+          },
+          "caveat": "measured via external-process shim (includes spawn/transport)"
         },
         {
           "id": "budget.startup_ms",
@@ -251,7 +275,8 @@
           "threshold": 50,
           "source": {
             "dimension": "startup_ms"
-          }
+          },
+          "caveat": "measured via external-process shim (includes spawn/transport)"
         },
         {
           "id": "budget.peak_memory_mb",

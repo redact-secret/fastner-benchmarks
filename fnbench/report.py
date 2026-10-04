@@ -64,6 +64,7 @@ def _index(items, key_fn, what):
 def build_report(policy, cfg, pop_reg, quality, perf, root=ROOT):
     pins = {e["id"]: e for e in cfg["candidates"]}
     rejected, limitations = [], []
+    preg = by_id(pop_reg)
 
     def pin_ok(a, kind):
         mid = a["model"].get("id")
@@ -184,10 +185,12 @@ def build_report(policy, cfg, pop_reg, quality, perf, root=ROOT):
         limitations.append(f"{m}: unavailable ({why})")
     for r in rejected:
         limitations.append(f"artifact {r['run_id']} ({r['kind']}) rejected: {r['reason']}")
+    for pid, pp in sorted(preg.items()):
+        if pid not in cfg["quality_populations"] and pp["status"] == "available" and pp["artifact"]["kind"] == "case-jsonl":
+            limitations.append(f"population {pid} ({pp['role']}) is committed but unmeasured: no ner-eval run has used it yet, and it never feeds shared gates")
     if not acc_q and not acc_p:
         limitations.append("No accepted ner-eval artifacts: every value in this report is 'not measured'.")
     # Population caveats and slice sizes (small slices are anecdote-sized; no confidence intervals).
-    preg = by_id(pop_reg)
     for pid in cfg["quality_populations"]:
         if any(k[1] == pid for k in q_idx):
             limitations += [f"population {pid}: {c}" for c in preg[pid].get("caveats", [])]
@@ -217,6 +220,21 @@ def build_report(policy, cfg, pop_reg, quality, perf, root=ROOT):
         limitations.append("external-process adapters include JSON-lines transport and process spawn in latency/startup, so those values overstate the in-process library cost")
     if acc_p and any(a["status"] == "ok" and (a.get("sizes") or {}).get("binary_bytes") for a in acc_p):
         limitations.append("runtime binary size is the shared evaluation shim, identical for all FastNER candidates, so it does not discriminate between them; WASM size is a per-candidate probe module")
+    commits = {}
+    for a in acc_q:
+        if a.get("runtime_commit"):
+            commits.setdefault(a["model"]["id"], {}).setdefault(a["runtime_commit"], []).append(a["corpus"]["id"])
+    for mid, cm in sorted(commits.items()):
+        if len(cm) > 1:
+            pin = pins[mid]
+            note = {x["commit"]: x["diff_vs_pinned"] for x in (get_path(pin, "runtime.also_measured_at") or [])}
+            limitations.append(f"{mid} was measured at {len(cm)} runtime commits (" + "; ".join(f"{c[:7]} on {', '.join(sorted(v))}" for c, v in sorted(cm.items()))
+                               + "); model digest identical; " + "; ".join(f"{c[:7]}: {note.get(c, 'pinned commit')}" for c in sorted(cm)))
+    for pid in cfg["quality_populations"]:
+        measured = sorted({k[0] for k in q_idx if k[1] == pid and pins[k[0]]["role"] != "control"})
+        allm = sorted(e["id"] for e in cfg["candidates"] if e["role"] != "control" and e["pin_status"] == "resolved")
+        if measured and set(measured) != set(allm):
+            limitations.append(f"population {pid} was measured only for {', '.join(measured)} (plus controls); other pinned models are not measured on it")
     spread = []
     for a in acc_p:
         groups = {}
@@ -250,6 +268,7 @@ def build_report(policy, cfg, pop_reg, quality, perf, root=ROOT):
         "population_quality": pop_quality,
         "pareto": {"dimensions": [d["id"] for d in dims], "frontier": front, "dominated": dominated, "incomplete": incomplete},
         "slice_sizes": slice_sizes,
+        "measured_runtime_commits": {m: sorted(c) for m, c in sorted(commits.items())},
         "known_limitations": limitations,
     }
 

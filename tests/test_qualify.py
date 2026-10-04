@@ -1,3 +1,4 @@
+import json
 import copy
 import unittest
 
@@ -20,8 +21,7 @@ def run(world, ratified=True, adr=True, gates_override=None):
     refs = {"alpha1-full": {"decision": "fastner-c-compact-neural", "status": "accepted", "on_main": True, "adr": "x.md", "pr": "x#1"}} if adr else {}
     dec = evaluate(RULE, pol, rep, [], refs)
     g = copy.deepcopy(gates_override or GATES)
-    if ratified:
-        g["ratification"] = {"baseline_run_ids": ["x"], "by": "t"}
+    g["ratification"] = {"baseline_run_ids": ["x"], "by": "t"} if ratified else None
     m = S.evaluate_support(g, rep, dec, pol["policy_version"])
     return Q.qualify(CRIT, pol, cfg, reg, rep, dec, m, g), m
 
@@ -141,8 +141,20 @@ class QualifyTests(unittest.TestCase):
         out = ROOT / "reports" / "qualification"
         self.assertEqual((out / "alpha1-qualification.json").read_text(), js)
         self.assertEqual((out / "alpha1-qualification.md").read_text(), md)
-        self.assertIn("REMAIN IN ALPHA", md)
+        self.assertIn("ENTER BETA", md)
         self.assertIn("fastner-b-linear-crf", md)
+        rec = json.loads(js)
+        self.assertEqual(rec["outcome"], "A")
+        self.assertEqual(rec["alpha_blockers"], [])
+        areas = {s["area"] for s in rec["measured_deficits_beta_suggestions"]}
+        for need in ("collision", "ambiguity", "quality-en", "quality-ko", "adversarial-ko", "tokenization-ko", "startup"):
+            self.assertIn(need, areas)
+        # every deficit cites measured evidence; small-slice evidence is flagged
+        for s in rec["measured_deficits_beta_suggestions"]:
+            self.assertTrue(s["evidence"])
+            if any(e.get("cases", 999) < 50 for e in s["evidence"]):
+                self.assertIn("seed corpus", s["caveat"])
+        self.assertEqual(rec["release_identity"]["fastner_runtime_commits_measured"][:1], ["007805d3e83bb6c72f604cdcdd2e338c7b6ea753"])
 
 
 if __name__ == "__main__":
