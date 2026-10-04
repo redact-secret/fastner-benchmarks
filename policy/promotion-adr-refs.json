@@ -1,1 +1,16 @@
-{"schema": "fastner-benchmarks.promotion-adr-refs/1", "refs": {}}
+{
+  "schema": "fastner-benchmarks.promotion-adr-refs/2",
+  "refs": {
+    "alpha1-full": {
+      "repo": "redact-secret/fastner",
+      "adr": "docs/adr/0002-production-architecture.md",
+      "title": "ADR 0002: Production architecture for PERSON EN+KO",
+      "status": "accepted",
+      "decision": "fastner-b-linear-crf",
+      "pr": "redact-secret/fastner#10",
+      "commit": "007805d3e83bb6c72f604cdcdd2e338c7b6ea753",
+      "on_main": false,
+      "note": "Accepted in the ADR text but the PR is still open. Flip on_main to true (and record the merge commit) once merged; promotion_state becomes promoted only then."
+    }
+  }
+}

@@ -1,0 +1,387 @@
+{
+  "alpha_blockers": [
+    {
+      "criterion": "architecture_selected",
+      "detail": "no-decision-insufficient-evidence",
+      "owner": "fastner-benchmarks",
+      "priority": 1,
+      "title": "Architecture selected by the promotion rule"
+    },
+    {
+      "criterion": "architecture_promoted",
+      "detail": "not-promoted",
+      "owner": "fastner",
+      "priority": 2,
+      "title": "Selection recorded as a fastner ADR (promotion_state = promoted)"
+    },
+    {
+      "criterion": "candidate_pin_resolved",
+      "detail": "no selected candidate",
+      "owner": "fastner",
+      "priority": 3,
+      "title": "Selected candidate pin fully resolved (runtime commit, model digest, adapter)"
+    },
+    {
+      "criterion": "public_snapshot_measured",
+      "detail": "ner-evidence-public: not measured",
+      "owner": "ner-evidence",
+      "priority": 4,
+      "title": "Pinned ner-evidence snapshot measured for the selected candidate"
+    },
+    {
+      "criterion": "regression_measured",
+      "detail": "fastner-regression: not measured",
+      "owner": "ner-eval",
+      "priority": 5,
+      "title": "Product regression corpus measured"
+    },
+    {
+      "criterion": "adversarial_measured",
+      "detail": "fastner-adversarial: not measured",
+      "owner": "ner-eval",
+      "priority": 6,
+      "title": "Product adversarial corpus measured"
+    },
+    {
+      "criterion": "budgets_measured",
+      "detail": "0/14 budget gates measured",
+      "owner": "ner-eval",
+      "priority": 7,
+      "title": "Every size/performance budget gate has a measurement"
+    },
+    {
+      "criterion": "references_accounted",
+      "detail": "en=missing, ko=missing",
+      "owner": "fastner-benchmarks",
+      "priority": 8,
+      "title": "Each profile language has a pinned reference that is measured, or explicitly unavailable with a reason"
+    },
+    {
+      "criterion": "gates_ratified",
+      "detail": "proposed-unratified",
+      "owner": "fastner-benchmarks",
+      "priority": 9,
+      "title": "Support gate thresholds ratified against a real baseline"
+    }
+  ],
+  "beta_planning_note": "No Beta 1 work is generated: there are no measured deficits to derive it from. Resolve the alpha blockers first.",
+  "criteria": [
+    {
+      "detail": "no-decision-insufficient-evidence",
+      "id": "architecture_selected",
+      "met": false,
+      "owner": "fastner-benchmarks",
+      "title": "Architecture selected by the promotion rule"
+    },
+    {
+      "detail": "not-promoted",
+      "id": "architecture_promoted",
+      "met": false,
+      "owner": "fastner",
+      "title": "Selection recorded as a fastner ADR (promotion_state = promoted)"
+    },
+    {
+      "detail": "no selected candidate",
+      "id": "candidate_pin_resolved",
+      "met": false,
+      "owner": "fastner",
+      "title": "Selected candidate pin fully resolved (runtime commit, model digest, adapter)"
+    },
+    {
+      "detail": "ner-evidence-public: not measured",
+      "id": "public_snapshot_measured",
+      "met": false,
+      "owner": "ner-evidence",
+      "title": "Pinned ner-evidence snapshot measured for the selected candidate"
+    },
+    {
+      "detail": "fastner-regression: not measured",
+      "id": "regression_measured",
+      "met": false,
+      "owner": "ner-eval",
+      "title": "Product regression corpus measured"
+    },
+    {
+      "detail": "fastner-adversarial: not measured",
+      "id": "adversarial_measured",
+      "met": false,
+      "owner": "ner-eval",
+      "title": "Product adversarial corpus measured"
+    },
+    {
+      "detail": "0/14 budget gates measured",
+      "id": "budgets_measured",
+      "met": false,
+      "owner": "ner-eval",
+      "title": "Every size/performance budget gate has a measurement"
+    },
+    {
+      "detail": "en=missing, ko=missing",
+      "id": "references_accounted",
+      "met": false,
+      "owner": "fastner-benchmarks",
+      "title": "Each profile language has a pinned reference that is measured, or explicitly unavailable with a reason"
+    },
+    {
+      "detail": "proposed-unratified",
+      "id": "gates_ratified",
+      "met": false,
+      "owner": "fastner-benchmarks",
+      "title": "Support gate thresholds ratified against a real baseline"
+    }
+  ],
+  "criteria_version": "0.1.0",
+  "decision": "REMAIN IN ALPHA",
+  "decision_reason": "architecture/product viability is not proven: architecture_selected, architecture_promoted, candidate_pin_resolved, public_snapshot_measured, regression_measured, adversarial_measured, budgets_measured, references_accounted, gates_ratified",
+  "measured_deficits_beta_suggestions": [],
+  "measurement_gaps": [],
+  "outcome": "B",
+  "policy_version": "0.1.0",
+  "promotion": {
+    "decision": "no-decision-insufficient-evidence",
+    "reason": "populations not measured: ner-evidence-public",
+    "state": "not-promoted"
+  },
+  "record": "alpha1-first-candidate-qualification",
+  "references": [
+    {
+      "availability": "unresolved",
+      "blocked_by": "Revision/digest not yet resolved; resolve and verify in a networked pinning step.",
+      "dimensions": {
+        "ambiguous_name_precision": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "en_f1": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "entity_f1": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "ko_f1": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "latency_p95_ms": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "model_size_bytes": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "unseen_name_recall": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        }
+      },
+      "id": "ref-spacy-en",
+      "pin_status": "unresolved",
+      "state": "unresolved"
+    },
+    {
+      "availability": "unresolved",
+      "blocked_by": "Revision/digest not yet resolved; resolve and verify in a networked pinning step.",
+      "dimensions": {
+        "ambiguous_name_precision": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "en_f1": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "entity_f1": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "ko_f1": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "latency_p95_ms": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "model_size_bytes": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "unseen_name_recall": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        }
+      },
+      "id": "ref-spacy-ko",
+      "pin_status": "unresolved",
+      "state": "unresolved"
+    },
+    {
+      "availability": "unresolved",
+      "blocked_by": "Revision/digest not yet resolved; resolve and verify in a networked pinning step.",
+      "dimensions": {
+        "ambiguous_name_precision": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "en_f1": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "entity_f1": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "ko_f1": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "latency_p95_ms": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "model_size_bytes": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "unseen_name_recall": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        }
+      },
+      "id": "ref-bert-base-ner",
+      "pin_status": "unresolved",
+      "state": "unresolved"
+    },
+    {
+      "availability": "unresolved",
+      "blocked_by": "Exact checkpoint, revision and digest not yet resolved; resolve and verify in a networked pinning step.",
+      "dimensions": {
+        "ambiguous_name_precision": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "en_f1": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "entity_f1": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "ko_f1": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "latency_p95_ms": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "model_size_bytes": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        },
+        "unseen_name_recall": {
+          "delta": null,
+          "reference": null,
+          "selected": null
+        }
+      },
+      "id": "ref-gliner-multi",
+      "pin_status": "unresolved",
+      "state": "unresolved"
+    }
+  ],
+  "release_identity": {
+    "candidate": null,
+    "evaluator_versions": [],
+    "evidence_snapshots": [
+      {
+        "case_count": null,
+        "snapshot_digest": null,
+        "snapshot_id": null
+      }
+    ],
+    "fastner_runtime_commit": null,
+    "fastner_runtime_version": null,
+    "metric_protocol_versions": [],
+    "model_artifact_digest": null,
+    "peer_pins": [
+      {
+        "artifact_digest": null,
+        "id": "ref-spacy-en",
+        "pin_status": "unresolved",
+        "version": null
+      },
+      {
+        "artifact_digest": null,
+        "id": "ref-spacy-ko",
+        "pin_status": "unresolved",
+        "version": null
+      },
+      {
+        "artifact_digest": null,
+        "id": "ref-bert-base-ner",
+        "pin_status": "unresolved",
+        "version": null
+      },
+      {
+        "artifact_digest": null,
+        "id": "ref-gliner-multi",
+        "pin_status": "unresolved",
+        "version": null
+      }
+    ],
+    "performance_environments": [],
+    "regression_corpus": {
+      "fastner-adversarial": {
+        "case_count": 37,
+        "content_digest": "sha256:b86a7d66e9889ab88a5ef21b192d89665de4495769544dadf6d295c7ca81ede4"
+      },
+      "fastner-regression": {
+        "case_count": 52,
+        "content_digest": "sha256:3dbdbfea6e16153d413e718f163b36958388c1a33057a1469babcb8f5f5c1bae"
+      }
+    }
+  },
+  "schema": "fastner-benchmarks.qualification-record/1",
+  "support": [
+    {
+      "profile": "PERSON/en",
+      "status": "unsupported"
+    },
+    {
+      "profile": "PERSON/ko",
+      "status": "unsupported"
+    }
+  ]
+}

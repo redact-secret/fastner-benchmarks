@@ -1,7 +1,7 @@
 {
   "schema": "fastner-benchmarks.support-gates/1",
-  "gate_set_version": "0.1.0",
-  "policy_version": "0.1.0",
+  "gate_set_version": "0.2.0",
+  "policy_version": "0.2.0",
   "statuses": [
     "unsupported",
     "experimental",
@@ -60,6 +60,15 @@
           "threshold": 0.6,
           "source": {
             "dimension": "unseen_name_recall"
+          }
+        },
+        {
+          "id": "public.collision_precision_worst",
+          "title": "Worst collision-slice precision (public)",
+          "op": ">=",
+          "threshold": 0.7,
+          "source": {
+            "dimension": "collision_precision_worst"
           }
         },
         {
@@ -184,6 +193,15 @@
           "threshold": 0.6,
           "source": {
             "dimension": "unseen_name_recall"
+          }
+        },
+        {
+          "id": "public.collision_precision_worst",
+          "title": "Worst collision-slice precision (public)",
+          "op": ">=",
+          "threshold": 0.7,
+          "source": {
+            "dimension": "collision_precision_worst"
           }
         },
         {

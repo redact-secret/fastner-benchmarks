@@ -1,35 +1,151 @@
 {
   "schema": "fastner-benchmarks.beta-entry/1",
-  "criteria_version": "0.1.0",
-  "policy_version": "0.1.0",
-  "outcomes": {"A": "ENTER BETA", "B": "REMAIN IN ALPHA"},
-  "rule": "ENTER BETA only if every entry criterion is met. Failing quality or budget gates do NOT block Beta (they become the measured deficits that drive Beta issues); missing evidence, unpromoted architecture, or unmeasured populations DO block it, because architecture/product viability is then unproven.",
+  "criteria_version": "0.2.0",
+  "policy_version": "0.2.0",
+  "outcomes": {
+    "A": "ENTER BETA",
+    "B": "REMAIN IN ALPHA"
+  },
+  "rule": "ENTER BETA only if every entry criterion is met. Failing quality or budget gates do NOT block Beta (they become the measured deficits that drive Beta issues); missing evidence, unpromoted architecture, or unmeasured populations DO block it, because architecture/product viability is then unproven. The measured-deficit backlog is generated whenever a candidate is measured; it is a candidate Beta backlog and does not by itself mean Beta was entered.",
   "criteria": [
-    {"id": "architecture_selected", "title": "Architecture selected by the promotion rule", "owner": "fastner-benchmarks"},
-    {"id": "architecture_promoted", "title": "Selection recorded as a fastner ADR (promotion_state = promoted)", "owner": "fastner"},
-    {"id": "candidate_pin_resolved", "title": "Selected candidate pin fully resolved (runtime commit, model digest, adapter)", "owner": "fastner"},
-    {"id": "public_snapshot_measured", "title": "Pinned ner-evidence snapshot measured for the selected candidate", "owner": "ner-evidence"},
-    {"id": "regression_measured", "title": "Product regression corpus measured", "owner": "ner-eval"},
-    {"id": "adversarial_measured", "title": "Product adversarial corpus measured", "owner": "ner-eval"},
-    {"id": "budgets_measured", "title": "Every size/performance budget gate has a measurement", "owner": "ner-eval"},
-    {"id": "references_accounted", "title": "Each profile language has a pinned reference that is measured, or explicitly unavailable with a reason", "owner": "fastner-benchmarks"},
-    {"id": "gates_ratified", "title": "Support gate thresholds ratified against a real baseline", "owner": "fastner-benchmarks"}
+    {
+      "id": "architecture_selected",
+      "title": "Architecture selected by the promotion rule",
+      "owner": "fastner-benchmarks",
+      "next_action": "Run the promotion rule on complete artifacts for all four candidates."
+    },
+    {
+      "id": "architecture_promoted",
+      "title": "Selection recorded as a fastner ADR (promotion_state = promoted)",
+      "owner": "fastner",
+      "next_action": "fastner: merge the ADR (fastner#10) so it is on main, then set on_main in policy/promotion-adr-refs.json."
+    },
+    {
+      "id": "candidate_pin_resolved",
+      "title": "Selected candidate pin fully resolved (runtime commit, model digest, adapter)",
+      "owner": "fastner",
+      "next_action": "fastner: provide runtime commit, model digests and adapter for the selected candidate."
+    },
+    {
+      "id": "public_snapshot_measured",
+      "title": "Pinned ner-evidence snapshot measured for the selected candidate",
+      "owner": "ner-evidence",
+      "next_action": "ner-eval: run the selected candidate on the pinned snapshot."
+    },
+    {
+      "id": "regression_measured",
+      "title": "Product regression corpus measured",
+      "owner": "ner-eval",
+      "next_action": "ner-eval: add ingestion of product case-jsonl corpora (corpora/regression) and run the selected candidate on it."
+    },
+    {
+      "id": "adversarial_measured",
+      "title": "Product adversarial corpus measured",
+      "owner": "ner-eval",
+      "next_action": "ner-eval: add ingestion of product case-jsonl corpora (corpora/adversarial) and run the selected candidate on it."
+    },
+    {
+      "id": "budgets_measured",
+      "title": "Every size/performance budget gate has a measurement",
+      "owner": "ner-eval",
+      "next_action": "ner-eval: measure every budget dimension for the selected candidate."
+    },
+    {
+      "id": "references_accounted",
+      "title": "Each profile language has a pinned reference that is measured, or explicitly unavailable with a reason",
+      "owner": "fastner-benchmarks",
+      "next_action": "fastner-benchmarks/ner-eval: measure or explicitly mark unavailable one reference per profile language."
+    },
+    {
+      "id": "gates_ratified",
+      "title": "Support gate thresholds ratified against a real baseline",
+      "owner": "fastner-benchmarks",
+      "next_action": "fastner-benchmarks maintainers: ratify or revise the proposed gate thresholds against a baseline that is not the tuned public snapshot alone (record baseline run ids in policy/support-gates.json)."
+    }
   ],
   "beta_suggestion_templates": [
-    {"match": "public.ambiguous_precision", "title": "Reduce false positives on ambiguous names", "area": "ambiguity"},
-    {"match": "public.unseen_recall", "title": "Raise unseen-name recall", "area": "unseen"},
-    {"match": "public.en_f1", "title": "Raise English entity F1 on the public snapshot", "area": "quality-en"},
-    {"match": "public.ko_f1", "title": "Raise Korean entity F1 on the public snapshot", "area": "quality-ko"},
-    {"match": "regression.en_f1", "title": "Fix English tokenization/boundary failures from the regression corpus", "area": "tokenization-en"},
-    {"match": "regression.ko_f1", "title": "Fix Korean tokenization and particle failures from the regression corpus", "area": "tokenization-ko"},
-    {"match": "adversarial.en_precision", "title": "Reduce English false positives under adversarial input", "area": "adversarial-en"},
-    {"match": "adversarial.ko_precision", "title": "Reduce Korean particle false positives under adversarial input", "area": "adversarial-ko"},
-    {"match": "budget.model_size", "title": "Reduce model size", "area": "size"},
-    {"match": "budget.runtime_binary", "title": "Reduce runtime binary size", "area": "size"},
-    {"match": "budget.wasm_size", "title": "Reduce WASM growth", "area": "wasm"},
-    {"match": "budget.startup_ms", "title": "Reduce cold startup", "area": "startup"},
-    {"match": "budget.throughput", "title": "Improve decoding throughput", "area": "throughput"},
-    {"match": "budget.latency_p95_ms", "title": "Reduce warm latency", "area": "latency"},
-    {"match": "budget.peak_memory_mb", "title": "Reduce peak memory", "area": "memory"}
+    {
+      "match": "public.ambiguous_precision",
+      "title": "Reduce false positives on ambiguous names",
+      "area": "ambiguity"
+    },
+    {
+      "match": "public.unseen_recall",
+      "title": "Raise unseen-name recall",
+      "area": "unseen"
+    },
+    {
+      "match": "public.collision_precision_worst",
+      "title": "Reduce false positives on person/organization/location collisions",
+      "area": "collision"
+    },
+    {
+      "match": "public.en_f1",
+      "title": "Raise English entity F1 on the public snapshot",
+      "area": "quality-en"
+    },
+    {
+      "match": "public.ko_f1",
+      "title": "Raise Korean entity F1 on the public snapshot",
+      "area": "quality-ko"
+    },
+    {
+      "match": "regression.en_f1",
+      "title": "Fix English tokenization/boundary failures from the regression corpus",
+      "area": "tokenization-en"
+    },
+    {
+      "match": "regression.ko_f1",
+      "title": "Fix Korean tokenization and particle failures from the regression corpus",
+      "area": "tokenization-ko"
+    },
+    {
+      "match": "adversarial.en_precision",
+      "title": "Reduce English false positives under adversarial input",
+      "area": "adversarial-en"
+    },
+    {
+      "match": "adversarial.ko_precision",
+      "title": "Reduce Korean particle false positives under adversarial input",
+      "area": "adversarial-ko"
+    },
+    {
+      "match": "budget.model_size",
+      "title": "Reduce model size",
+      "area": "size"
+    },
+    {
+      "match": "budget.runtime_binary",
+      "title": "Reduce runtime binary size",
+      "area": "size"
+    },
+    {
+      "match": "budget.wasm_size",
+      "title": "Reduce WASM growth",
+      "area": "wasm"
+    },
+    {
+      "match": "budget.startup_ms",
+      "title": "Reduce cold startup",
+      "area": "startup",
+      "caveat": "startup was measured through the external-process shim (includes process spawn and JSON-lines transport); re-measure in-process before sizing the work"
+    },
+    {
+      "match": "budget.throughput",
+      "title": "Improve decoding throughput",
+      "area": "throughput",
+      "caveat": "external-process transport and a 20-batch sample; treat as order-of-magnitude"
+    },
+    {
+      "match": "budget.latency_p95_ms",
+      "title": "Reduce warm latency",
+      "area": "latency",
+      "caveat": "external-process transport and a 20-batch sample; treat as order-of-magnitude"
+    },
+    {
+      "match": "budget.peak_memory_mb",
+      "title": "Reduce peak memory",
+      "area": "memory"
+    }
   ]
 }

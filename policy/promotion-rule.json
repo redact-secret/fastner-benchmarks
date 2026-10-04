@@ -1,30 +1,88 @@
 {
   "schema": "fastner-benchmarks.promotion-rule/1",
   "rule_version": "0.1.0",
-  "policy_version": "0.1.0",
+  "policy_version": "0.2.0",
   "numbers_status": "provisional-defaults: no baseline measurements exist yet. Re-derive from the first real bakeoff; any change bumps rule_version.",
   "requires": {
     "pins": "resolved",
     "dimensions": "all-complete-for-candidate",
-    "quality_populations_measured": ["ner-evidence-public"],
+    "quality_populations_measured": [
+      "ner-evidence-public"
+    ],
     "adr_ref_recorded_in": "policy/promotion-adr-refs.json"
   },
   "guardrails": {
-    "quality_floor": {"dimensions": ["entity_f1"], "max_gap_to_best": 0.10, "why": "do not promote a tiny model that is far worse overall"},
-    "language_floor": {"dimensions": ["en_f1", "ko_f1"], "max_gap_to_best": 0.05, "why": "a global average must not hide a major EN or KO regression"},
-    "ambiguity_floor": {"dimensions": ["ambiguous_name_precision", "collision_precision_worst"], "max_gap_to_best": 0.10, "why": "false positives on ambiguous/colliding names are the product risk"},
-    "size_ceiling": {"dimensions": ["model_size_bytes", "runtime_binary_size_bytes", "wasm_size_bytes"], "max_ratio_to_smallest": 10.0, "why": "do not accept huge binary/WASM cost for marginal quality"}
+    "quality_floor": {
+      "dimensions": [
+        "entity_f1"
+      ],
+      "max_gap_to_best": 0.1,
+      "why": "do not promote a tiny model that is far worse overall"
+    },
+    "language_floor": {
+      "dimensions": [
+        "en_f1",
+        "ko_f1"
+      ],
+      "max_gap_to_best": 0.05,
+      "why": "a global average must not hide a major EN or KO regression"
+    },
+    "ambiguity_floor": {
+      "dimensions": [
+        "ambiguous_name_precision",
+        "collision_precision_worst"
+      ],
+      "max_gap_to_best": 0.1,
+      "why": "false positives on ambiguous/colliding names are the product risk"
+    },
+    "size_ceiling": {
+      "dimensions": [
+        "model_size_bytes",
+        "runtime_binary_size_bytes",
+        "wasm_size_bytes"
+      ],
+      "max_ratio_to_smallest": 10.0,
+      "why": "do not accept huge binary/WASM cost for marginal quality"
+    }
   },
   "tie_handling": {
     "quality_tolerance": 0.01,
-    "size_tolerance_ratio": 1.10,
-    "quality_dimensions": ["entity_precision", "entity_recall", "entity_f1", "ambiguous_name_precision", "unseen_name_recall", "en_f1", "ko_f1", "single_token_recall", "multi_token_f1", "collision_precision_worst"],
-    "size_dimensions": ["model_size_bytes", "runtime_binary_size_bytes", "wasm_size_bytes"],
+    "size_tolerance_ratio": 1.1,
+    "quality_dimensions": [
+      "entity_precision",
+      "entity_recall",
+      "entity_f1",
+      "ambiguous_name_precision",
+      "unseen_name_recall",
+      "en_f1",
+      "ko_f1",
+      "single_token_recall",
+      "multi_token_f1",
+      "collision_precision_worst"
+    ],
+    "size_dimensions": [
+      "model_size_bytes",
+      "runtime_binary_size_bytes",
+      "wasm_size_bytes"
+    ],
     "procedure": "Candidates must be on the Pareto frontier and pass every guardrail. One survivor is recommended. Several survivors are auto-resolved only when they are quality-equivalent (then the one no larger on every size dimension) or size-equivalent (then the one no worse on every quality dimension). Anything else needs an explicit ADR tradeoff decision; the machine never picks by one dimension."
   },
-  "waivers": {"allowed": true, "file": "policy/promotion-waivers.json", "rule": "A guardrail may only be waived per candidate and guardrail with a written reason and ADR reference."},
+  "waivers": {
+    "allowed": true,
+    "file": "policy/promotion-waivers.json",
+    "rule": "A guardrail may only be waived per candidate and guardrail with a written reason and ADR reference."
+  },
   "adr_handoff": {
     "target_repo": "fastner",
-    "required_sections": ["decision", "evidence", "frontier", "guardrails", "waivers", "tradeoffs", "known_deficits", "requested_actions"]
+    "required_sections": [
+      "decision",
+      "evidence",
+      "frontier",
+      "guardrails",
+      "waivers",
+      "tradeoffs",
+      "known_deficits",
+      "requested_actions"
+    ]
   }
 }

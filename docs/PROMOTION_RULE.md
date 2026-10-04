@@ -39,5 +39,14 @@ deficits and requested actions. Once `fastner` records the ADR, add its referenc
 `policy/promotion-adr-refs.json`; only then does `promotion_state` become `promoted`
 (otherwise `recommended-awaiting-adr`).
 
-## Current state
-No measurements exist, so the decision is `no-decision-insufficient-evidence`; nothing is promoted.
+`policy/promotion-adr-refs.json` records the ADR (`status`, `decision`, `on_main`). `promotion_state` is:
+`recommended-awaiting-adr` (no ADR or not accepted), `adr-decision-mismatch` (ADR names another
+architecture), `adr-accepted-pending-merge` (accepted but not on fastner main), `promoted` (accepted,
+matching, on main).
+
+## Current state (bakeoff `alpha1-full`)
+The rule recommends `fastner-b-linear-crf`: the only candidate on the frontier passing every
+guardrail (the others fall outside the quality, language and ambiguity floors). fastner ADR-0002
+selects the same architecture and is accepted, but PR fastner#10 is still open, so the state is
+`adr-accepted-pending-merge`. Guardrails are relative to the best measured candidate, so the winner
+passes them by construction; absolute quality is judged by the support gates, not this rule.

@@ -1,6 +1,6 @@
 # Support Matrix and Provisional Gates
 
-Gates: `policy/support-gates.json` (gate set 0.1.0). Generator: `fnbench/support.py`.
+Gates: `policy/support-gates.json` (gate set 0.2.0, adds a collision-precision gate). Generator: `fnbench/support.py`.
 Output (generated, never edited): `reports/support/support-matrix.{json,md}`.
 
 ## Status vocabulary
@@ -26,5 +26,8 @@ No baseline exists, so every number is a **proposal**
 `ratification` (baseline run ids + who), the generator caps every profile at `experimental`.
 Ratifying means re-deriving numbers from the first real baseline and bumping `gate_set_version`.
 
-## Current output
-PERSON/en: unsupported, PERSON/ko: unsupported. There is no selected architecture and no measurement.
+## Current output (CRF, `alpha1-full`)
+PERSON/en and PERSON/ko are **experimental**: measured, but gates fail (EN/KO F1, ambiguous-name
+precision, collision precision, startup), regression/adversarial gates are unmeasured, the ADR is
+not yet on fastner main, and thresholds are unratified. See `reports/support/support-matrix.md`.
+Failing proposed gates are information about the gap, not a verdict on the proposals themselves.

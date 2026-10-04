@@ -2,14 +2,16 @@
 
 Product qualification and comparative benchmarking for FastNER.
 
-> **Status:** Private architecture phase. Qualification policy 0.1.0 (Alpha 0). Current record:
-> **REMAIN IN ALPHA**, because no runtime, evaluator artifacts or evidence snapshot exist yet.
+> **Status:** Private architecture phase. Qualification policy 0.2.0. Current record (real `ner-eval`
+> run `run-395459fbb4ecb4da`): **CRF (architecture B) recommended** by the promotion rule; product
+> readiness **REMAIN IN ALPHA**. See `reports/qualification/`.
 
 ## Quick start
 
 ```bash
 make validate                  # tests + checks that every generated output is current
-python -m fnbench report       # bakeoff report from policy + ner-eval artifacts
+python -m fnbench ingest       # real ner-eval run -> normalized aggregate-only artifacts
+python -m fnbench report       # bakeoff report from policy + artifacts
 python -m fnbench promotion    # promotion decision + ADR handoff for fastner
 python -m fnbench support      # support matrix
 python -m fnbench qualify      # qualification record + Beta-entry decision

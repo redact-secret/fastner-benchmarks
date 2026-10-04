@@ -1,96 +1,74 @@
 {
   "alpha_blockers": [
     {
-      "criterion": "architecture_selected",
-      "detail": "no-decision-insufficient-evidence",
-      "owner": "fastner-benchmarks",
-      "priority": 1,
-      "title": "Architecture selected by the promotion rule"
-    },
-    {
       "criterion": "architecture_promoted",
-      "detail": "not-promoted",
+      "detail": "adr-accepted-pending-merge",
+      "next_action": "fastner: merge the ADR (fastner#10) so it is on main, then set on_main in policy/promotion-adr-refs.json.",
       "owner": "fastner",
-      "priority": 2,
+      "priority": 1,
       "title": "Selection recorded as a fastner ADR (promotion_state = promoted)"
-    },
-    {
-      "criterion": "candidate_pin_resolved",
-      "detail": "no selected candidate",
-      "owner": "fastner",
-      "priority": 3,
-      "title": "Selected candidate pin fully resolved (runtime commit, model digest, adapter)"
-    },
-    {
-      "criterion": "public_snapshot_measured",
-      "detail": "ner-evidence-public: not measured",
-      "owner": "ner-evidence",
-      "priority": 4,
-      "title": "Pinned ner-evidence snapshot measured for the selected candidate"
     },
     {
       "criterion": "regression_measured",
       "detail": "fastner-regression: not measured",
+      "next_action": "ner-eval: add ingestion of product case-jsonl corpora (corpora/regression) and run the selected candidate on it.",
       "owner": "ner-eval",
-      "priority": 5,
+      "priority": 2,
       "title": "Product regression corpus measured"
     },
     {
       "criterion": "adversarial_measured",
       "detail": "fastner-adversarial: not measured",
+      "next_action": "ner-eval: add ingestion of product case-jsonl corpora (corpora/adversarial) and run the selected candidate on it.",
       "owner": "ner-eval",
-      "priority": 6,
+      "priority": 3,
       "title": "Product adversarial corpus measured"
-    },
-    {
-      "criterion": "budgets_measured",
-      "detail": "0/14 budget gates measured",
-      "owner": "ner-eval",
-      "priority": 7,
-      "title": "Every size/performance budget gate has a measurement"
-    },
-    {
-      "criterion": "references_accounted",
-      "detail": "en=missing, ko=missing",
-      "owner": "fastner-benchmarks",
-      "priority": 8,
-      "title": "Each profile language has a pinned reference that is measured, or explicitly unavailable with a reason"
     },
     {
       "criterion": "gates_ratified",
       "detail": "proposed-unratified",
+      "next_action": "fastner-benchmarks maintainers: ratify or revise the proposed gate thresholds against a baseline that is not the tuned public snapshot alone (record baseline run ids in policy/support-gates.json).",
       "owner": "fastner-benchmarks",
-      "priority": 9,
+      "priority": 4,
       "title": "Support gate thresholds ratified against a real baseline"
     }
   ],
-  "beta_planning_note": "No Beta 1 work is generated: there are no measured deficits to derive it from. Resolve the alpha blockers first.",
+  "architecture_outcome": {
+    "candidate": "fastner-b-linear-crf",
+    "state": "adr-accepted-pending-merge",
+    "summary": "fastner-b-linear-crf is the only candidate on the frontier that passes every promotion guardrail"
+  },
+  "beta_planning_note": "Deficits above are derived only from measured failing gates, ordered by relative shortfall (a screening heuristic, not a priority judgment). They are a candidate Beta backlog; Beta is not entered until the alpha blockers are resolved.",
   "criteria": [
     {
-      "detail": "no-decision-insufficient-evidence",
+      "detail": "recommend",
       "id": "architecture_selected",
-      "met": false,
+      "met": true,
+      "next_action": "Run the promotion rule on complete artifacts for all four candidates.",
       "owner": "fastner-benchmarks",
       "title": "Architecture selected by the promotion rule"
     },
     {
-      "detail": "not-promoted",
+      "detail": "adr-accepted-pending-merge",
       "id": "architecture_promoted",
       "met": false,
+      "next_action": "fastner: merge the ADR (fastner#10) so it is on main, then set on_main in policy/promotion-adr-refs.json.",
       "owner": "fastner",
       "title": "Selection recorded as a fastner ADR (promotion_state = promoted)"
     },
     {
-      "detail": "no selected candidate",
+      "detail": "resolved",
       "id": "candidate_pin_resolved",
-      "met": false,
+      "met": true,
+      "next_action": "fastner: provide runtime commit, model digests and adapter for the selected candidate.",
       "owner": "fastner",
       "title": "Selected candidate pin fully resolved (runtime commit, model digest, adapter)"
     },
     {
-      "detail": "ner-evidence-public: not measured",
+      "detail": "ner-evidence-public: measured",
       "id": "public_snapshot_measured",
-      "met": false,
+      "met": true,
+      "next_action": "ner-eval: run the selected candidate on the pinned snapshot.",
       "owner": "ner-evidence",
       "title": "Pinned ner-evidence snapshot measured for the selected candidate"
     },
@@ -98,6 +76,7 @@
       "detail": "fastner-regression: not measured",
       "id": "regression_measured",
       "met": false,
+      "next_action": "ner-eval: add ingestion of product case-jsonl corpora (corpora/regression) and run the selected candidate on it.",
       "owner": "ner-eval",
       "title": "Product regression corpus measured"
     },
@@ -105,20 +84,23 @@
       "detail": "fastner-adversarial: not measured",
       "id": "adversarial_measured",
       "met": false,
+      "next_action": "ner-eval: add ingestion of product case-jsonl corpora (corpora/adversarial) and run the selected candidate on it.",
       "owner": "ner-eval",
       "title": "Product adversarial corpus measured"
     },
     {
-      "detail": "0/14 budget gates measured",
+      "detail": "14/14 budget gates measured",
       "id": "budgets_measured",
-      "met": false,
+      "met": true,
+      "next_action": "ner-eval: measure every budget dimension for the selected candidate.",
       "owner": "ner-eval",
       "title": "Every size/performance budget gate has a measurement"
     },
     {
-      "detail": "en=missing, ko=missing",
+      "detail": "en=ok, ko=ok",
       "id": "references_accounted",
-      "met": false,
+      "met": true,
+      "next_action": "fastner-benchmarks/ner-eval: measure or explicitly mark unavailable one reference per profile language.",
       "owner": "fastner-benchmarks",
       "title": "Each profile language has a pinned reference that is measured, or explicitly unavailable with a reason"
     },
@@ -126,194 +108,318 @@
       "detail": "proposed-unratified",
       "id": "gates_ratified",
       "met": false,
+      "next_action": "fastner-benchmarks maintainers: ratify or revise the proposed gate thresholds against a baseline that is not the tuned public snapshot alone (record baseline run ids in policy/support-gates.json).",
       "owner": "fastner-benchmarks",
       "title": "Support gate thresholds ratified against a real baseline"
     }
   ],
-  "criteria_version": "0.1.0",
+  "criteria_version": "0.2.0",
   "decision": "REMAIN IN ALPHA",
-  "decision_reason": "architecture/product viability is not proven: architecture_selected, architecture_promoted, candidate_pin_resolved, public_snapshot_measured, regression_measured, adversarial_measured, budgets_measured, references_accounted, gates_ratified",
-  "measured_deficits_beta_suggestions": [],
-  "measurement_gaps": [],
+  "decision_reason": "architecture/product viability is not proven: architecture_promoted, regression_measured, adversarial_measured, gates_ratified",
+  "measured_deficits_beta_suggestions": [
+    {
+      "area": "startup",
+      "caveat": "startup was measured through the external-process shim (includes process spawn and JSON-lines transport); re-measure in-process before sizing the work",
+      "evidence": [
+        {
+          "gate": "budget.startup_ms",
+          "op": "<=",
+          "profile": "PERSON/en",
+          "relative_shortfall": 25.74164,
+          "threshold": 50,
+          "value": 1337.082
+        },
+        {
+          "gate": "budget.startup_ms",
+          "op": "<=",
+          "profile": "PERSON/ko",
+          "relative_shortfall": 25.74164,
+          "threshold": 50,
+          "value": 1337.082
+        }
+      ],
+      "priority": 1,
+      "relative_shortfall": 25.74164,
+      "title": "Reduce cold startup"
+    },
+    {
+      "area": "collision",
+      "evidence": [
+        {
+          "gate": "public.collision_precision_worst",
+          "op": ">=",
+          "profile": "PERSON/en",
+          "relative_shortfall": 0.619921,
+          "threshold": 0.7,
+          "value": 0.26605504587155965
+        },
+        {
+          "gate": "public.collision_precision_worst",
+          "op": ">=",
+          "profile": "PERSON/ko",
+          "relative_shortfall": 0.619921,
+          "threshold": 0.7,
+          "value": 0.26605504587155965
+        }
+      ],
+      "priority": 2,
+      "relative_shortfall": 0.619921,
+      "title": "Reduce false positives on person/organization/location collisions"
+    },
+    {
+      "area": "ambiguity",
+      "evidence": [
+        {
+          "gate": "public.ambiguous_precision",
+          "op": ">=",
+          "profile": "PERSON/en",
+          "relative_shortfall": 0.472146,
+          "threshold": 0.85,
+          "value": 0.44867549668874174
+        },
+        {
+          "gate": "public.ambiguous_precision",
+          "op": ">=",
+          "profile": "PERSON/ko",
+          "relative_shortfall": 0.472146,
+          "threshold": 0.85,
+          "value": 0.44867549668874174
+        }
+      ],
+      "priority": 3,
+      "relative_shortfall": 0.472146,
+      "title": "Reduce false positives on ambiguous names"
+    },
+    {
+      "area": "quality-en",
+      "evidence": [
+        {
+          "gate": "public.en_f1",
+          "op": ">=",
+          "profile": "PERSON/en",
+          "relative_shortfall": 0.192796,
+          "threshold": 0.85,
+          "value": 0.6861233480176212
+        }
+      ],
+      "priority": 4,
+      "relative_shortfall": 0.192796,
+      "title": "Raise English entity F1 on the public snapshot"
+    },
+    {
+      "area": "quality-ko",
+      "evidence": [
+        {
+          "gate": "public.ko_f1",
+          "op": ">=",
+          "profile": "PERSON/ko",
+          "relative_shortfall": 0.126441,
+          "threshold": 0.8,
+          "value": 0.6988472622478386
+        }
+      ],
+      "priority": 5,
+      "relative_shortfall": 0.126441,
+      "title": "Raise Korean entity F1 on the public snapshot"
+    }
+  ],
+  "measurement_gaps": [
+    {
+      "gate": "adversarial.en_precision",
+      "profile": "PERSON/en"
+    },
+    {
+      "gate": "regression.en_f1",
+      "profile": "PERSON/en"
+    },
+    {
+      "gate": "adversarial.ko_precision",
+      "profile": "PERSON/ko"
+    },
+    {
+      "gate": "regression.ko_f1",
+      "profile": "PERSON/ko"
+    }
+  ],
   "outcome": "B",
-  "policy_version": "0.1.0",
+  "policy_version": "0.2.0",
   "promotion": {
-    "decision": "no-decision-insufficient-evidence",
-    "reason": "populations not measured: ner-evidence-public",
-    "state": "not-promoted"
+    "decision": "recommend",
+    "reason": "single frontier candidate passing all guardrails",
+    "state": "adr-accepted-pending-merge"
   },
   "record": "alpha1-first-candidate-qualification",
   "references": [
     {
-      "availability": "unresolved",
-      "blocked_by": "Revision/digest not yet resolved; resolve and verify in a networked pinning step.",
+      "availability": "available",
+      "blocked_by": null,
       "dimensions": {
         "ambiguous_name_precision": {
-          "delta": null,
-          "reference": null,
-          "selected": null
+          "delta": 0.137451,
+          "reference": 0.3112244897959184,
+          "selected": 0.44867549668874174
         },
         "en_f1": {
-          "delta": null,
-          "reference": null,
-          "selected": null
+          "delta": 0.038641,
+          "reference": 0.6474820143884893,
+          "selected": 0.6861233480176212
         },
         "entity_f1": {
-          "delta": null,
-          "reference": null,
-          "selected": null
+          "delta": 0.388321,
+          "reference": 0.3054939640305494,
+          "selected": 0.693815331010453
         },
         "ko_f1": {
-          "delta": null,
-          "reference": null,
-          "selected": null
+          "delta": 0.581311,
+          "reference": 0.11753643629525153,
+          "selected": 0.6988472622478386
         },
         "latency_p95_ms": {
-          "delta": null,
-          "reference": null,
-          "selected": null
+          "delta": -14.847,
+          "reference": 14.917,
+          "selected": 0.07
         },
         "model_size_bytes": {
-          "delta": null,
-          "reference": null,
-          "selected": null
+          "delta": -14640666,
+          "reference": 15231350,
+          "selected": 590684
         },
         "unseen_name_recall": {
-          "delta": null,
-          "reference": null,
-          "selected": null
+          "delta": 0.423288,
+          "reference": 0.27945205479452057,
+          "selected": 0.7027397260273973
         }
       },
       "id": "ref-spacy-en",
-      "pin_status": "unresolved",
-      "state": "unresolved"
+      "pin_status": "resolved",
+      "state": "measured"
     },
     {
-      "availability": "unresolved",
-      "blocked_by": "Revision/digest not yet resolved; resolve and verify in a networked pinning step.",
+      "availability": "available",
+      "blocked_by": null,
       "dimensions": {
         "ambiguous_name_precision": {
-          "delta": null,
-          "reference": null,
-          "selected": null
+          "delta": -0.024658,
+          "reference": 0.47333333333333333,
+          "selected": 0.44867549668874174
         },
         "en_f1": {
-          "delta": null,
-          "reference": null,
-          "selected": null
+          "delta": 0.273529,
+          "reference": 0.41259398496240607,
+          "selected": 0.6861233480176212
         },
         "entity_f1": {
-          "delta": null,
-          "reference": null,
-          "selected": null
+          "delta": 0.464953,
+          "reference": 0.22886263608987722,
+          "selected": 0.693815331010453
         },
         "ko_f1": {
-          "delta": null,
-          "reference": null,
-          "selected": null
+          "delta": 0.639259,
+          "reference": 0.05958829902491874,
+          "selected": 0.6988472622478386
         },
         "latency_p95_ms": {
-          "delta": null,
-          "reference": null,
-          "selected": null
+          "delta": -85.668,
+          "reference": 85.738,
+          "selected": 0.07
         },
         "model_size_bytes": {
-          "delta": null,
-          "reference": null,
-          "selected": null
+          "delta": -432916062,
+          "reference": 433506746,
+          "selected": 590684
         },
         "unseen_name_recall": {
-          "delta": null,
-          "reference": null,
-          "selected": null
-        }
-      },
-      "id": "ref-spacy-ko",
-      "pin_status": "unresolved",
-      "state": "unresolved"
-    },
-    {
-      "availability": "unresolved",
-      "blocked_by": "Revision/digest not yet resolved; resolve and verify in a networked pinning step.",
-      "dimensions": {
-        "ambiguous_name_precision": {
-          "delta": null,
-          "reference": null,
-          "selected": null
-        },
-        "en_f1": {
-          "delta": null,
-          "reference": null,
-          "selected": null
-        },
-        "entity_f1": {
-          "delta": null,
-          "reference": null,
-          "selected": null
-        },
-        "ko_f1": {
-          "delta": null,
-          "reference": null,
-          "selected": null
-        },
-        "latency_p95_ms": {
-          "delta": null,
-          "reference": null,
-          "selected": null
-        },
-        "model_size_bytes": {
-          "delta": null,
-          "reference": null,
-          "selected": null
-        },
-        "unseen_name_recall": {
-          "delta": null,
-          "reference": null,
-          "selected": null
+          "delta": 0.612329,
+          "reference": 0.09041095890410959,
+          "selected": 0.7027397260273973
         }
       },
       "id": "ref-bert-base-ner",
-      "pin_status": "unresolved",
-      "state": "unresolved"
+      "pin_status": "resolved",
+      "state": "measured"
+    },
+    {
+      "availability": "available",
+      "blocked_by": null,
+      "dimensions": {
+        "ambiguous_name_precision": {
+          "delta": -0.236107,
+          "reference": 0.6847826086956522,
+          "selected": 0.44867549668874174
+        },
+        "en_f1": {
+          "delta": 0.597275,
+          "reference": 0.08884859474161379,
+          "selected": 0.6861233480176212
+        },
+        "entity_f1": {
+          "delta": 0.191906,
+          "reference": 0.5019088826673455,
+          "selected": 0.693815331010453
+        },
+        "ko_f1": {
+          "delta": -0.009659,
+          "reference": 0.7085066162570889,
+          "selected": 0.6988472622478386
+        },
+        "latency_p95_ms": {
+          "delta": -24.52,
+          "reference": 24.59,
+          "selected": 0.07
+        },
+        "model_size_bytes": {
+          "delta": -56774441,
+          "reference": 57365125,
+          "selected": 590684
+        },
+        "unseen_name_recall": {
+          "delta": 0.40274,
+          "reference": 0.3,
+          "selected": 0.7027397260273973
+        }
+      },
+      "id": "ref-koelectra-ko",
+      "pin_status": "resolved",
+      "state": "measured"
     },
     {
       "availability": "unresolved",
-      "blocked_by": "Exact checkpoint, revision and digest not yet resolved; resolve and verify in a networked pinning step.",
+      "blocked_by": "Not run in alpha1-full: ner-eval has no GLiNER adapter yet (ner-eval docs/REFERENCE_ADAPTERS.md). Planned reference.",
       "dimensions": {
         "ambiguous_name_precision": {
           "delta": null,
           "reference": null,
-          "selected": null
+          "selected": 0.44867549668874174
         },
         "en_f1": {
           "delta": null,
           "reference": null,
-          "selected": null
+          "selected": 0.6861233480176212
         },
         "entity_f1": {
           "delta": null,
           "reference": null,
-          "selected": null
+          "selected": 0.693815331010453
         },
         "ko_f1": {
           "delta": null,
           "reference": null,
-          "selected": null
+          "selected": 0.6988472622478386
         },
         "latency_p95_ms": {
           "delta": null,
           "reference": null,
-          "selected": null
+          "selected": 0.07
         },
         "model_size_bytes": {
           "delta": null,
           "reference": null,
-          "selected": null
+          "selected": 590684
         },
         "unseen_name_recall": {
           "delta": null,
           "reference": null,
-          "selected": null
+          "selected": 0.7027397260273973
         }
       },
       "id": "ref-gliner-multi",
@@ -322,37 +428,47 @@
     }
   ],
   "release_identity": {
-    "candidate": null,
-    "evaluator_versions": [],
+    "candidate": "fastner-b-linear-crf",
+    "evaluator_versions": [
+      "0.1.0"
+    ],
     "evidence_snapshots": [
       {
-        "case_count": null,
-        "snapshot_digest": null,
-        "snapshot_id": null
+        "case_count": 545,
+        "corpus_version": "person-en-ko-alpha.1-65b5a0970bfe",
+        "digest_spec": "ner-evidence-snapshot-digest/1",
+        "fixture_count": 2987,
+        "schema": "ner-evidence.snapshot/0.1.0",
+        "snapshot_digest": "sha256:65b5a0970bfe9307d4c5fb4c0ad5dbdd11546ce3d591e0afe583249955757415",
+        "snapshot_id": "person-en-ko-alpha.1-65b5a0970bfe",
+        "source_manifest_digest": "sha256:7efa86e4f80e1e78533666ff0321374bedabde0dd40105562ddba7f29503dd00",
+        "taxonomy_version": "0.1.0"
       }
     ],
-    "fastner_runtime_commit": null,
-    "fastner_runtime_version": null,
-    "metric_protocol_versions": [],
-    "model_artifact_digest": null,
+    "fastner_runtime_commit": "007805d3e83bb6c72f604cdcdd2e338c7b6ea753",
+    "fastner_runtime_version": "0.0.0",
+    "metric_protocol_versions": [
+      "ner-eval.match/1.1.0"
+    ],
+    "model_artifact_digest": "sha256:a88941224b9bf20f419c14e6459366f4fcb65a7108ce7d589baa3f7ca8e694e7",
     "peer_pins": [
       {
-        "artifact_digest": null,
+        "artifact_digest": "sha256:81160f80dfefb684976731b365eab4c47da91305c36b8165f68d30a1d7c48067",
         "id": "ref-spacy-en",
-        "pin_status": "unresolved",
-        "version": null
+        "pin_status": "resolved",
+        "version": "3.8.0"
       },
       {
-        "artifact_digest": null,
-        "id": "ref-spacy-ko",
-        "pin_status": "unresolved",
-        "version": null
-      },
-      {
-        "artifact_digest": null,
+        "artifact_digest": "sha256:0263fcac83c837d8311d4695337312e0f9e8987a8ee92875c4d5afd278e89a1f",
         "id": "ref-bert-base-ner",
-        "pin_status": "unresolved",
-        "version": null
+        "pin_status": "resolved",
+        "version": "d1a3e8f13f8c3566299d95fcfc9a8d2382a9affc"
+      },
+      {
+        "artifact_digest": "sha256:9ad852bbefa730824fdb115491a1e983a64834ab88ac10dc590fd2b54a3bbab4",
+        "id": "ref-koelectra-ko",
+        "pin_status": "resolved",
+        "version": "bb9d562674e260712d9779f140ff5564a9e44d36"
       },
       {
         "artifact_digest": null,
@@ -361,7 +477,9 @@
         "version": null
       }
     ],
-    "performance_environments": [],
+    "performance_environments": [
+      "sha256:f3fbb386e42b91f4fdb03f500d91b2bead768a2569ff8a09148d3d38ff96ffdf"
+    ],
     "regression_corpus": {
       "fastner-adversarial": {
         "case_count": 37,
@@ -377,11 +495,11 @@
   "support": [
     {
       "profile": "PERSON/en",
-      "status": "unsupported"
+      "status": "experimental"
     },
     {
       "profile": "PERSON/ko",
-      "status": "unsupported"
+      "status": "experimental"
     }
   ]
 }
