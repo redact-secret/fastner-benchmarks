@@ -1,0 +1,277 @@
+{
+  "schema": "fastner-benchmarks.support-gates/1",
+  "gate_set_version": "0.1.0",
+  "policy_version": "0.1.0",
+  "statuses": [
+    "unsupported",
+    "experimental",
+    "provisional",
+    "stable"
+  ],
+  "status_definitions": {
+    "unsupported": "No selected architecture, or nothing measured for this profile. Never means 'bad'; means 'no evidence'.",
+    "experimental": "A candidate is measured for this profile but at least one gate fails/is unmeasured, or the architecture is not yet promoted via ADR, or the gate set is not ratified.",
+    "provisional": "Selected architecture promoted (ADR recorded), pins resolved, every gate passes, gate set ratified against a real baseline.",
+    "stable": "Not reachable at Alpha. Requires stable_requirements below."
+  },
+  "thresholds_status": "proposed-unratified",
+  "ratification": null,
+  "ratification_rule": "No baseline measurements exist, so every number below is a PROPOSAL. A profile cannot become provisional until `ratification` records the baseline run ids and who ratified; until then the generator caps support at experimental.",
+  "stable_enabled": false,
+  "stable_requirements": [
+    "stable_enabled=true (policy decision after Beta evidence)",
+    "holdout population measured (private aggregates)",
+    "gates passing in >= 2 consecutive requalifications",
+    "budgets enforced in CI"
+  ],
+  "profiles": [
+    {
+      "id": "PERSON/en",
+      "entity": "PERSON",
+      "language": "en",
+      "required_populations": [
+        "ner-evidence-public",
+        "fastner-regression",
+        "fastner-adversarial"
+      ],
+      "gates": [
+        {
+          "id": "public.en_f1",
+          "title": "EN F1 on public snapshot",
+          "op": ">=",
+          "threshold": 0.85,
+          "source": {
+            "dimension": "en_f1"
+          }
+        },
+        {
+          "id": "public.ambiguous_precision",
+          "title": "Ambiguous-name precision (public)",
+          "op": ">=",
+          "threshold": 0.85,
+          "source": {
+            "dimension": "ambiguous_name_precision"
+          }
+        },
+        {
+          "id": "public.unseen_recall",
+          "title": "Unseen-name recall (public)",
+          "op": ">=",
+          "threshold": 0.6,
+          "source": {
+            "dimension": "unseen_name_recall"
+          }
+        },
+        {
+          "id": "regression.en_f1",
+          "title": "EN F1 on regression corpus",
+          "op": ">=",
+          "threshold": 0.9,
+          "source": {
+            "population": "fastner-regression",
+            "slice": "language=en",
+            "metric": "f1"
+          }
+        },
+        {
+          "id": "adversarial.en_precision",
+          "title": "EN precision on adversarial corpus",
+          "op": ">=",
+          "threshold": 0.85,
+          "source": {
+            "population": "fastner-adversarial",
+            "slice": "language=en",
+            "metric": "precision"
+          }
+        },
+        {
+          "id": "budget.latency_p95_ms",
+          "title": "Warm latency p95",
+          "op": "<=",
+          "threshold": 5,
+          "source": {
+            "dimension": "latency_p95_ms"
+          }
+        },
+        {
+          "id": "budget.throughput",
+          "title": "Batch throughput docs/s",
+          "op": ">=",
+          "threshold": 500,
+          "source": {
+            "dimension": "throughput_docs_per_s"
+          }
+        },
+        {
+          "id": "budget.startup_ms",
+          "title": "Cold startup ms",
+          "op": "<=",
+          "threshold": 50,
+          "source": {
+            "dimension": "startup_ms"
+          }
+        },
+        {
+          "id": "budget.peak_memory_mb",
+          "title": "Peak memory MiB",
+          "op": "<=",
+          "threshold": 64,
+          "source": {
+            "dimension": "peak_memory_mb"
+          }
+        },
+        {
+          "id": "budget.model_size",
+          "title": "Model size bytes",
+          "op": "<=",
+          "threshold": 5242880,
+          "source": {
+            "dimension": "model_size_bytes"
+          }
+        },
+        {
+          "id": "budget.runtime_binary",
+          "title": "Runtime binary bytes",
+          "op": "<=",
+          "threshold": 10485760,
+          "source": {
+            "dimension": "runtime_binary_size_bytes"
+          }
+        },
+        {
+          "id": "budget.wasm_size",
+          "title": "WASM bytes",
+          "op": "<=",
+          "threshold": 2097152,
+          "source": {
+            "dimension": "wasm_size_bytes"
+          }
+        }
+      ]
+    },
+    {
+      "id": "PERSON/ko",
+      "entity": "PERSON",
+      "language": "ko",
+      "required_populations": [
+        "ner-evidence-public",
+        "fastner-regression",
+        "fastner-adversarial"
+      ],
+      "gates": [
+        {
+          "id": "public.ko_f1",
+          "title": "KO F1 on public snapshot",
+          "op": ">=",
+          "threshold": 0.8,
+          "source": {
+            "dimension": "ko_f1"
+          }
+        },
+        {
+          "id": "public.ambiguous_precision",
+          "title": "Ambiguous-name precision (public)",
+          "op": ">=",
+          "threshold": 0.85,
+          "source": {
+            "dimension": "ambiguous_name_precision"
+          }
+        },
+        {
+          "id": "public.unseen_recall",
+          "title": "Unseen-name recall (public)",
+          "op": ">=",
+          "threshold": 0.6,
+          "source": {
+            "dimension": "unseen_name_recall"
+          }
+        },
+        {
+          "id": "regression.ko_f1",
+          "title": "KO F1 on regression corpus",
+          "op": ">=",
+          "threshold": 0.85,
+          "source": {
+            "population": "fastner-regression",
+            "slice": "language=ko",
+            "metric": "f1"
+          }
+        },
+        {
+          "id": "adversarial.ko_precision",
+          "title": "KO precision on adversarial corpus",
+          "op": ">=",
+          "threshold": 0.85,
+          "source": {
+            "population": "fastner-adversarial",
+            "slice": "language=ko",
+            "metric": "precision"
+          }
+        },
+        {
+          "id": "budget.latency_p95_ms",
+          "title": "Warm latency p95",
+          "op": "<=",
+          "threshold": 5,
+          "source": {
+            "dimension": "latency_p95_ms"
+          }
+        },
+        {
+          "id": "budget.throughput",
+          "title": "Batch throughput docs/s",
+          "op": ">=",
+          "threshold": 500,
+          "source": {
+            "dimension": "throughput_docs_per_s"
+          }
+        },
+        {
+          "id": "budget.startup_ms",
+          "title": "Cold startup ms",
+          "op": "<=",
+          "threshold": 50,
+          "source": {
+            "dimension": "startup_ms"
+          }
+        },
+        {
+          "id": "budget.peak_memory_mb",
+          "title": "Peak memory MiB",
+          "op": "<=",
+          "threshold": 64,
+          "source": {
+            "dimension": "peak_memory_mb"
+          }
+        },
+        {
+          "id": "budget.model_size",
+          "title": "Model size bytes",
+          "op": "<=",
+          "threshold": 5242880,
+          "source": {
+            "dimension": "model_size_bytes"
+          }
+        },
+        {
+          "id": "budget.runtime_binary",
+          "title": "Runtime binary bytes",
+          "op": "<=",
+          "threshold": 10485760,
+          "source": {
+            "dimension": "runtime_binary_size_bytes"
+          }
+        },
+        {
+          "id": "budget.wasm_size",
+          "title": "WASM bytes",
+          "op": "<=",
+          "threshold": 2097152,
+          "source": {
+            "dimension": "wasm_size_bytes"
+          }
+        }
+      ]
+    }
+  ]
+}

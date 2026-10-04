@@ -10,6 +10,16 @@ DIG = {m: "sha256:" + c * 64 for m, c in
        zip(["fastner-a-statistical", "fastner-b-linear-crf", "fastner-c-compact-neural", "fastner-d-tiny-transformer", "ref-spacy-en"], "abcde")}
 
 
+def _counts():
+    from fnbench.corpus import CORPORA, read_built
+    c = {k: len(read_built(k)) for k in CORPORA}
+    c["ner-evidence-public"] = 100
+    return c
+
+
+COUNTS = _counts()
+
+
 def resolved_cfg():
     cfg = copy.deepcopy(load_candidates())
     for e in cfg["candidates"]:
@@ -44,7 +54,7 @@ def block(p, r, f1=None):
 
 def quality(model, f1_scale=1.0, corpus="ner-evidence-public", run="q", proto="p1", status="ok"):
     a = {"schema": "ner-eval.quality/draft", "run_id": f"{run}-{model}", "evaluator_version": "ev1", "metric_protocol_version": proto,
-         "corpus": {"id": corpus, "case_count": 100, "digest": "sha256:" + "9" * 64},
+         "corpus": {"id": corpus, "case_count": COUNTS.get(corpus, 100), "digest": "sha256:" + "9" * 64},
          "model": {"id": model, "artifact_digest": DIG.get(model)}, "status": status}
     if status != "ok":
         a["reason"] = "adapter crashed"

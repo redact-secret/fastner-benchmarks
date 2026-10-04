@@ -12,3 +12,4 @@ validate: test
 	$(PY) -m fnbench promotion --check
 	$(PY) -m fnbench corpus --check
 	$(PY) -m fnbench workloads --check
+	$(PY) -m fnbench support --check
