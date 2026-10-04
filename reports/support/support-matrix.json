@@ -1,35 +1,42 @@
 {
-  "bakeoff_id": "alpha0-bakeoff-1",
-  "gate_set_version": "0.1.0",
-  "policy_version": "0.1.0",
+  "bakeoff_id": "alpha1-full",
+  "gate_set_version": "0.2.0",
+  "policy_version": "0.2.0",
   "profiles": [
     {
       "gate_counts": {
-        "fail": 0,
-        "pass": 0,
-        "unmeasured": 12
+        "fail": 4,
+        "pass": 7,
+        "unmeasured": 2
       },
       "gates": [
         {
           "gate": "public.en_f1",
           "op": ">=",
-          "result": "unmeasured",
+          "result": "fail",
           "threshold": 0.85,
-          "value": null
+          "value": 0.6861233480176212
         },
         {
           "gate": "public.ambiguous_precision",
           "op": ">=",
-          "result": "unmeasured",
+          "result": "fail",
           "threshold": 0.85,
-          "value": null
+          "value": 0.44867549668874174
         },
         {
           "gate": "public.unseen_recall",
           "op": ">=",
-          "result": "unmeasured",
+          "result": "pass",
           "threshold": 0.6,
-          "value": null
+          "value": 0.7027397260273973
+        },
+        {
+          "gate": "public.collision_precision_worst",
+          "op": ">=",
+          "result": "fail",
+          "threshold": 0.7,
+          "value": 0.26605504587155965
         },
         {
           "gate": "regression.en_f1",
@@ -48,91 +55,101 @@
         {
           "gate": "budget.latency_p95_ms",
           "op": "<=",
-          "result": "unmeasured",
+          "result": "pass",
           "threshold": 5,
-          "value": null
+          "value": 0.07
         },
         {
           "gate": "budget.throughput",
           "op": ">=",
-          "result": "unmeasured",
+          "result": "pass",
           "threshold": 500,
-          "value": null
+          "value": 198562.53137443122
         },
         {
           "gate": "budget.startup_ms",
           "op": "<=",
-          "result": "unmeasured",
+          "result": "fail",
           "threshold": 50,
-          "value": null
+          "value": 1337.082
         },
         {
           "gate": "budget.peak_memory_mb",
           "op": "<=",
-          "result": "unmeasured",
+          "result": "pass",
           "threshold": 64,
-          "value": null
+          "value": 3.09375
         },
         {
           "gate": "budget.model_size",
           "op": "<=",
-          "result": "unmeasured",
+          "result": "pass",
           "threshold": 5242880,
-          "value": null
+          "value": 590684
         },
         {
           "gate": "budget.runtime_binary",
           "op": "<=",
-          "result": "unmeasured",
+          "result": "pass",
           "threshold": 10485760,
-          "value": null
+          "value": 563936
         },
         {
           "gate": "budget.wasm_size",
           "op": "<=",
-          "result": "unmeasured",
+          "result": "pass",
           "threshold": 2097152,
-          "value": null
+          "value": 71680
         }
       ],
       "profile": "PERSON/en",
       "reasons": [
-        "no selected architecture (no-decision-insufficient-evidence): nothing measured or qualified for this profile"
+        "4 gate(s) failing",
+        "2 gate(s) unmeasured",
+        "architecture not promoted (state: adr-accepted-pending-merge); promotion needs an accepted fastner ADR on fastner main",
+        "gate thresholds are unratified proposals (no baseline ratification)"
       ],
       "required_populations": [
         "ner-evidence-public",
         "fastner-regression",
         "fastner-adversarial"
       ],
-      "status": "unsupported"
+      "status": "experimental"
     },
     {
       "gate_counts": {
-        "fail": 0,
-        "pass": 0,
-        "unmeasured": 12
+        "fail": 4,
+        "pass": 7,
+        "unmeasured": 2
       },
       "gates": [
         {
           "gate": "public.ko_f1",
           "op": ">=",
-          "result": "unmeasured",
+          "result": "fail",
           "threshold": 0.8,
-          "value": null
+          "value": 0.6988472622478386
         },
         {
           "gate": "public.ambiguous_precision",
           "op": ">=",
-          "result": "unmeasured",
+          "result": "fail",
           "threshold": 0.85,
-          "value": null
+          "value": 0.44867549668874174
         },
         {
           "gate": "public.unseen_recall",
           "op": ">=",
-          "result": "unmeasured",
+          "result": "pass",
           "threshold": 0.6,
-          "value": null
+          "value": 0.7027397260273973
+        },
+        {
+          "gate": "public.collision_precision_worst",
+          "op": ">=",
+          "result": "fail",
+          "threshold": 0.7,
+          "value": 0.26605504587155965
         },
         {
           "gate": "regression.ko_f1",
@@ -151,68 +168,77 @@
         {
           "gate": "budget.latency_p95_ms",
           "op": "<=",
-          "result": "unmeasured",
+          "result": "pass",
           "threshold": 5,
-          "value": null
+          "value": 0.07
         },
         {
           "gate": "budget.throughput",
           "op": ">=",
-          "result": "unmeasured",
+          "result": "pass",
           "threshold": 500,
-          "value": null
+          "value": 198562.53137443122
         },
         {
           "gate": "budget.startup_ms",
           "op": "<=",
-          "result": "unmeasured",
+          "result": "fail",
           "threshold": 50,
-          "value": null
+          "value": 1337.082
         },
         {
           "gate": "budget.peak_memory_mb",
           "op": "<=",
-          "result": "unmeasured",
+          "result": "pass",
           "threshold": 64,
-          "value": null
+          "value": 3.09375
         },
         {
           "gate": "budget.model_size",
           "op": "<=",
-          "result": "unmeasured",
+          "result": "pass",
           "threshold": 5242880,
-          "value": null
+          "value": 590684
         },
         {
           "gate": "budget.runtime_binary",
           "op": "<=",
-          "result": "unmeasured",
+          "result": "pass",
           "threshold": 10485760,
-          "value": null
+          "value": 563936
         },
         {
           "gate": "budget.wasm_size",
           "op": "<=",
-          "result": "unmeasured",
+          "result": "pass",
           "threshold": 2097152,
-          "value": null
+          "value": 71680
         }
       ],
       "profile": "PERSON/ko",
       "reasons": [
-        "no selected architecture (no-decision-insufficient-evidence): nothing measured or qualified for this profile"
+        "4 gate(s) failing",
+        "2 gate(s) unmeasured",
+        "architecture not promoted (state: adr-accepted-pending-merge); promotion needs an accepted fastner ADR on fastner main",
+        "gate thresholds are unratified proposals (no baseline ratification)"
       ],
       "required_populations": [
         "ner-evidence-public",
         "fastner-regression",
         "fastner-adversarial"
       ],
-      "status": "unsupported"
+      "status": "experimental"
     }
   ],
-  "promotion_state": "not-promoted",
+  "promotion_state": "adr-accepted-pending-merge",
   "schema": "fastner-benchmarks.support-matrix/1",
-  "selected_architecture": null,
-  "selected_pin": null,
+  "selected_architecture": "fastner-b-linear-crf",
+  "selected_pin": {
+    "artifact_digest": "sha256:a88941224b9bf20f419c14e6459366f4fcb65a7108ce7d589baa3f7ca8e694e7",
+    "config_hash": "sha256:b413133709e8e1714de2fac2b15e28549d2c4d7bbe8bc07c91fc52f05ad787f7",
+    "id": "fastner-b-linear-crf",
+    "pin_status": "resolved",
+    "version": "0.0.0"
+  },
   "thresholds_status": "proposed-unratified"
 }

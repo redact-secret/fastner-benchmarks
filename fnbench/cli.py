@@ -40,6 +40,7 @@ def _lazy(mod, fn="main"):
 
 
 COMMANDS = {
+    "ingest": ("ingest real ner-eval run output into normalized artifacts", _lazy("ingest")),
     "corpus": ("build/check product corpora from .src.jsonl", _lazy("corpus")),
     "workloads": ("build/check reproducible performance workloads", _lazy("workloads")),
     "qualify": ("generate the qualification record and Beta-entry decision", _lazy("qualify")),

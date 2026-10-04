@@ -25,10 +25,11 @@ def config_hash(entry):
 
 def missing_pin_fields(cfg, entry):
     out = []
-    for dotted in cfg["pin_requirements"][entry["role"]]:
-        v = get_path(entry, dotted)
-        if v is None or v == "" or v == {}:
-            out.append(dotted)
+    for req in cfg["pin_requirements"][entry["role"]]:
+        # "a|b" = any of the alternatives (e.g. HF revision or spaCy package version)
+        vals = [get_path(entry, alt) for alt in req.split("|")]
+        if all(v is None or v == "" or v == {} for v in vals):
+            out.append(req)
     return out
 
 
@@ -50,7 +51,7 @@ def validate_config(cfg):
             errs.append(f"unknown population {pid}")
     for e in entries:
         eid = e["id"]
-        if e["role"] not in ("candidate", "reference"):
+        if e["role"] not in ("candidate", "reference", "control"):
             errs.append(f"{eid}: bad role")
         status = e.get("pin_status")
         miss = missing_pin_fields(cfg, e)
@@ -63,6 +64,8 @@ def validate_config(cfg):
             path = get_path(e, "model.artifact_path")
             if path and (ROOT / path).exists() and sha256_file(ROOT / path) != dig:
                 errs.append(f"{eid}: artifact_digest does not match file on disk")
+            if e["role"] == "candidate" and not re.fullmatch(r"[0-9a-f]{40}", str(get_path(e, "runtime.commit"))):
+                errs.append(f"{eid}: runtime.commit must be a full 40-hex git SHA")
             if e["role"] == "reference" and e.get("availability") not in ("available",):
                 errs.append(f"{eid}: resolved reference must be availability=available")
         elif status == "unresolved":
@@ -86,7 +89,9 @@ def pin_table(cfg):
         rows.append({
             "id": e["id"], "role": e["role"], "class": e.get("class"), "display": e["display"],
             "pin_status": e["pin_status"], "availability": e.get("availability", "n/a"),
-            "version": get_path(e, "runtime.version") if e["role"] == "candidate" else get_path(e, "model.revision"),
+            "version": get_path(e, "runtime.version") if e["role"] == "candidate" else (get_path(e, "model.revision") or get_path(e, "model.version")),
+            "runtime_commit": get_path(e, "runtime.commit"), "adapter_id": e.get("adapter_id"), "languages": e.get("languages"),
+            "license": e.get("license"),
             "artifact_digest": get_path(e, "model.artifact_digest"),
             "model_size_bytes": get_path(e, "model.size_bytes"),
             "runtime": get_path(e, "runtime.name"), "adapter": get_path(e, "adapter.id"),

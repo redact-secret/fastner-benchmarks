@@ -1,83 +1,480 @@
 {
   "schema": "fastner-benchmarks.candidates/1",
-  "bakeoff_id": "alpha0-bakeoff-1",
-  "policy_version": "0.1.0",
-  "entity_scope": ["PERSON"],
-  "languages": ["en", "ko"],
-  "quality_populations": ["ner-evidence-public", "fastner-regression", "fastner-adversarial"],
+  "bakeoff_id": "alpha1-full",
+  "policy_version": "0.2.0",
+  "entity_scope": [
+    "PERSON"
+  ],
+  "languages": [
+    "en",
+    "ko"
+  ],
+  "quality_populations": [
+    "ner-evidence-public",
+    "fastner-regression",
+    "fastner-adversarial"
+  ],
   "protocol": {
     "metric_protocol": "ner-eval (authoritative; version recorded in each artifact)",
-    "perf": {"warmup_iterations": 20, "measured_iterations": 200, "batch_sizes": [1, 32], "cold_start_runs": 10, "requires_same_environment_id": true},
+    "perf": {
+      "warmup_iterations": 20,
+      "measured_iterations": 200,
+      "batch_sizes": [
+        1,
+        32
+      ],
+      "cold_start_runs": 10,
+      "requires_same_environment_id": true
+    },
     "seed": 20261004
   },
   "pin_requirements": {
-    "candidate": ["runtime.commit", "runtime.version", "adapter.id", "adapter.version", "model.artifact_digest", "model.size_bytes", "model.format_version", "config"],
-    "reference": ["model.revision", "model.artifact_digest", "model.size_bytes", "runtime.name", "runtime.version", "adapter.id", "adapter.version", "config", "license"]
+    "candidate": [
+      "runtime.commit",
+      "runtime.version",
+      "adapter.id",
+      "adapter.version",
+      "model.artifact_digest",
+      "model.size_bytes",
+      "model.version",
+      "config"
+    ],
+    "reference": [
+      "model.revision|model.version",
+      "model.artifact_digest",
+      "model.size_bytes",
+      "runtime.name",
+      "runtime.version",
+      "adapter.id",
+      "adapter.version",
+      "config"
+    ],
+    "control": [
+      "model.artifact_digest",
+      "adapter.id",
+      "adapter.version"
+    ]
   },
   "candidates": [
     {
-      "id": "fastner-a-statistical", "class": "A-statistical", "role": "candidate", "display": "Statistical baseline (shape, char n-grams, lexical priors)",
-      "pin_status": "unresolved", "blocked_by": "fastner has no implementation yet (docs-only repository); no model artifact or runtime commit exists.",
-      "runtime": {"name": "fastner", "commit": null, "version": null, "targets": ["native", "wasm"]},
-      "adapter": {"id": "ner-eval-native-rust", "version": null},
-      "model": {"artifact_digest": null, "size_bytes": null, "format_version": null},
-      "config": {"tokenizer": "fastner-unicode-v0", "features": ["token-shape", "char-ngram", "local-context", "lexical-prior", "negative-evidence"], "decoder": "greedy"}
+      "id": "fastner-a-statistical",
+      "class": "A-statistical",
+      "role": "candidate",
+      "display": "Statistical baseline (shape, char n-grams, lexical priors)",
+      "pin_status": "resolved",
+      "runtime": {
+        "name": "fastner",
+        "commit": "007805d3e83bb6c72f604cdcdd2e338c7b6ea753",
+        "version": "0.0.0",
+        "targets": [
+          "native",
+          "wasm"
+        ],
+        "source": "redact-secret/fastner#10 head (alpha/architecture-bakeoff); PR open, not on main at pin time"
+      },
+      "adapter": {
+        "id": "fastner-eval-shim",
+        "version": "1",
+        "transport": "external-process",
+        "shim_binary_digest": "sha256:66a8f1333d8e88575b477b31f0fab0d26a4db526a21cad0088ec47f7d67a22e9"
+      },
+      "model": {
+        "artifact_digest": "sha256:66e0c2ebf552166e5dd1badf0b46ebdace7ec8ce0d045f59148d5862e150193c",
+        "size_bytes": 131920,
+        "version": "stat-b16-en+stat-b16-ko",
+        "wasm_probe_digest": "sha256:e596d7940787bc4dbf2907281c87e06d64675150188fbbcc51881a29bff2bd44",
+        "wasm_probe_bytes": 68011
+      },
+      "config": {
+        "labels": {
+          "PERSON": "person"
+        },
+        "unmapped": "drop",
+        "threads": 1,
+        "batch_size": 16,
+        "ner_eval_adapter_config_hash": "sha256:79a4759506ce33ce26b3f1c721a2d148c547190611180aeb926aeb7c1946b6de"
+      },
+      "adapter_id": "fastner-stat"
     },
     {
-      "id": "fastner-b-linear-crf", "class": "B-linear-crf", "role": "candidate", "display": "Sparse/hashed linear model + linear-chain CRF",
-      "pin_status": "unresolved", "blocked_by": "fastner has no implementation yet (docs-only repository); no model artifact or runtime commit exists.",
-      "runtime": {"name": "fastner", "commit": null, "version": null, "targets": ["native", "wasm"]},
-      "adapter": {"id": "ner-eval-native-rust", "version": null},
-      "model": {"artifact_digest": null, "size_bytes": null, "format_version": null},
-      "config": {"tokenizer": "fastner-unicode-v0", "features": ["hashed-sparse", "language-specific"], "quantization": "int8", "decoder": "viterbi-linear-chain"}
+      "id": "fastner-b-linear-crf",
+      "class": "B-linear-crf",
+      "role": "candidate",
+      "display": "Sparse/hashed linear model + linear-chain CRF",
+      "pin_status": "resolved",
+      "runtime": {
+        "name": "fastner",
+        "commit": "007805d3e83bb6c72f604cdcdd2e338c7b6ea753",
+        "version": "0.0.0",
+        "targets": [
+          "native",
+          "wasm"
+        ],
+        "source": "redact-secret/fastner#10 head (alpha/architecture-bakeoff); PR open, not on main at pin time"
+      },
+      "adapter": {
+        "id": "fastner-eval-shim",
+        "version": "1",
+        "transport": "external-process",
+        "shim_binary_digest": "sha256:66a8f1333d8e88575b477b31f0fab0d26a4db526a21cad0088ec47f7d67a22e9"
+      },
+      "model": {
+        "artifact_digest": "sha256:a88941224b9bf20f419c14e6459366f4fcb65a7108ce7d589baa3f7ca8e694e7",
+        "size_bytes": 590684,
+        "version": "person-en-v1+person-ko-v1",
+        "wasm_probe_digest": "sha256:91e74f6e1fb4c8b84be89ea5ad8e9336b63757fdbfca3f401a572f82032ab73b",
+        "wasm_probe_bytes": 71680
+      },
+      "config": {
+        "labels": {
+          "PERSON": "person"
+        },
+        "unmapped": "drop",
+        "threads": 1,
+        "batch_size": 16,
+        "ner_eval_adapter_config_hash": "sha256:93ad9a0e569e3f943437bfa3fb44b94483d52216fd0f6280eca6b8d59562a927"
+      },
+      "adapter_id": "fastner-crf"
     },
     {
-      "id": "fastner-c-compact-neural", "class": "C-compact-neural", "role": "candidate", "display": "Char/subword embeddings + small contextual encoder",
-      "pin_status": "unresolved", "blocked_by": "fastner has no implementation yet (docs-only repository); no model artifact or runtime commit exists.",
-      "runtime": {"name": "fastner", "commit": null, "version": null, "targets": ["native", "wasm"]},
-      "adapter": {"id": "ner-eval-native-rust", "version": null},
-      "model": {"artifact_digest": null, "size_bytes": null, "format_version": null},
-      "config": {"tokenizer": "fastner-unicode-v0", "encoder": "small-contextual", "quantization": "int8", "decoder": "compact"}
+      "id": "fastner-c-compact-neural",
+      "class": "C-compact-neural",
+      "role": "candidate",
+      "display": "Char/subword embeddings + small contextual encoder",
+      "pin_status": "resolved",
+      "runtime": {
+        "name": "fastner",
+        "commit": "007805d3e83bb6c72f604cdcdd2e338c7b6ea753",
+        "version": "0.0.0",
+        "targets": [
+          "native",
+          "wasm"
+        ],
+        "source": "redact-secret/fastner#10 head (alpha/architecture-bakeoff); PR open, not on main at pin time"
+      },
+      "adapter": {
+        "id": "fastner-eval-shim",
+        "version": "1",
+        "transport": "external-process",
+        "shim_binary_digest": "sha256:66a8f1333d8e88575b477b31f0fab0d26a4db526a21cad0088ec47f7d67a22e9"
+      },
+      "model": {
+        "artifact_digest": "sha256:020bb4bf3b2bf46f1310c145538154116534cbc1ab81d283a6f3e4297e5d1d15",
+        "size_bytes": 665172,
+        "version": "neural-b14d16h32-en+neural-b14d24h48-ko",
+        "wasm_probe_digest": "sha256:b5179c656b9fb35a89e51b551665a2af977a9cff7fc6fa28c7ef510b585ebbb0",
+        "wasm_probe_bytes": 76450
+      },
+      "config": {
+        "labels": {
+          "PERSON": "person"
+        },
+        "unmapped": "drop",
+        "threads": 1,
+        "batch_size": 16,
+        "ner_eval_adapter_config_hash": "sha256:e1480dc8567bcc049a9c956ef4f63e11dfc543b9c47d279e576ca3ad40c82d19"
+      },
+      "adapter_id": "fastner-neural"
     },
     {
-      "id": "fastner-d-tiny-transformer", "class": "D-tiny-transformer", "role": "candidate", "display": "Tiny Transformer reference point (not the assumed target)",
-      "pin_status": "unresolved", "blocked_by": "fastner has no implementation yet (docs-only repository); no model artifact or runtime commit exists.",
-      "runtime": {"name": "fastner", "commit": null, "version": null, "targets": ["native", "wasm"]},
-      "adapter": {"id": "ner-eval-native-rust", "version": null},
-      "model": {"artifact_digest": null, "size_bytes": null, "format_version": null},
-      "config": {"tokenizer": "fastner-unicode-v0", "encoder": "tiny-transformer", "quantization": "int8", "decoder": "softmax-bio"}
+      "id": "fastner-d-tiny-transformer",
+      "class": "D-tiny-transformer",
+      "role": "candidate",
+      "display": "Tiny Transformer reference point (not the assumed target)",
+      "pin_status": "resolved",
+      "runtime": {
+        "name": "fastner",
+        "commit": "007805d3e83bb6c72f604cdcdd2e338c7b6ea753",
+        "version": "0.0.0",
+        "targets": [
+          "native",
+          "wasm"
+        ],
+        "source": "redact-secret/fastner#10 head (alpha/architecture-bakeoff); PR open, not on main at pin time"
+      },
+      "adapter": {
+        "id": "fastner-eval-shim",
+        "version": "1",
+        "transport": "external-process",
+        "shim_binary_digest": "sha256:66a8f1333d8e88575b477b31f0fab0d26a4db526a21cad0088ec47f7d67a22e9"
+      },
+      "model": {
+        "artifact_digest": "sha256:b4af22138e658ebdb21688d6dedb3f4cd02be9c5b6814cb7aed98ca9fee423c6",
+        "size_bytes": 674532,
+        "version": "transformer-l1-en+transformer-l2-ko",
+        "wasm_probe_digest": "sha256:83b64c66a806c845b3f3ece94ce3ac2c1f9619a26b3f11ada8a0b436e555abe8",
+        "wasm_probe_bytes": 79603
+      },
+      "config": {
+        "labels": {
+          "PERSON": "person"
+        },
+        "unmapped": "drop",
+        "threads": 1,
+        "batch_size": 16,
+        "ner_eval_adapter_config_hash": "sha256:912fb4e0ddc6942a06aa2d252767837fcad88eb8a078b765ccf02b093ae7b028"
+      },
+      "adapter_id": "fastner-transformer"
     },
     {
-      "id": "ref-spacy-en", "role": "reference", "display": "spaCy en_core_web_sm (English PERSON)",
-      "pin_status": "unresolved", "availability": "unresolved", "blocked_by": "Revision/digest not yet resolved; resolve and verify in a networked pinning step.",
-      "languages": ["en"],
-      "model": {"name": "en_core_web_sm", "revision": null, "artifact_digest": null, "size_bytes": null},
-      "runtime": {"name": "spacy", "version": null}, "adapter": {"id": "ner-eval-python-shim", "version": null},
-      "config": {"label_map": {"PERSON": "PERSON"}}, "license": null
+      "id": "ref-spacy-en",
+      "role": "reference",
+      "adapter_id": "spacy-en-core-web-sm-3.8.0",
+      "display": "spaCy en_core_web_sm 3.8.0 (English)",
+      "languages": [
+        "en"
+      ],
+      "pin_status": "resolved",
+      "availability": "available",
+      "model": {
+        "name": "en_core_web_sm",
+        "revision": null,
+        "version": "3.8.0",
+        "artifact_digest": "sha256:81160f80dfefb684976731b365eab4c47da91305c36b8165f68d30a1d7c48067",
+        "size_bytes": 15231350
+      },
+      "runtime": {
+        "name": "spacy",
+        "version": "3.8.16",
+        "stack": [
+          {
+            "name": "python",
+            "version": "3.11.16"
+          },
+          {
+            "name": "spacy",
+            "version": "3.8.16"
+          },
+          {
+            "name": "thinc",
+            "version": "8.3.13"
+          },
+          {
+            "name": "numpy",
+            "version": "2.4.6"
+          }
+        ]
+      },
+      "adapter": {
+        "id": "spacy-en-core-web-sm-3.8.0",
+        "version": "spacy_shim/1",
+        "transport": "external-process"
+      },
+      "config": {
+        "label_map": {
+          "GPE": "location",
+          "LOC": "location",
+          "ORG": "organization",
+          "PERSON": "person"
+        },
+        "unmapped": "drop",
+        "threads": 1,
+        "ner_eval_adapter_config_hash": "sha256:9c6b871b00f666302d25fea5856641ea1b89b6aa4c7ab9cddc8a9cd1498115d7"
+      },
+      "license": {
+        "id": null,
+        "verified": false,
+        "note": "not stated in ner-eval pins; verify before public release"
+      }
     },
     {
-      "id": "ref-spacy-ko", "role": "reference", "display": "spaCy ko_core_news_sm (Korean PERSON)",
-      "pin_status": "unresolved", "availability": "unresolved", "blocked_by": "Revision/digest not yet resolved; resolve and verify in a networked pinning step.",
-      "languages": ["ko"],
-      "model": {"name": "ko_core_news_sm", "revision": null, "artifact_digest": null, "size_bytes": null},
-      "runtime": {"name": "spacy", "version": null}, "adapter": {"id": "ner-eval-python-shim", "version": null},
-      "config": {"label_map": {"PS": "PERSON", "PERSON": "PERSON"}}, "license": null
+      "id": "ref-bert-base-ner",
+      "role": "reference",
+      "adapter_id": "hf-dslim-bert-base-ner-d1a3e8f",
+      "display": "dslim/bert-base-NER (English)",
+      "languages": [
+        "en"
+      ],
+      "pin_status": "resolved",
+      "availability": "available",
+      "model": {
+        "name": "dslim/bert-base-NER",
+        "revision": "d1a3e8f13f8c3566299d95fcfc9a8d2382a9affc",
+        "version": null,
+        "artifact_digest": "sha256:0263fcac83c837d8311d4695337312e0f9e8987a8ee92875c4d5afd278e89a1f",
+        "size_bytes": 433506746
+      },
+      "runtime": {
+        "name": "torch",
+        "version": "2.11.0",
+        "stack": [
+          {
+            "name": "python",
+            "version": "3.11.16"
+          },
+          {
+            "name": "torch",
+            "version": "2.11.0"
+          },
+          {
+            "name": "transformers",
+            "version": "5.18.0"
+          },
+          {
+            "name": "tokenizers",
+            "version": "0.23.2"
+          }
+        ]
+      },
+      "adapter": {
+        "id": "hf-dslim-bert-base-ner-d1a3e8f",
+        "version": "hf_token_classification_shim/1",
+        "transport": "external-process"
+      },
+      "config": {
+        "label_map": {
+          "LOC": "location",
+          "ORG": "organization",
+          "PER": "person"
+        },
+        "unmapped": "drop",
+        "threads": 1,
+        "ner_eval_adapter_config_hash": "sha256:db42b6bb1269847aa18d97a33462e1a36fc8a933820e3a6ea1542b11db4f1c2b"
+      },
+      "license": {
+        "id": "MIT",
+        "verified": true,
+        "source": "ner-eval docs/REFERENCE_ADAPTERS.md"
+      }
     },
     {
-      "id": "ref-bert-base-ner", "role": "reference", "display": "dslim/bert-base-NER (English PERSON)",
-      "pin_status": "unresolved", "availability": "unresolved", "blocked_by": "Revision/digest not yet resolved; resolve and verify in a networked pinning step.",
-      "languages": ["en"],
-      "model": {"name": "dslim/bert-base-NER", "revision": null, "artifact_digest": null, "size_bytes": null},
-      "runtime": {"name": "transformers", "version": null}, "adapter": {"id": "ner-eval-python-shim", "version": null},
-      "config": {"label_map": {"PER": "PERSON"}, "aggregation": "first"}, "license": null
+      "id": "ref-koelectra-ko",
+      "role": "reference",
+      "adapter_id": "hf-leo97-koelectra-small-v3-modu-ner-bb9d562",
+      "display": "Leo97/KoELECTRA-small-v3-modu-ner (Korean)",
+      "languages": [
+        "ko"
+      ],
+      "pin_status": "resolved",
+      "availability": "available",
+      "model": {
+        "name": "Leo97/KoELECTRA-small-v3-modu-ner",
+        "revision": "bb9d562674e260712d9779f140ff5564a9e44d36",
+        "version": null,
+        "artifact_digest": "sha256:9ad852bbefa730824fdb115491a1e983a64834ab88ac10dc590fd2b54a3bbab4",
+        "size_bytes": 57365125
+      },
+      "runtime": {
+        "name": "torch",
+        "version": "2.11.0",
+        "stack": [
+          {
+            "name": "python",
+            "version": "3.11.16"
+          },
+          {
+            "name": "torch",
+            "version": "2.11.0"
+          },
+          {
+            "name": "transformers",
+            "version": "5.18.0"
+          },
+          {
+            "name": "tokenizers",
+            "version": "0.23.2"
+          }
+        ]
+      },
+      "adapter": {
+        "id": "hf-leo97-koelectra-small-v3-modu-ner-bb9d562",
+        "version": "hf_token_classification_shim/1",
+        "transport": "external-process"
+      },
+      "config": {
+        "label_map": {
+          "LC": "location",
+          "OG": "organization",
+          "PS": "person"
+        },
+        "unmapped": "drop",
+        "threads": 1,
+        "ner_eval_adapter_config_hash": "sha256:748fca3abbc33764d8210772afba1c8499fd1c7958535ca8873103c073e89c33"
+      },
+      "license": {
+        "id": null,
+        "verified": false,
+        "note": "not stated in ner-eval pins; verify before public release"
+      }
     },
     {
-      "id": "ref-gliner-multi", "role": "reference", "display": "GLiNER multilingual (EN+KO zero-shot PERSON)",
-      "pin_status": "unresolved", "availability": "unresolved", "blocked_by": "Exact checkpoint, revision and digest not yet resolved; resolve and verify in a networked pinning step.",
-      "languages": ["en", "ko"],
-      "model": {"name": "urchade/gliner_multi-v2.1", "revision": null, "artifact_digest": null, "size_bytes": null},
-      "runtime": {"name": "gliner", "version": null}, "adapter": {"id": "ner-eval-python-shim", "version": null},
-      "config": {"labels": ["person"], "threshold": 0.5}, "license": null
+      "id": "ref-gliner-multi",
+      "role": "reference",
+      "display": "GLiNER multilingual (EN+KO zero-shot PERSON)",
+      "pin_status": "unresolved",
+      "availability": "unresolved",
+      "blocked_by": "Not run in alpha1-full: ner-eval has no GLiNER adapter yet (ner-eval docs/REFERENCE_ADAPTERS.md). Planned reference.",
+      "languages": [
+        "en",
+        "ko"
+      ],
+      "model": {
+        "name": "urchade/gliner_multi-v2.1",
+        "revision": null,
+        "artifact_digest": null,
+        "size_bytes": null
+      },
+      "runtime": {
+        "name": "gliner",
+        "version": null
+      },
+      "adapter": {
+        "id": "ner-eval-python-shim",
+        "version": null
+      },
+      "config": {
+        "labels": [
+          "person"
+        ],
+        "threshold": 0.5
+      },
+      "license": {
+        "id": null,
+        "verified": false
+      }
+    },
+    {
+      "id": "control-null",
+      "role": "control",
+      "adapter_id": "control-null",
+      "display": "ner-eval null control (predicts nothing)",
+      "pin_status": "resolved",
+      "model": {
+        "name": "ner-eval-builtin-null",
+        "version": "0.1.0",
+        "artifact_digest": "sha256:8b75399add249ce9cbaef4ff5ca2560d8a66ddab9bf1491b1dee6b3f41050beb",
+        "size_bytes": 0
+      },
+      "adapter": {
+        "id": "control-null",
+        "version": "0.1.0",
+        "transport": "builtin"
+      },
+      "config": {}
+    },
+    {
+      "id": "control-capitalized-run",
+      "role": "control",
+      "adapter_id": "control-capitalized-run",
+      "display": "ner-eval capitalized-run control",
+      "pin_status": "resolved",
+      "model": {
+        "name": "ner-eval-builtin-capitalized-run",
+        "version": "0.1.0",
+        "artifact_digest": "sha256:b1f093770bbd6219bc666f2a2a61dd6ab18d03f1472aa66110c5faf54bc8fc32",
+        "size_bytes": 0
+      },
+      "adapter": {
+        "id": "control-capitalized-run",
+        "version": "0.1.0",
+        "transport": "builtin"
+      },
+      "config": {}
     }
-  ]
+  ],
+  "source_run": {
+    "ner_eval_run_id": "run-395459fbb4ecb4da",
+    "ner_eval_path": "results/alpha1-full",
+    "ner_eval_commit": "307548a97f8bb76329cf332764dbeb43408fdb2d"
+  }
 }

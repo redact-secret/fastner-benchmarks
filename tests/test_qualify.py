@@ -17,7 +17,7 @@ RULE = load_rule()
 def run(world, ratified=True, adr=True, gates_override=None):
     pol, cfg, reg, qs, ps = world
     rep = R.build_report(pol, cfg, reg, qs, ps)
-    refs = {"alpha0-bakeoff-1": "fastner#adr-1"} if adr else {}
+    refs = {"alpha1-full": {"decision": "fastner-c-compact-neural", "status": "accepted", "on_main": True, "adr": "x.md", "pr": "x#1"}} if adr else {}
     dec = evaluate(RULE, pol, rep, [], refs)
     g = copy.deepcopy(gates_override or GATES)
     if ratified:
@@ -27,15 +27,10 @@ def run(world, ratified=True, adr=True, gates_override=None):
 
 
 def world_with_refs():
+    """Candidate C selected; EN reference measured, KO reference measured."""
     pol, cfg, reg, qs, ps = full_world()
-    # one measured EN reference, KO reference explicitly unavailable
     qs.append(H.quality("ref-spacy-en", 0.9))
-    for e in cfg["candidates"]:
-        if e["id"] == "ref-spacy-ko":
-            e["pin_status"] = "unavailable"
-            e["unavailable_reason"] = "model license forbids redistribution"
-        if e["id"] == "ref-spacy-en":
-            e["languages"] = ["en"]
+    qs.append(H.quality("ref-koelectra-ko", 0.9))
     return pol, cfg, reg, qs, ps
 
 
@@ -46,7 +41,8 @@ class QualifyTests(unittest.TestCase):
         self.assertEqual((rec["outcome"], rec["decision"]), ("B", "REMAIN IN ALPHA"))
         self.assertEqual(rec["measured_deficits_beta_suggestions"], [])
         self.assertTrue(rec["alpha_blockers"])
-        self.assertIn("No Beta 1 work is generated", rec["beta_planning_note"])
+        self.assertTrue(all(b["next_action"] for b in rec["alpha_blockers"]))
+        self.assertIn("No measured deficits exist", rec["beta_planning_note"])
 
     def test_enter_beta_when_all_criteria_met(self):
         rec, m = run(world_with_refs(), ratified=True)
@@ -68,34 +64,40 @@ class QualifyTests(unittest.TestCase):
         self.assertIn("adversarial_measured", [b["criterion"] for b in rec["alpha_blockers"]])
         pol, cfg, reg, qs, ps = world_with_refs()
         for p in ps:
-            p.pop("wasm_size_bytes", None)
+            p["sizes"]["wasm_bytes"] = None
         rec, _ = run((pol, cfg, reg, qs, ps))
         self.assertIn("budgets_measured", [b["criterion"] for b in rec["alpha_blockers"]])
 
     def test_unavailable_reference_with_reason_is_accounted_unresolved_is_not(self):
-        rec, _ = run(world_with_refs())
-        self.assertTrue(next(c for c in rec["criteria"] if c["id"] == "references_accounted")["met"])
         pol, cfg, reg, qs, ps = world_with_refs()
+        qs = [q for q in qs if q["model"]["id"] != "ref-koelectra-ko"]
         for e in cfg["candidates"]:
-            if e["id"] == "ref-spacy-ko":
+            if e["id"] == "ref-koelectra-ko":
+                e["pin_status"] = "unavailable"
+                e["unavailable_reason"] = "model license forbids redistribution"
+        rec, _ = run((pol, cfg, reg, qs, ps))
+        self.assertTrue(next(c for c in rec["criteria"] if c["id"] == "references_accounted")["met"])
+        for e in cfg["candidates"]:
+            if e["id"] == "ref-koelectra-ko":
                 e["pin_status"] = "unresolved"
                 e["blocked_by"] = "not yet"
                 e.pop("unavailable_reason")
         rec, _ = run((pol, cfg, reg, qs, ps))
         self.assertFalse(next(c for c in rec["criteria"] if c["id"] == "references_accounted")["met"])
-        row = next(r for r in rec["references"] if r["id"] == "ref-spacy-ko")
+        row = next(r for r in rec["references"] if r["id"] == "ref-koelectra-ko")
         self.assertNotEqual(row["state"], "measured")
         self.assertIsNone(row["dimensions"]["ko_f1"]["reference"])  # unavailable is never zero
 
     def test_failing_gates_become_ranked_measured_deficits_not_blockers(self):
         pol, cfg, reg, qs, ps = world_with_refs()
         for p in ps:  # all models larger than the 5 MiB proposal (relative sizes stay within the promotion ceiling)
-            p["model_size_bytes"] = {"fastner-a-statistical": 15_000_000, "fastner-b-linear-crf": 16_000_000,
-                                     "fastner-c-compact-neural": 20_000_000}.get(p["model"]["id"], 60_000_000)
+            H.patch_perf(p, model={"fastner-a-statistical": 15_000_000, "fastner-b-linear-crf": 16_000_000,
+                                   "fastner-c-compact-neural": 20_000_000}.get(p["model"]["id"], 60_000_000))
             if p["model"]["id"] == "fastner-c-compact-neural":
-                p["startup_ms"] = 200
+                H.patch_perf(p, startup=200)
         rec, m = run((pol, cfg, reg, qs, ps))
         self.assertEqual(rec["decision"], "ENTER BETA")
+        self.assertTrue(all("caveat" in x for x in rec["measured_deficits_beta_suggestions"] if x["area"] == "startup"))
         areas = [s["area"] for s in rec["measured_deficits_beta_suggestions"]]
         self.assertIn("size", areas)
         self.assertIn("startup", areas)
@@ -129,6 +131,7 @@ class QualifyTests(unittest.TestCase):
 
     def test_release_identity_carries_required_fields(self):
         rec, _ = run(world_with_refs())
+        self.assertRegex(rec["release_identity"]["fastner_runtime_commit"], r"^[0-9a-f]{40}$")
         for k in ("fastner_runtime_version", "model_artifact_digest", "evidence_snapshots", "regression_corpus",
                   "evaluator_versions", "metric_protocol_versions", "performance_environments", "peer_pins"):
             self.assertIn(k, rec["release_identity"])
@@ -139,6 +142,7 @@ class QualifyTests(unittest.TestCase):
         self.assertEqual((out / "alpha1-qualification.json").read_text(), js)
         self.assertEqual((out / "alpha1-qualification.md").read_text(), md)
         self.assertIn("REMAIN IN ALPHA", md)
+        self.assertIn("fastner-b-linear-crf", md)
 
 
 if __name__ == "__main__":

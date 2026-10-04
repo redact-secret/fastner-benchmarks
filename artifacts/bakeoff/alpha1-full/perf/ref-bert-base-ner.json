@@ -1,0 +1,131 @@
+{
+  "cells": [
+    {
+      "batch_size": 1,
+      "cases_per_sec": 14.476044983942096,
+      "cold_startup_us": [
+        5570409,
+        3559349,
+        3638320
+      ],
+      "effective_threads": 1,
+      "first_batch_us": [
+        112925,
+        119913,
+        122581
+      ],
+      "peak_rss_bytes": 701677568,
+      "per_case_p50_us": 67264,
+      "per_case_p95_us": 85738,
+      "rss_scope": "adapter-process",
+      "threads": 1
+    },
+    {
+      "batch_size": 16,
+      "cases_per_sec": 8.319342908414015,
+      "cold_startup_us": [
+        3638208,
+        5496462,
+        6236510
+      ],
+      "effective_threads": 1,
+      "first_batch_us": [
+        1602731,
+        1666090,
+        1687021
+      ],
+      "peak_rss_bytes": 718471168,
+      "per_case_p50_us": 112775,
+      "per_case_p95_us": 164669,
+      "rss_scope": "adapter-process",
+      "threads": 1
+    },
+    {
+      "batch_size": 1,
+      "cases_per_sec": 7.858472188159075,
+      "cold_startup_us": [
+        6541739,
+        6320804,
+        6005572
+      ],
+      "effective_threads": 4,
+      "first_batch_us": [
+        177684,
+        156853,
+        174204
+      ],
+      "peak_rss_bytes": 701612032,
+      "per_case_p50_us": 120851,
+      "per_case_p95_us": 162292,
+      "rss_scope": "adapter-process",
+      "threads": 4
+    },
+    {
+      "batch_size": 16,
+      "cases_per_sec": 6.555173202367583,
+      "cold_startup_us": [
+        5742024,
+        6187950,
+        5945557
+      ],
+      "effective_threads": 4,
+      "first_batch_us": [
+        2146281,
+        2313989,
+        2191585
+      ],
+      "peak_rss_bytes": 716341248,
+      "per_case_p50_us": 149556,
+      "per_case_p95_us": 180967,
+      "rss_scope": "adapter-process",
+      "threads": 4
+    }
+  ],
+  "environment": {
+    "description": "macos 26.5.2 aarch64, Apple M4 (10 logical cores), rustc 1.98.1 (48a229cea 2026-09-01), evaluator 0.1.0 [release]",
+    "id": "sha256:f3fbb386e42b91f4fdb03f500d91b2bead768a2569ff8a09148d3d38ff96ffdf"
+  },
+  "evaluator_version": "0.1.0",
+  "measurement_notes": [
+    "Latencies are wall-clock around Adapter::predict only; normalization and validation are outside the timed region.",
+    "External-process adapters include JSON-lines serialization and pipe transfer in every latency; native adapters do not. Compare transports with that in mind.",
+    "Cold = a fresh process start with model files likely in the OS page cache after the first run; true cold-disk start is not forced.",
+    "Cells run serially on an otherwise unmanaged machine; the protocol does not control CPU frequency, thermal state or background load."
+  ],
+  "model": {
+    "adapter_id": "hf-dslim-bert-base-ner-d1a3e8f",
+    "artifact_digest": "sha256:0263fcac83c837d8311d4695337312e0f9e8987a8ee92875c4d5afd278e89a1f",
+    "id": "ref-bert-base-ner"
+  },
+  "parameters": {
+    "batch_sizes": [
+      1,
+      16
+    ],
+    "cold_runs": 3,
+    "enabled": true,
+    "max_cases": 200,
+    "measured_batches": 20,
+    "thread_counts": [
+      1,
+      4
+    ],
+    "warmup_batches": 3
+  },
+  "protocol": "ner-eval.perf-protocol/1.1.0",
+  "run_id": "run-395459fbb4ecb4da:hf-dslim-bert-base-ner-d1a3e8f:perf",
+  "schema": "fastner-benchmarks.perf/2",
+  "sizes": {
+    "binary_bytes": null,
+    "model_bytes": 433506746,
+    "wasm_bytes": null
+  },
+  "source": {
+    "artifact_digest": "sha256:1a5568ed5310d86d876e22277ea20abd95ce87ff5d10b9cd6241a67d87d50927",
+    "artifact_file_sha256": "sha256:3620bba1cacdf127f91c90a517517ee3d90aae4af807d433291fa25bcffa841b",
+    "ner_eval_run_id": "run-395459fbb4ecb4da",
+    "path": "results/alpha1-full/performance/hf-dslim-bert-base-ner-d1a3e8f.performance.json"
+  },
+  "status": "ok",
+  "transport": "external-process"
+}

@@ -1,0 +1,168 @@
+{
+  "adr_ref": {
+    "adr": "docs/adr/0002-production-architecture.md",
+    "commit": "007805d3e83bb6c72f604cdcdd2e338c7b6ea753",
+    "decision": "fastner-b-linear-crf",
+    "note": "Accepted in the ADR text but the PR is still open. Flip on_main to true (and record the merge commit) once merged; promotion_state becomes promoted only then.",
+    "on_main": false,
+    "pr": "redact-secret/fastner#10",
+    "repo": "redact-secret/fastner",
+    "status": "accepted",
+    "title": "ADR 0002: Production architecture for PERSON EN+KO"
+  },
+  "bakeoff_id": "alpha1-full",
+  "candidates": {
+    "fastner-a-statistical": {
+      "eligible": false,
+      "evidence": "complete",
+      "evidence_gaps": [],
+      "guardrails": {
+        "ambiguity_floor": {
+          "failures": [
+            "ambiguous_name_precision=0.18329278183292783 is 0.2654 below best 0.44867549668874174 (max 0.1)",
+            "collision_precision_worst=0.1324200913242009 is 0.1336 below best 0.26605504587155965 (max 0.1)"
+          ],
+          "pass": false,
+          "waived": false
+        },
+        "language_floor": {
+          "failures": [
+            "en_f1=0.47120418848167545 is 0.2149 below best 0.6861233480176212 (max 0.05)",
+            "ko_f1=0.4512126339537507 is 0.2476 below best 0.6988472622478386 (max 0.05)"
+          ],
+          "pass": false,
+          "waived": false
+        },
+        "quality_floor": {
+          "failures": [
+            "entity_f1=0.458650610943864 is 0.2352 below best 0.693815331010453 (max 0.1)"
+          ],
+          "pass": false,
+          "waived": false
+        },
+        "size_ceiling": {
+          "failures": [],
+          "pass": true,
+          "waived": false
+        }
+      },
+      "on_frontier": true
+    },
+    "fastner-b-linear-crf": {
+      "eligible": true,
+      "evidence": "complete",
+      "evidence_gaps": [],
+      "guardrails": {
+        "ambiguity_floor": {
+          "failures": [],
+          "pass": true,
+          "waived": false
+        },
+        "language_floor": {
+          "failures": [],
+          "pass": true,
+          "waived": false
+        },
+        "quality_floor": {
+          "failures": [],
+          "pass": true,
+          "waived": false
+        },
+        "size_ceiling": {
+          "failures": [],
+          "pass": true,
+          "waived": false
+        }
+      },
+      "on_frontier": true
+    },
+    "fastner-c-compact-neural": {
+      "eligible": false,
+      "evidence": "complete",
+      "evidence_gaps": [],
+      "guardrails": {
+        "ambiguity_floor": {
+          "failures": [
+            "ambiguous_name_precision=0.20473022912047303 is 0.2439 below best 0.44867549668874174 (max 0.1)",
+            "collision_precision_worst=0.10891089108910891 is 0.1571 below best 0.26605504587155965 (max 0.1)"
+          ],
+          "pass": false,
+          "waived": false
+        },
+        "language_floor": {
+          "failures": [
+            "en_f1=0.5204081632653061 is 0.1657 below best 0.6861233480176212 (max 0.05)",
+            "ko_f1=0.44921238457360124 is 0.2496 below best 0.6988472622478386 (max 0.05)"
+          ],
+          "pass": false,
+          "waived": false
+        },
+        "quality_floor": {
+          "failures": [
+            "entity_f1=0.478330658105939 is 0.2155 below best 0.693815331010453 (max 0.1)"
+          ],
+          "pass": false,
+          "waived": false
+        },
+        "size_ceiling": {
+          "failures": [],
+          "pass": true,
+          "waived": false
+        }
+      },
+      "on_frontier": true
+    },
+    "fastner-d-tiny-transformer": {
+      "eligible": false,
+      "evidence": "complete",
+      "evidence_gaps": [],
+      "guardrails": {
+        "ambiguity_floor": {
+          "failures": [
+            "ambiguous_name_precision=0.2874058127018299 is 0.1613 below best 0.44867549668874174 (max 0.1)",
+            "collision_precision_worst=0.15555555555555556 is 0.1105 below best 0.26605504587155965 (max 0.1)"
+          ],
+          "pass": false,
+          "waived": false
+        },
+        "language_floor": {
+          "failures": [
+            "en_f1=0.5860420650095604 is 0.1001 below best 0.6861233480176212 (max 0.05)",
+            "ko_f1=0.5237801111797407 is 0.1751 below best 0.6988472622478386 (max 0.05)"
+          ],
+          "pass": false,
+          "waived": false
+        },
+        "quality_floor": {
+          "failures": [
+            "entity_f1=0.548217636022514 is 0.1456 below best 0.693815331010453 (max 0.1)"
+          ],
+          "pass": false,
+          "waived": false
+        },
+        "size_ceiling": {
+          "failures": [],
+          "pass": true,
+          "waived": false
+        }
+      },
+      "on_frontier": true
+    }
+  },
+  "decision": "recommend",
+  "eligible": [
+    "fastner-b-linear-crf"
+  ],
+  "frontier": [
+    "fastner-a-statistical",
+    "fastner-b-linear-crf",
+    "fastner-c-compact-neural",
+    "fastner-d-tiny-transformer"
+  ],
+  "policy_version": "0.2.0",
+  "promotion_state": "adr-accepted-pending-merge",
+  "reason": "single frontier candidate passing all guardrails",
+  "rule_version": "0.1.0",
+  "schema": "fastner-benchmarks.promotion-decision/1",
+  "selected": "fastner-b-linear-crf"
+}

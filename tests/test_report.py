@@ -34,9 +34,10 @@ class ReportTests(unittest.TestCase):
         for v in ("global_quality", "language_quality", "ambiguity_precision", "unseen_recall", "collision_slices",
                   "latency", "throughput", "startup", "memory", "model_size", "binary_size", "wasm_size"):
             self.assertIn(v, r["views"])
-        self.assertEqual(r["views"]["collision_slices"]["dimensions"], ["collision=common-word", "collision=location"])
+        self.assertEqual(r["views"]["collision_slices"]["dimensions"], ["collision=common-word", "collision=location", "collision=organization"])
         wasm = {x["model"]: x for x in r["views"]["wasm_size"]["rows"]}
-        self.assertEqual(wasm["fastner-a-statistical"]["delta_bytes"], 100)
+        self.assertIsNone(wasm["fastner-a-statistical"]["delta_bytes"])  # ner-eval artifacts carry no delta; never invented
+        self.assertEqual(wasm["fastner-a-statistical"]["wasm_size_bytes"], 800)
 
     def test_no_composite_keys_anywhere(self):
         text = canonical_json(self.build()).lower()
@@ -57,10 +58,10 @@ class ReportTests(unittest.TestCase):
         self.assertTrue(any("unavailable (adapter crashed)" in x for x in r["known_limitations"]))
 
     def test_unresolved_pin_artifact_rejected(self):
-        qs = [H.quality("ref-bert-base-ner")]
+        qs = [H.quality("ref-gliner-multi")]  # planned reference: pin unresolved
         r = self.build(q=qs + self.build_qs())
-        self.assertTrue(any(x["run_id"] == "q-ref-bert-base-ner" for x in r["rejected_artifacts"]))
-        self.assertIsNone(r["values"]["ref-bert-base-ner"]["entity_f1"])
+        self.assertTrue(any(x["run_id"] == "q-ref-gliner-multi" for x in r["rejected_artifacts"]))
+        self.assertIsNone(r["values"]["ref-gliner-multi"]["entity_f1"])
 
     def build_qs(self):
         return H.world()[3]
@@ -105,7 +106,7 @@ class ReportTests(unittest.TestCase):
 
     def test_incomplete_candidate_excluded_not_zeroed(self):
         pol, cfg, reg, qs, ps = H.world()
-        del ps[0]["wasm_size_bytes"]
+        ps[0]["sizes"]["wasm_bytes"] = None
         r = R.build_report(pol, cfg, reg, qs, ps)
         self.assertIn("wasm_size_bytes", r["pareto"]["incomplete"]["fastner-a-statistical"])
         self.assertNotIn("fastner-a-statistical", r["pareto"]["frontier"])
@@ -115,9 +116,45 @@ class ReportTests(unittest.TestCase):
         self.assertEqual(r["pareto"]["frontier"], [])
         self.assertTrue(any("No accepted ner-eval artifacts" in x for x in r["known_limitations"]))
 
+    def test_strict_is_used_and_lenient_only_displayed(self):
+        pol, cfg, reg, qs, ps = H.world()
+        for q in qs:
+            q["metrics"]["overall"]["lenient"]["f1"] = 0.999  # must never leak into policy dimensions
+        r = R.build_report(pol, cfg, reg, qs, ps)
+        self.assertNotEqual(r["values"]["fastner-b-linear-crf"]["entity_f1"], 0.999)
+        row = r["population_quality"]["ner-evidence-public"][1]
+        self.assertEqual(row["overall"]["lenient_f1"], 0.999)
+        self.assertIn("lenient F1", R.render_markdown(r))
+
+    def test_perf_summary_uses_one_thread_and_documented_cells(self):
+        pol, cfg, reg, qs, ps = H.world()
+        r = R.build_report(pol, cfg, reg, qs, ps)
+        v = r["values"]["fastner-c-compact-neural"]
+        self.assertEqual(v["latency_p95_ms"], 6.0)          # batch 1, 1 thread
+        self.assertEqual(v["throughput_docs_per_s"], 1500)  # largest batch, 1 thread (not the 4-thread cell)
+        self.assertEqual(v["startup_ms"], 30.0)
+        self.assertEqual(v["peak_memory_mb"], 60.0)
+
+    def test_limitations_carry_caveats_slice_sizes_and_transport(self):
+        r = self.build()
+        text = " ".join(r["known_limitations"])
+        self.assertIn("Not a holdout", text)
+        self.assertIn("anecdote-sized", text)
+        self.assertIn("collision=organization (33 cases)", text)
+        self.assertIn("external-process", text)
+        self.assertIn("no noise tolerance", text)
+        self.assertIn("license unverified", text)
+
+    def test_controls_shown_but_never_ranked(self):
+        pol, cfg, reg, qs, ps = H.world()
+        qs.append(H.quality("control-capitalized-run", 0.3))
+        r = R.build_report(pol, cfg, reg, qs, ps)
+        self.assertIn("control-capitalized-run", [x["model"] for x in r["views"]["global_quality"]["rows"]])
+        self.assertNotIn("control-capitalized-run", r["pareto"]["frontier"] + list(r["pareto"]["incomplete"]) + list(r["pareto"]["dominated"]))
+
     def test_committed_report_is_current(self):
         js, md = R.generate()
-        out = ROOT / "reports" / "bakeoff" / "alpha0-bakeoff-1"
+        out = ROOT / "reports" / "bakeoff" / "alpha1-full"
         self.assertEqual((out / "report.json").read_text(), js)
         self.assertEqual((out / "report.md").read_text(), md)
         json.loads(js)

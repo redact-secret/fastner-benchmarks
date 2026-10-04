@@ -25,12 +25,17 @@ def full_world(good=True, ko_bad=False, wasm=3000):
             q["metrics"]["slices"]["difficulty=ambiguous"] = H.block(0.92, 0.8)
     for pf in ps:
         if pf["model"]["id"] == m:
-            pf["latency_ms"]["p95"] = 4.0
+            for c in pf["cells"]:
+                if c["batch_size"] == 1 and c["threads"] == 1:
+                    c["per_case_p95_us"] = 4000
     if ko_bad:
         for q in qs:
             if q["model"]["id"] == m and q["status"] == "ok":
                 q["metrics"]["slices"]["language=ko"] = H.block(0.4, 0.4)
     return pol, cfg, reg, qs, ps
+
+
+ADR = {"alpha1-full": {"decision": "fastner-c-compact-neural", "status": "accepted", "on_main": True, "adr": "x.md", "pr": "x#1"}}
 
 
 def matrix(world, ratified=False, refs=None, gates=None):
@@ -70,15 +75,19 @@ class SupportTests(unittest.TestCase):
             self.assertTrue(any("unratified" in r for r in p["reasons"]))
 
     def test_provisional_requires_adr_and_ratification(self):
-        refs = {"alpha0-bakeoff-1": "fastner#adr-1"}
+        refs = ADR
         self.assertEqual(status(matrix(full_world(), ratified=True)[0], "PERSON/en")["status"], "experimental")
         self.assertEqual(status(matrix(full_world(), refs=refs)[0], "PERSON/en")["status"], "experimental")
         m, _ = matrix(full_world(), ratified=True, refs=refs)
         self.assertEqual(status(m, "PERSON/en")["status"], "provisional")
         self.assertEqual(status(m, "PERSON/ko")["status"], "provisional")
+        # ADR accepted but unmerged keeps support at experimental
+        pending = {"alpha1-full": {**ADR["alpha1-full"], "on_main": False}}
+        m2, _ = matrix(full_world(), ratified=True, refs=pending)
+        self.assertEqual(status(m2, "PERSON/en")["status"], "experimental")
 
     def test_failing_gate_blocks_one_language_only(self):
-        refs = {"alpha0-bakeoff-1": "fastner#adr-1"}
+        refs = ADR
         w = full_world(ko_bad=True)
         # relax the promotion language guard impact by checking per-profile gate results directly
         pol, cfg, reg, qs, ps = w
@@ -96,7 +105,7 @@ class SupportTests(unittest.TestCase):
     def test_missing_wasm_measurement_blocks(self):
         pol, cfg, reg, qs, ps = full_world()
         for p in ps:
-            p.pop("wasm_size_bytes", None)
+            p["sizes"]["wasm_bytes"] = None
         rep = R.build_report(pol, cfg, reg, qs, ps)
         dec = {"selected": "fastner-c-compact-neural", "promotion_state": "promoted", "decision": "recommend"}
         g = copy.deepcopy(GATES)
@@ -106,7 +115,7 @@ class SupportTests(unittest.TestCase):
         self.assertTrue(any(x["gate"] == "budget.wasm_size" and x["result"] == "unmeasured" for x in status(m, "PERSON/en")["gates"]))
 
     def test_stable_never_generated(self):
-        refs = {"alpha0-bakeoff-1": "fastner#adr-1"}
+        refs = ADR
         m, _ = matrix(full_world(), ratified=True, refs=refs)
         self.assertNotIn("stable", {p["status"] for p in m["profiles"]})
         g = copy.deepcopy(GATES)

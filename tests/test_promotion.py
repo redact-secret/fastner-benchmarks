@@ -116,12 +116,18 @@ class EvaluateTests(unittest.TestCase):
         self.assertTrue(d["candidates"]["best"]["guardrails"]["size_ceiling"]["waived"])
         self.assertIn("best", d["eligible"])
 
-    def test_promotion_requires_adr_ref(self):
+    def test_promotion_requires_accepted_matching_adr_on_main(self):
         vals = {"a": vec()}
-        d = PR.evaluate(RULE, POL, fake_report(vals), [], {})
-        self.assertEqual(d["promotion_state"], "recommended-awaiting-adr")
-        d = PR.evaluate(RULE, POL, fake_report(vals), [], {"t": "fastner#adr-1"})
-        self.assertEqual(d["promotion_state"], "promoted")
+        adr = {"decision": "a", "status": "accepted", "on_main": True, "adr": "docs/adr/1.md", "pr": "x#1"}
+
+        def state(**over):
+            return PR.evaluate(RULE, POL, fake_report(vals), [], {"t": {**adr, **over}})["promotion_state"]
+
+        self.assertEqual(PR.evaluate(RULE, POL, fake_report(vals), [], {})["promotion_state"], "recommended-awaiting-adr")
+        self.assertEqual(state(status="proposed"), "recommended-awaiting-adr")
+        self.assertEqual(state(on_main=False), "adr-accepted-pending-merge")
+        self.assertEqual(state(decision="other"), "adr-decision-mismatch")
+        self.assertEqual(state(), "promoted")
 
     def test_end_to_end_with_synthetic_world(self):
         pol, cfg, reg, qs, ps = H.world()
@@ -138,7 +144,8 @@ class EvaluateTests(unittest.TestCase):
         out = ROOT / "reports" / "promotion"
         self.assertEqual((out / f"{bid}.decision.json").read_text(), js)
         self.assertEqual((out / f"{bid}.adr-handoff.md").read_text(), md)
-        self.assertIn("no-decision-insufficient-evidence", js)
+        self.assertIn('"selected": "fastner-b-linear-crf"', js)
+        self.assertIn("adr-accepted-pending-merge", js)
 
 
 if __name__ == "__main__":

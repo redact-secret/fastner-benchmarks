@@ -98,7 +98,7 @@ def evaluate_support(gates, report, decision, policy_version):
             if counts["unmeasured"]:
                 reasons.append(f"{counts['unmeasured']} gate(s) unmeasured")
             if not promoted:
-                reasons.append(f"architecture not promoted ({decision.get('promotion_state')}): fastner ADR required")
+                reasons.append(f"architecture not promoted (state: {decision.get('promotion_state')}); promotion needs an accepted fastner ADR on fastner main")
             if not ratified:
                 reasons.append("gate thresholds are unratified proposals (no baseline ratification)")
             if not (counts["fail"] or counts["unmeasured"]) and promoted and ratified:

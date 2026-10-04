@@ -1,6 +1,6 @@
 # FastNER Qualification Policy
 
-Machine-readable source: `policy/qualification-policy.json` (version **0.1.0**, status `alpha-0`).
+Machine-readable source: `policy/qualification-policy.json` (version **0.2.0**, status `alpha-1`).
 This document explains it; if they disagree, the JSON wins and this file is a bug.
 
 ## NO SINGLE UNIVERSAL SCORE
@@ -45,6 +45,14 @@ metadata). This repo does not define metric semantics; it only reads the numbers
 5. **Thresholds are data, not code.** Numeric budgets are introduced only after baseline
    measurements exist (see `policy/` budgets once written) and are versioned with the policy.
 
+## Match mode and performance summaries (0.2.0)
+- Quality dimensions use ner-eval **strict** (exact span + type) metrics. Boundary-lenient numbers
+  are displayed beside them but never substituted, so boundary defects stay visible.
+- Performance dimensions are derived from ner-eval cells by explicit definitions
+  (`perf_summary` in the policy): latency = batch 1 / 1 thread p95, throughput = largest batch /
+  1 thread, startup = median cold run, peak RSS = max over 1-thread cells.
+- Slices under `min_slice_cases` (50) are reported as anecdote-sized.
+
 ## Versioning
 
 Any change to dimensions, directions, sources, or the rules above bumps `policy_version`.
@@ -53,5 +61,5 @@ under.
 
 ## Known debt
 
-- The `ner-eval` quality/perf artifact schemas are not frozen; `docs/ARTIFACT_CONTRACT.md`
-  (added with #5) states what this repo assumes. Handoff: ner-eval should confirm or freeze.
+- Pareto dominance uses raw point estimates with no noise tolerance (perf cells are a 20-batch sample).
+- See `docs/ARTIFACT_CONTRACT.md` for ingestion and known measurement gaps.

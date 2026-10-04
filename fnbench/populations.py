@@ -107,7 +107,8 @@ def accounting_table(reg, quality_artifacts, root=ROOT):
     """Per-population accounting: identity, provenance, case count, artifacts, role."""
     rows = {p["id"]: {"id": p["id"], "title": p["title"], "role": p["role"], "status": p["status"],
                       "identity": p["identity"], "provenance": p["provenance"],
-                      "case_count": count_cases(p, root), "artifact_runs": []}
+                      "case_count": count_cases(p, root) if count_cases(p, root) is not None else p["identity"].get("case_count"),
+                      "is_holdout": p.get("is_holdout", False), "caveats": p.get("caveats", []), "artifact_runs": []}
             for p in reg["populations"]}
     for qa in quality_artifacts:
         cid = account_artifact(reg, qa, root)
@@ -116,7 +117,7 @@ def accounting_table(reg, quality_artifacts, root=ROOT):
         r["artifact_runs"].sort()
     from .corpus import CORPORA, describe
     for cid in CORPORA:
-        if cid in rows and rows[cid]["case_count"] is not None:
+        if cid in rows and count_cases(by_id(reg)[cid], root) is not None:
             d = describe(cid, root)
             rows[cid].update(content_digest=d["content_digest"], origins=d["origins"])
     return [rows[k] for k in sorted(rows)]

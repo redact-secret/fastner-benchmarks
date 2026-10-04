@@ -10,7 +10,8 @@ class PolicyTests(unittest.TestCase):
         self.policy = load_policy()
 
     def test_loads_and_is_versioned(self):
-        self.assertEqual(self.policy["policy_version"], "0.1.0")
+        self.assertEqual(self.policy["policy_version"], "0.2.0")
+        self.assertEqual(self.policy["quality_match_mode"], "strict")
         self.assertTrue(self.policy["no_single_score"])
 
     def test_dimension_coverage_matches_issue(self):
@@ -34,6 +35,20 @@ class PolicyTests(unittest.TestCase):
             validate_policy(p)
         p = copy.deepcopy(self.policy)
         p["dimensions"][0]["weight"] = 0.5
+        with self.assertRaises(PolicyError):
+            validate_policy(p)
+
+    def test_rejects_lenient_substitution_and_missing_perf_summary(self):
+        p = copy.deepcopy(self.policy)
+        p["quality_match_mode"] = "boundary_lenient"
+        with self.assertRaises(PolicyError):
+            validate_policy(p)
+        p = copy.deepcopy(self.policy)
+        del p["perf_summary"]
+        with self.assertRaises(PolicyError):
+            validate_policy(p)
+        p = copy.deepcopy(self.policy)
+        p["dimensions"][0]["source"]["match"] = "boundary_lenient"
         with self.assertRaises(PolicyError):
             validate_policy(p)
 

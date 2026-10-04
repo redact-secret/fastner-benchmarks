@@ -1,0 +1,2421 @@
+{
+  "accepted_artifacts": {
+    "perf": [
+      "run-395459fbb4ecb4da:control-capitalized-run:perf",
+      "run-395459fbb4ecb4da:control-null:perf",
+      "run-395459fbb4ecb4da:fastner-crf:perf",
+      "run-395459fbb4ecb4da:fastner-neural:perf",
+      "run-395459fbb4ecb4da:fastner-stat:perf",
+      "run-395459fbb4ecb4da:fastner-transformer:perf",
+      "run-395459fbb4ecb4da:hf-dslim-bert-base-ner-d1a3e8f:perf",
+      "run-395459fbb4ecb4da:hf-leo97-koelectra-small-v3-modu-ner-bb9d562:perf",
+      "run-395459fbb4ecb4da:spacy-en-core-web-sm-3.8.0:perf"
+    ],
+    "quality": [
+      "run-395459fbb4ecb4da:control-capitalized-run",
+      "run-395459fbb4ecb4da:control-null",
+      "run-395459fbb4ecb4da:fastner-crf",
+      "run-395459fbb4ecb4da:fastner-neural",
+      "run-395459fbb4ecb4da:fastner-stat",
+      "run-395459fbb4ecb4da:fastner-transformer",
+      "run-395459fbb4ecb4da:hf-dslim-bert-base-ner-d1a3e8f",
+      "run-395459fbb4ecb4da:hf-leo97-koelectra-small-v3-modu-ner-bb9d562",
+      "run-395459fbb4ecb4da:spacy-en-core-web-sm-3.8.0"
+    ]
+  },
+  "bakeoff_id": "alpha1-full",
+  "evaluator_versions": [
+    "0.1.0"
+  ],
+  "known_limitations": [
+    "ref-gliner-multi: pin unresolved (Not run in alpha1-full: ner-eval has no GLiNER adapter yet (ner-eval docs/REFERENCE_ADAPTERS.md). Planned reference.)",
+    "Pareto dominance uses raw point estimates with no noise tolerance; a tiny latency difference can keep a candidate off the dominated list, so the frontier is a screen, not a ranking",
+    "population ner-evidence-public: Not a holdout: FastNER candidates were not trained on it, but it was run three times against successive FastNER builds (fastner ADR-0002 process disclosure); FastNER numbers are likely optimistic relative to references that were never tuned against it.",
+    "population ner-evidence-public: All text is project-authored synthetic with no independent review; seen/unseen is a name-rarity proxy, not training-data membership.",
+    "population ner-evidence-public: Small slices (organization 33, location 52, mixed-script 36 cases) are anecdote-sized; no confidence intervals are computed.",
+    "ner-evidence-public: slices under 50 cases are anecdote-sized and have no confidence intervals: collision=organization (33 cases), script=mixed (36 cases)",
+    "fastner-a-statistical: runtime commit 007805d3e83b comes from an unmerged fastner PR (redact-secret/fastner#10 head (alpha/architecture-bakeoff); PR open, not on main at pin time)",
+    "fastner-b-linear-crf: runtime commit 007805d3e83b comes from an unmerged fastner PR (redact-secret/fastner#10 head (alpha/architecture-bakeoff); PR open, not on main at pin time)",
+    "fastner-c-compact-neural: runtime commit 007805d3e83b comes from an unmerged fastner PR (redact-secret/fastner#10 head (alpha/architecture-bakeoff); PR open, not on main at pin time)",
+    "fastner-d-tiny-transformer: runtime commit 007805d3e83b comes from an unmerged fastner PR (redact-secret/fastner#10 head (alpha/architecture-bakeoff); PR open, not on main at pin time)",
+    "ref-spacy-en: license unverified (public-release gate)",
+    "ref-koelectra-ko: license unverified (public-release gate)",
+    "performance protocol: Cells run serially on an otherwise unmanaged machine; the protocol does not control CPU frequency, thermal state or background load.",
+    "performance protocol: Cold = a fresh process start with model files likely in the OS page cache after the first run; true cold-disk start is not forced.",
+    "performance protocol: External-process adapters include JSON-lines serialization and pipe transfer in every latency; native adapters do not. Compare transports with that in mind.",
+    "performance protocol: Latencies are wall-clock around Adapter::predict only; normalization and validation are outside the timed region.",
+    "peak RSS scope differs across adapters (adapter-process, evaluator-process-upper-bound); controls are evaluator-process upper bounds, not comparable to adapter-process values",
+    "external-process adapters include JSON-lines transport and process spawn in latency/startup, so those values overstate the in-process library cost",
+    "runtime binary size is the shared evaluation shim, identical for all FastNER candidates, so it does not discriminate between them; WASM size is a per-candidate probe module",
+    "throughput is order-of-magnitude only: cells with identical effective configuration differ by up to 2.9x (fastner-b-linear-crf batch 16 (2.9x), fastner-d-tiny-transformer batch 1 (2.1x), fastner-d-tiny-transformer batch 16 (1.8x), control-capitalized-run batch 1 (1.5x)); the protocol samples 20 batches per cell on an unmanaged machine",
+    "population fastner-regression exists (regression-gate) but no ner-eval run measured it; ner-eval cannot yet ingest product corpora",
+    "population fastner-adversarial exists (adversarial-gate) but no ner-eval run measured it; ner-eval cannot yet ingest product corpora"
+  ],
+  "metric_protocol_versions": [
+    "ner-eval.match/1.1.0"
+  ],
+  "no_single_score": true,
+  "pareto": {
+    "dimensions": [
+      "entity_precision",
+      "entity_recall",
+      "entity_f1",
+      "ambiguous_name_precision",
+      "unseen_name_recall",
+      "en_f1",
+      "ko_f1",
+      "single_token_recall",
+      "multi_token_f1",
+      "collision_precision_worst",
+      "latency_p95_ms",
+      "throughput_docs_per_s",
+      "startup_ms",
+      "peak_memory_mb",
+      "model_size_bytes",
+      "runtime_binary_size_bytes",
+      "wasm_size_bytes"
+    ],
+    "dominated": {},
+    "frontier": [
+      "fastner-a-statistical",
+      "fastner-b-linear-crf",
+      "fastner-c-compact-neural",
+      "fastner-d-tiny-transformer"
+    ],
+    "incomplete": {}
+  },
+  "performance_environments": [
+    "sha256:f3fbb386e42b91f4fdb03f500d91b2bead768a2569ff8a09148d3d38ff96ffdf"
+  ],
+  "pins": [
+    {
+      "adapter": "fastner-eval-shim",
+      "adapter_id": "fastner-stat",
+      "artifact_digest": "sha256:66e0c2ebf552166e5dd1badf0b46ebdace7ec8ce0d045f59148d5862e150193c",
+      "availability": "n/a",
+      "blocked_by": null,
+      "class": "A-statistical",
+      "config_hash": "sha256:3054de29180c17ed773e24fdb0555a293a820f7de0f58a0d9ba9ad964701cfd8",
+      "display": "Statistical baseline (shape, char n-grams, lexical priors)",
+      "id": "fastner-a-statistical",
+      "languages": null,
+      "license": null,
+      "missing": [],
+      "model_size_bytes": 131920,
+      "pin_status": "resolved",
+      "role": "candidate",
+      "runtime": "fastner",
+      "runtime_commit": "007805d3e83bb6c72f604cdcdd2e338c7b6ea753",
+      "version": "0.0.0"
+    },
+    {
+      "adapter": "fastner-eval-shim",
+      "adapter_id": "fastner-crf",
+      "artifact_digest": "sha256:a88941224b9bf20f419c14e6459366f4fcb65a7108ce7d589baa3f7ca8e694e7",
+      "availability": "n/a",
+      "blocked_by": null,
+      "class": "B-linear-crf",
+      "config_hash": "sha256:b413133709e8e1714de2fac2b15e28549d2c4d7bbe8bc07c91fc52f05ad787f7",
+      "display": "Sparse/hashed linear model + linear-chain CRF",
+      "id": "fastner-b-linear-crf",
+      "languages": null,
+      "license": null,
+      "missing": [],
+      "model_size_bytes": 590684,
+      "pin_status": "resolved",
+      "role": "candidate",
+      "runtime": "fastner",
+      "runtime_commit": "007805d3e83bb6c72f604cdcdd2e338c7b6ea753",
+      "version": "0.0.0"
+    },
+    {
+      "adapter": "fastner-eval-shim",
+      "adapter_id": "fastner-neural",
+      "artifact_digest": "sha256:020bb4bf3b2bf46f1310c145538154116534cbc1ab81d283a6f3e4297e5d1d15",
+      "availability": "n/a",
+      "blocked_by": null,
+      "class": "C-compact-neural",
+      "config_hash": "sha256:77a20888412b5659da972aff53603adc3b19a2b3fb86c37b50100d8eac05d1f4",
+      "display": "Char/subword embeddings + small contextual encoder",
+      "id": "fastner-c-compact-neural",
+      "languages": null,
+      "license": null,
+      "missing": [],
+      "model_size_bytes": 665172,
+      "pin_status": "resolved",
+      "role": "candidate",
+      "runtime": "fastner",
+      "runtime_commit": "007805d3e83bb6c72f604cdcdd2e338c7b6ea753",
+      "version": "0.0.0"
+    },
+    {
+      "adapter": "fastner-eval-shim",
+      "adapter_id": "fastner-transformer",
+      "artifact_digest": "sha256:b4af22138e658ebdb21688d6dedb3f4cd02be9c5b6814cb7aed98ca9fee423c6",
+      "availability": "n/a",
+      "blocked_by": null,
+      "class": "D-tiny-transformer",
+      "config_hash": "sha256:920984d171602d9731dd58e91c22bce4ada14560b06e1921da0abcb00ec2324e",
+      "display": "Tiny Transformer reference point (not the assumed target)",
+      "id": "fastner-d-tiny-transformer",
+      "languages": null,
+      "license": null,
+      "missing": [],
+      "model_size_bytes": 674532,
+      "pin_status": "resolved",
+      "role": "candidate",
+      "runtime": "fastner",
+      "runtime_commit": "007805d3e83bb6c72f604cdcdd2e338c7b6ea753",
+      "version": "0.0.0"
+    },
+    {
+      "adapter": "spacy-en-core-web-sm-3.8.0",
+      "adapter_id": "spacy-en-core-web-sm-3.8.0",
+      "artifact_digest": "sha256:81160f80dfefb684976731b365eab4c47da91305c36b8165f68d30a1d7c48067",
+      "availability": "available",
+      "blocked_by": null,
+      "class": null,
+      "config_hash": "sha256:29e30ed3102b079df60975d6ffa37c49f169bcea07dad892bbe27fa9c408724b",
+      "display": "spaCy en_core_web_sm 3.8.0 (English)",
+      "id": "ref-spacy-en",
+      "languages": [
+        "en"
+      ],
+      "license": {
+        "id": null,
+        "note": "not stated in ner-eval pins; verify before public release",
+        "verified": false
+      },
+      "missing": [],
+      "model_size_bytes": 15231350,
+      "pin_status": "resolved",
+      "role": "reference",
+      "runtime": "spacy",
+      "runtime_commit": null,
+      "version": "3.8.0"
+    },
+    {
+      "adapter": "hf-dslim-bert-base-ner-d1a3e8f",
+      "adapter_id": "hf-dslim-bert-base-ner-d1a3e8f",
+      "artifact_digest": "sha256:0263fcac83c837d8311d4695337312e0f9e8987a8ee92875c4d5afd278e89a1f",
+      "availability": "available",
+      "blocked_by": null,
+      "class": null,
+      "config_hash": "sha256:fa1097bd284665634101551a8d3444d276e884f079a9dfd9a75d786a2ab345c2",
+      "display": "dslim/bert-base-NER (English)",
+      "id": "ref-bert-base-ner",
+      "languages": [
+        "en"
+      ],
+      "license": {
+        "id": "MIT",
+        "source": "ner-eval docs/REFERENCE_ADAPTERS.md",
+        "verified": true
+      },
+      "missing": [],
+      "model_size_bytes": 433506746,
+      "pin_status": "resolved",
+      "role": "reference",
+      "runtime": "torch",
+      "runtime_commit": null,
+      "version": "d1a3e8f13f8c3566299d95fcfc9a8d2382a9affc"
+    },
+    {
+      "adapter": "hf-leo97-koelectra-small-v3-modu-ner-bb9d562",
+      "adapter_id": "hf-leo97-koelectra-small-v3-modu-ner-bb9d562",
+      "artifact_digest": "sha256:9ad852bbefa730824fdb115491a1e983a64834ab88ac10dc590fd2b54a3bbab4",
+      "availability": "available",
+      "blocked_by": null,
+      "class": null,
+      "config_hash": "sha256:e36dabac64dfa8fa29e4b91370c06112418cb4ed216fcc730b875a9cb468ac6c",
+      "display": "Leo97/KoELECTRA-small-v3-modu-ner (Korean)",
+      "id": "ref-koelectra-ko",
+      "languages": [
+        "ko"
+      ],
+      "license": {
+        "id": null,
+        "note": "not stated in ner-eval pins; verify before public release",
+        "verified": false
+      },
+      "missing": [],
+      "model_size_bytes": 57365125,
+      "pin_status": "resolved",
+      "role": "reference",
+      "runtime": "torch",
+      "runtime_commit": null,
+      "version": "bb9d562674e260712d9779f140ff5564a9e44d36"
+    },
+    {
+      "adapter": "ner-eval-python-shim",
+      "adapter_id": null,
+      "artifact_digest": null,
+      "availability": "unresolved",
+      "blocked_by": "Not run in alpha1-full: ner-eval has no GLiNER adapter yet (ner-eval docs/REFERENCE_ADAPTERS.md). Planned reference.",
+      "class": null,
+      "config_hash": "sha256:e93e8d567cb71fee5d43fb45444e31e9e9569824ea97cc3c923ef7ae3b3d4d03",
+      "display": "GLiNER multilingual (EN+KO zero-shot PERSON)",
+      "id": "ref-gliner-multi",
+      "languages": [
+        "en",
+        "ko"
+      ],
+      "license": {
+        "id": null,
+        "verified": false
+      },
+      "missing": [
+        "model.revision|model.version",
+        "model.artifact_digest",
+        "model.size_bytes",
+        "runtime.version",
+        "adapter.version"
+      ],
+      "model_size_bytes": null,
+      "pin_status": "unresolved",
+      "role": "reference",
+      "runtime": "gliner",
+      "runtime_commit": null,
+      "version": null
+    },
+    {
+      "adapter": "control-null",
+      "adapter_id": "control-null",
+      "artifact_digest": "sha256:8b75399add249ce9cbaef4ff5ca2560d8a66ddab9bf1491b1dee6b3f41050beb",
+      "availability": "n/a",
+      "blocked_by": null,
+      "class": null,
+      "config_hash": "sha256:ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "display": "ner-eval null control (predicts nothing)",
+      "id": "control-null",
+      "languages": null,
+      "license": null,
+      "missing": [],
+      "model_size_bytes": 0,
+      "pin_status": "resolved",
+      "role": "control",
+      "runtime": null,
+      "runtime_commit": null,
+      "version": "0.1.0"
+    },
+    {
+      "adapter": "control-capitalized-run",
+      "adapter_id": "control-capitalized-run",
+      "artifact_digest": "sha256:b1f093770bbd6219bc666f2a2a61dd6ab18d03f1472aa66110c5faf54bc8fc32",
+      "availability": "n/a",
+      "blocked_by": null,
+      "class": null,
+      "config_hash": "sha256:ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "display": "ner-eval capitalized-run control",
+      "id": "control-capitalized-run",
+      "languages": null,
+      "license": null,
+      "missing": [],
+      "model_size_bytes": 0,
+      "pin_status": "resolved",
+      "role": "control",
+      "runtime": null,
+      "runtime_commit": null,
+      "version": "0.1.0"
+    }
+  ],
+  "policy_version": "0.2.0",
+  "population_quality": {
+    "fastner-adversarial": [
+      {
+        "model": "fastner-a-statistical",
+        "state": "not-measured"
+      },
+      {
+        "model": "fastner-b-linear-crf",
+        "state": "not-measured"
+      },
+      {
+        "model": "fastner-c-compact-neural",
+        "state": "not-measured"
+      },
+      {
+        "model": "fastner-d-tiny-transformer",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-spacy-en",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-bert-base-ner",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-koelectra-ko",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-gliner-multi",
+        "state": "not-measured"
+      },
+      {
+        "model": "control-null",
+        "state": "not-measured"
+      },
+      {
+        "model": "control-capitalized-run",
+        "state": "not-measured"
+      }
+    ],
+    "fastner-regression": [
+      {
+        "model": "fastner-a-statistical",
+        "state": "not-measured"
+      },
+      {
+        "model": "fastner-b-linear-crf",
+        "state": "not-measured"
+      },
+      {
+        "model": "fastner-c-compact-neural",
+        "state": "not-measured"
+      },
+      {
+        "model": "fastner-d-tiny-transformer",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-spacy-en",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-bert-base-ner",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-koelectra-ko",
+        "state": "not-measured"
+      },
+      {
+        "model": "ref-gliner-multi",
+        "state": "not-measured"
+      },
+      {
+        "model": "control-null",
+        "state": "not-measured"
+      },
+      {
+        "model": "control-capitalized-run",
+        "state": "not-measured"
+      }
+    ],
+    "ner-evidence-public": [
+      {
+        "model": "fastner-a-statistical",
+        "overall": {
+          "cases": 545,
+          "f1": 0.458650610943864,
+          "lenient_f1": 0.5121303346909865,
+          "precision": 0.40130151843817785,
+          "recall": 0.5351239669421488
+        },
+        "run_id": "run-395459fbb4ecb4da:fastner-stat",
+        "slices": {
+          "collision=common-word": {
+            "cases": 156,
+            "f1": 0.2908762420957543,
+            "lenient_f1": 0.30171635049683826,
+            "precision": 0.21845318860244234,
+            "recall": 0.43513513513513513
+          },
+          "collision=location": {
+            "cases": 52,
+            "f1": 0.19795221843003413,
+            "lenient_f1": 0.23208191126279862,
+            "precision": 0.1324200913242009,
+            "recall": 0.3918918918918919
+          },
+          "collision=organization": {
+            "cases": 33,
+            "f1": 0.25663716814159293,
+            "lenient_f1": 0.25663716814159293,
+            "precision": 0.15508021390374332,
+            "recall": 0.7435897435897436
+          },
+          "context=no-person": {
+            "cases": 135,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": 0.0,
+            "recall": null
+          },
+          "difficulty=ambiguous": {
+            "cases": 252,
+            "f1": 0.25991949396204717,
+            "lenient_f1": 0.27257044278320874,
+            "precision": 0.18329278183292783,
+            "recall": 0.44664031620553357
+          },
+          "difficulty=unambiguous": {
+            "cases": 293,
+            "f1": 0.5470829068577278,
+            "lenient_f1": 0.6187308085977482,
+            "precision": 0.5361083249749248,
+            "recall": 0.5585161964472309
+          },
+          "language=en": {
+            "cases": 244,
+            "f1": 0.47120418848167545,
+            "lenient_f1": 0.5121370775821038,
+            "precision": 0.4166666666666667,
+            "recall": 0.5421686746987951
+          },
+          "language=ko": {
+            "cases": 301,
+            "f1": 0.4512126339537507,
+            "lenient_f1": 0.5121263395375071,
+            "precision": 0.392349190779794,
+            "recall": 0.53085600530856
+          },
+          "script=mixed": {
+            "cases": 36,
+            "f1": 0.38515901060070673,
+            "lenient_f1": 0.5759717314487632,
+            "precision": 0.3732876712328767,
+            "recall": 0.3978102189781022
+          },
+          "seen=false": {
+            "cases": 128,
+            "f1": 0.5513513513513514,
+            "lenient_f1": 0.5959459459459461,
+            "precision": 0.544,
+            "recall": 0.5589041095890411
+          },
+          "seen=true": {
+            "cases": 335,
+            "f1": 0.47778077026663074,
+            "lenient_f1": 0.5413412335039052,
+            "precision": 0.4384577360355907,
+            "recall": 0.5248520710059171
+          },
+          "shape=multi-token": {
+            "cases": 177,
+            "f1": 0.4153248195446974,
+            "lenient_f1": 0.5163797890061078,
+            "precision": 0.37362637362637363,
+            "recall": 0.4675
+          },
+          "shape=single-token": {
+            "cases": 368,
+            "f1": 0.4789391575663027,
+            "lenient_f1": 0.5101404056162248,
+            "precision": 0.4137466307277628,
+            "recall": 0.5685185185185185
+          }
+        },
+        "state": "ok"
+      },
+      {
+        "model": "fastner-b-linear-crf",
+        "overall": {
+          "cases": 545,
+          "f1": 0.693815331010453,
+          "lenient_f1": 0.7661149825783972,
+          "precision": 0.7334254143646409,
+          "recall": 0.6582644628099174
+        },
+        "run_id": "run-395459fbb4ecb4da:fastner-crf",
+        "slices": {
+          "collision=common-word": {
+            "cases": 156,
+            "f1": 0.5524861878453039,
+            "lenient_f1": 0.5994475138121548,
+            "precision": 0.5649717514124294,
+            "recall": 0.5405405405405406
+          },
+          "collision=location": {
+            "cases": 52,
+            "f1": 0.5093167701863355,
+            "lenient_f1": 0.5838509316770186,
+            "precision": 0.47126436781609193,
+            "recall": 0.5540540540540541
+          },
+          "collision=organization": {
+            "cases": 33,
+            "f1": 0.39189189189189194,
+            "lenient_f1": 0.39189189189189194,
+            "precision": 0.26605504587155965,
+            "recall": 0.7435897435897436
+          },
+          "context=no-person": {
+            "cases": 135,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": 0.0,
+            "recall": null
+          },
+          "difficulty=ambiguous": {
+            "cases": 252,
+            "f1": 0.4882882882882883,
+            "lenient_f1": 0.5495495495495496,
+            "precision": 0.44867549668874174,
+            "recall": 0.5355731225296443
+          },
+          "difficulty=unambiguous": {
+            "cases": 293,
+            "f1": 0.7593337162550259,
+            "lenient_f1": 0.8351522113727744,
+            "precision": 0.8431122448979592,
+            "recall": 0.690700104493208
+          },
+          "language=en": {
+            "cases": 244,
+            "f1": 0.6861233480176212,
+            "lenient_f1": 0.7731277533039648,
+            "precision": 0.689922480620155,
+            "recall": 0.6823658269441402
+          },
+          "language=ko": {
+            "cases": 301,
+            "f1": 0.6988472622478386,
+            "lenient_f1": 0.7615273775216138,
+            "precision": 0.764381402679275,
+            "recall": 0.643662906436629
+          },
+          "script=mixed": {
+            "cases": 36,
+            "f1": 0.5672268907563025,
+            "lenient_f1": 0.7941176470588236,
+            "precision": 0.6683168316831684,
+            "recall": 0.4927007299270073
+          },
+          "seen=false": {
+            "cases": 128,
+            "f1": 0.7868098159509203,
+            "lenient_f1": 0.8374233128834355,
+            "precision": 0.8937282229965157,
+            "recall": 0.7027397260273973
+          },
+          "seen=true": {
+            "cases": 335,
+            "f1": 0.6824644549763033,
+            "lenient_f1": 0.7665086887835704,
+            "precision": 0.7322033898305085,
+            "recall": 0.6390532544378699
+          },
+          "shape=multi-token": {
+            "cases": 177,
+            "f1": 0.7256425582785416,
+            "lenient_f1": 0.8499701135684399,
+            "precision": 0.695303550973654,
+            "recall": 0.75875
+          },
+          "shape=single-token": {
+            "cases": 368,
+            "f1": 0.6755738266529633,
+            "lenient_f1": 0.7180541281260705,
+            "precision": 0.7590454195535027,
+            "recall": 0.608641975308642
+          }
+        },
+        "state": "ok"
+      },
+      {
+        "model": "fastner-c-compact-neural",
+        "overall": {
+          "cases": 545,
+          "f1": 0.478330658105939,
+          "lenient_f1": 0.5553772070626003,
+          "precision": 0.3910761154855643,
+          "recall": 0.6157024793388429
+        },
+        "run_id": "run-395459fbb4ecb4da:fastner-neural",
+        "slices": {
+          "collision=common-word": {
+            "cases": 156,
+            "f1": 0.3564189189189189,
+            "lenient_f1": 0.38006756756756754,
+            "precision": 0.2592137592137592,
+            "recall": 0.5702702702702702
+          },
+          "collision=location": {
+            "cases": 52,
+            "f1": 0.31775700934579443,
+            "lenient_f1": 0.31775700934579443,
+            "precision": 0.20647773279352227,
+            "recall": 0.6891891891891891
+          },
+          "collision=organization": {
+            "cases": 33,
+            "f1": 0.18257261410788383,
+            "lenient_f1": 0.18257261410788383,
+            "precision": 0.10891089108910891,
+            "recall": 0.5641025641025641
+          },
+          "context=no-person": {
+            "cases": 135,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": 0.0,
+            "recall": null
+          },
+          "difficulty=ambiguous": {
+            "cases": 252,
+            "f1": 0.2980096826250673,
+            "lenient_f1": 0.33136094674556216,
+            "precision": 0.20473022912047303,
+            "recall": 0.5474308300395256
+          },
+          "difficulty=unambiguous": {
+            "cases": 293,
+            "f1": 0.5550217341569436,
+            "lenient_f1": 0.6506520247083047,
+            "precision": 0.4936914936914937,
+            "recall": 0.6337513061650992
+          },
+          "language=en": {
+            "cases": 244,
+            "f1": 0.5204081632653061,
+            "lenient_f1": 0.6012558869701727,
+            "precision": 0.4055045871559633,
+            "recall": 0.7261774370208105
+          },
+          "language=ko": {
+            "cases": 301,
+            "f1": 0.44921238457360124,
+            "lenient_f1": 0.5236284627919607,
+            "precision": 0.38022988505747124,
+            "recall": 0.5487723954877239
+          },
+          "script=mixed": {
+            "cases": 36,
+            "f1": 0.3712,
+            "lenient_f1": 0.5536,
+            "precision": 0.33048433048433046,
+            "recall": 0.4233576642335766
+          },
+          "seen=false": {
+            "cases": 128,
+            "f1": 0.5482717520858165,
+            "lenient_f1": 0.6495828367103695,
+            "precision": 0.48523206751054854,
+            "recall": 0.6301369863013698
+          },
+          "seen=true": {
+            "cases": 335,
+            "f1": 0.4978250362493958,
+            "lenient_f1": 0.5727404543257613,
+            "precision": 0.4207516339869281,
+            "recall": 0.6094674556213018
+          },
+          "shape=multi-token": {
+            "cases": 177,
+            "f1": 0.5190909090909092,
+            "lenient_f1": 0.6436363636363637,
+            "precision": 0.40785714285714286,
+            "recall": 0.71375
+          },
+          "shape=single-token": {
+            "cases": 368,
+            "f1": 0.45607940446650125,
+            "lenient_f1": 0.507196029776675,
+            "precision": 0.3813278008298755,
+            "recall": 0.567283950617284
+          }
+        },
+        "state": "ok"
+      },
+      {
+        "model": "fastner-d-tiny-transformer",
+        "overall": {
+          "cases": 545,
+          "f1": 0.548217636022514,
+          "lenient_f1": 0.6078799249530957,
+          "precision": 0.5020618556701031,
+          "recall": 0.6037190082644628
+        },
+        "run_id": "run-395459fbb4ecb4da:fastner-transformer",
+        "slices": {
+          "collision=common-word": {
+            "cases": 156,
+            "f1": 0.4171011470281543,
+            "lenient_f1": 0.4442127215849843,
+            "precision": 0.3395585738539898,
+            "recall": 0.5405405405405406
+          },
+          "collision=location": {
+            "cases": 52,
+            "f1": 0.4272727272727273,
+            "lenient_f1": 0.4272727272727273,
+            "precision": 0.3219178082191781,
+            "recall": 0.6351351351351351
+          },
+          "collision=organization": {
+            "cases": 33,
+            "f1": 0.24137931034482757,
+            "lenient_f1": 0.24137931034482757,
+            "precision": 0.15555555555555556,
+            "recall": 0.5384615384615384
+          },
+          "context=no-person": {
+            "cases": 135,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": 0.0,
+            "recall": null
+          },
+          "difficulty=ambiguous": {
+            "cases": 252,
+            "f1": 0.37212543554006966,
+            "lenient_f1": 0.3986062717770034,
+            "precision": 0.2874058127018299,
+            "recall": 0.5276679841897233
+          },
+          "difficulty=unambiguous": {
+            "cases": 293,
+            "f1": 0.6130937098844673,
+            "lenient_f1": 0.6849807445442876,
+            "precision": 0.6027258960121151,
+            "recall": 0.6238244514106583
+          },
+          "language=en": {
+            "cases": 244,
+            "f1": 0.5860420650095604,
+            "lenient_f1": 0.675908221797323,
+            "precision": 0.5199321458863444,
+            "recall": 0.6714129244249726
+          },
+          "language=ko": {
+            "cases": 301,
+            "f1": 0.5237801111797407,
+            "lenient_f1": 0.563928350833848,
+            "precision": 0.4898902368573079,
+            "recall": 0.5627073656270737
+          },
+          "script=mixed": {
+            "cases": 36,
+            "f1": 0.4555160142348754,
+            "lenient_f1": 0.6227758007117439,
+            "precision": 0.4444444444444444,
+            "recall": 0.46715328467153283
+          },
+          "seen=false": {
+            "cases": 128,
+            "f1": 0.6441136671177266,
+            "lenient_f1": 0.6955345060893099,
+            "precision": 0.6363636363636364,
+            "recall": 0.6520547945205479
+          },
+          "seen=true": {
+            "cases": 335,
+            "f1": 0.5519753432333987,
+            "lenient_f1": 0.6197814513869432,
+            "precision": 0.5242150079829697,
+            "recall": 0.5828402366863905
+          },
+          "shape=multi-token": {
+            "cases": 177,
+            "f1": 0.5964535196131112,
+            "lenient_f1": 0.7157442235357334,
+            "precision": 0.5230914231856739,
+            "recall": 0.69375
+          },
+          "shape=single-token": {
+            "cases": 368,
+            "f1": 0.5223407321994811,
+            "lenient_f1": 0.5500144133756126,
+            "precision": 0.4899945916711736,
+            "recall": 0.5592592592592592
+          }
+        },
+        "state": "ok"
+      },
+      {
+        "model": "ref-spacy-en",
+        "overall": {
+          "cases": 545,
+          "f1": 0.3054939640305494,
+          "lenient_f1": 0.4134023158413402,
+          "precision": 0.37827943868212327,
+          "recall": 0.256198347107438
+        },
+        "run_id": "run-395459fbb4ecb4da:spacy-en-core-web-sm-3.8.0",
+        "slices": {
+          "collision=common-word": {
+            "cases": 156,
+            "f1": 0.32558139534883723,
+            "lenient_f1": 0.3875968992248062,
+            "precision": 0.38181818181818183,
+            "recall": 0.28378378378378377
+          },
+          "collision=location": {
+            "cases": 52,
+            "f1": 0.31999999999999995,
+            "lenient_f1": 0.4,
+            "precision": 0.39215686274509803,
+            "recall": 0.2702702702702703
+          },
+          "collision=organization": {
+            "cases": 33,
+            "f1": 0.0975609756097561,
+            "lenient_f1": 0.14634146341463414,
+            "precision": 0.09302325581395349,
+            "recall": 0.10256410256410256
+          },
+          "context=no-person": {
+            "cases": 135,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": 0.0,
+            "recall": null
+          },
+          "difficulty=ambiguous": {
+            "cases": 252,
+            "f1": 0.2717149220489978,
+            "lenient_f1": 0.3518930957683741,
+            "precision": 0.3112244897959184,
+            "recall": 0.24110671936758893
+          },
+          "difficulty=unambiguous": {
+            "cases": 293,
+            "f1": 0.3611312545322698,
+            "lenient_f1": 0.4938361131254533,
+            "precision": 0.590047393364929,
+            "recall": 0.2601880877742947
+          },
+          "language=en": {
+            "cases": 244,
+            "f1": 0.6474820143884893,
+            "lenient_f1": 0.7220405493786788,
+            "precision": 0.8035714285714286,
+            "recall": 0.5421686746987951
+          },
+          "language=ko": {
+            "cases": 301,
+            "f1": 0.11753643629525153,
+            "lenient_f1": 0.26986365773389753,
+            "precision": 0.20161290322580644,
+            "recall": 0.08294625082946251
+          },
+          "script=mixed": {
+            "cases": 36,
+            "f1": 0.2885085574572127,
+            "lenient_f1": 0.5770171149144254,
+            "precision": 0.43703703703703706,
+            "recall": 0.21532846715328466
+          },
+          "seen=false": {
+            "cases": 128,
+            "f1": 0.3874643874643875,
+            "lenient_f1": 0.48243114909781576,
+            "precision": 0.631578947368421,
+            "recall": 0.27945205479452057
+          },
+          "seen=true": {
+            "cases": 335,
+            "f1": 0.3352135374697825,
+            "lenient_f1": 0.47139403706688154,
+            "precision": 0.5252525252525253,
+            "recall": 0.24615384615384617
+          },
+          "shape=multi-token": {
+            "cases": 177,
+            "f1": 0.5981035740335522,
+            "lenient_f1": 0.7366885485047412,
+            "precision": 0.7180385288966725,
+            "recall": 0.5125
+          },
+          "shape=single-token": {
+            "cases": 368,
+            "f1": 0.1838074398249453,
+            "lenient_f1": 0.2923413566739606,
+            "precision": 0.3157894736842105,
+            "recall": 0.12962962962962962
+          }
+        },
+        "state": "ok"
+      },
+      {
+        "model": "ref-bert-base-ner",
+        "overall": {
+          "cases": 545,
+          "f1": 0.22886263608987722,
+          "lenient_f1": 0.4554088487375493,
+          "precision": 0.26041117554032683,
+          "recall": 0.20413223140495868
+        },
+        "run_id": "run-395459fbb4ecb4da:hf-dslim-bert-base-ner-d1a3e8f",
+        "slices": {
+          "collision=common-word": {
+            "cases": 156,
+            "f1": 0.3543859649122807,
+            "lenient_f1": 0.5052631578947369,
+            "precision": 0.505,
+            "recall": 0.27297297297297296
+          },
+          "collision=location": {
+            "cases": 52,
+            "f1": 0.6086956521739131,
+            "lenient_f1": 0.6956521739130435,
+            "precision": 0.8536585365853658,
+            "recall": 0.47297297297297297
+          },
+          "collision=organization": {
+            "cases": 33,
+            "f1": 0.15384615384615385,
+            "lenient_f1": 0.46153846153846156,
+            "precision": 0.19230769230769232,
+            "recall": 0.1282051282051282
+          },
+          "context=no-person": {
+            "cases": 135,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": 0.0,
+            "recall": null
+          },
+          "difficulty=ambiguous": {
+            "cases": 252,
+            "f1": 0.3523573200992556,
+            "lenient_f1": 0.5037220843672456,
+            "precision": 0.47333333333333333,
+            "recall": 0.28063241106719367
+          },
+          "difficulty=unambiguous": {
+            "cases": 293,
+            "f1": 0.22222222222222224,
+            "lenient_f1": 0.4924242424242425,
+            "precision": 0.2807017543859649,
+            "recall": 0.1839080459770115
+          },
+          "language=en": {
+            "cases": 244,
+            "f1": 0.41259398496240607,
+            "lenient_f1": 0.730263157894737,
+            "precision": 0.36131687242798355,
+            "recall": 0.48083242059145676
+          },
+          "language=ko": {
+            "cases": 301,
+            "f1": 0.05958829902491874,
+            "lenient_f1": 0.22318526543878653,
+            "precision": 0.16224188790560473,
+            "recall": 0.0364963503649635
+          },
+          "script=mixed": {
+            "cases": 36,
+            "f1": 0.37,
+            "lenient_f1": 0.6,
+            "precision": 0.5873015873015873,
+            "recall": 0.27007299270072993
+          },
+          "seen=false": {
+            "cases": 128,
+            "f1": 0.08882907133243607,
+            "lenient_f1": 0.48183041722745623,
+            "precision": 0.0873015873015873,
+            "recall": 0.09041095890410959
+          },
+          "seen=true": {
+            "cases": 335,
+            "f1": 0.34543987086359973,
+            "lenient_f1": 0.5044390637610976,
+            "precision": 0.5431472081218274,
+            "recall": 0.2532544378698225
+          },
+          "shape=multi-token": {
+            "cases": 177,
+            "f1": 0.2801833927661742,
+            "lenient_f1": 0.6765155374426898,
+            "precision": 0.236457437661221,
+            "recall": 0.34375
+          },
+          "shape=single-token": {
+            "cases": 368,
+            "f1": 0.21780208851317753,
+            "lenient_f1": 0.3172550969666832,
+            "precision": 0.5601023017902813,
+            "recall": 0.13518518518518519
+          }
+        },
+        "state": "ok"
+      },
+      {
+        "model": "ref-koelectra-ko",
+        "overall": {
+          "cases": 545,
+          "f1": 0.5019088826673455,
+          "lenient_f1": 0.6149147365741919,
+          "precision": 0.6534128561961564,
+          "recall": 0.40743801652892564
+        },
+        "run_id": "run-395459fbb4ecb4da:hf-leo97-koelectra-small-v3-modu-ner-bb9d562",
+        "slices": {
+          "collision=common-word": {
+            "cases": 156,
+            "f1": 0.35073068893528186,
+            "lenient_f1": 0.4342379958246347,
+            "precision": 0.7706422018348624,
+            "recall": 0.22702702702702704
+          },
+          "collision=location": {
+            "cases": 52,
+            "f1": 0.24175824175824176,
+            "lenient_f1": 0.30769230769230765,
+            "precision": 0.6470588235294118,
+            "recall": 0.14864864864864866
+          },
+          "collision=organization": {
+            "cases": 33,
+            "f1": 0.5333333333333333,
+            "lenient_f1": 0.5333333333333333,
+            "precision": 0.5555555555555556,
+            "recall": 0.5128205128205128
+          },
+          "context=no-person": {
+            "cases": 135,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": 0.0,
+            "recall": null
+          },
+          "difficulty=ambiguous": {
+            "cases": 252,
+            "f1": 0.3652173913043478,
+            "lenient_f1": 0.4434782608695652,
+            "precision": 0.6847826086956522,
+            "recall": 0.2490118577075099
+          },
+          "difficulty=unambiguous": {
+            "cases": 293,
+            "f1": 0.5624591236102027,
+            "lenient_f1": 0.6899934597776324,
+            "precision": 0.7517482517482518,
+            "recall": 0.44932079414838033
+          },
+          "language=en": {
+            "cases": 244,
+            "f1": 0.08884859474161379,
+            "lenient_f1": 0.26473254759746145,
+            "precision": 0.2578947368421053,
+            "recall": 0.05366922234392114
+          },
+          "language=ko": {
+            "cases": 301,
+            "f1": 0.7085066162570889,
+            "lenient_f1": 0.8030245746691871,
+            "precision": 0.8233743409490334,
+            "recall": 0.621765096217651
+          },
+          "script=mixed": {
+            "cases": 36,
+            "f1": 0.5971943887775552,
+            "lenient_f1": 0.8016032064128256,
+            "precision": 0.6622222222222223,
+            "recall": 0.5437956204379562
+          },
+          "seen=false": {
+            "cases": 128,
+            "f1": 0.42359767891682787,
+            "lenient_f1": 0.551257253384913,
+            "precision": 0.7203947368421053,
+            "recall": 0.3
+          },
+          "seen=true": {
+            "cases": 335,
+            "f1": 0.5673076923076924,
+            "lenient_f1": 0.6826923076923077,
+            "precision": 0.7564102564102564,
+            "recall": 0.45384615384615384
+          },
+          "shape=multi-token": {
+            "cases": 177,
+            "f1": 0.19618528610354224,
+            "lenient_f1": 0.4232515894641235,
+            "precision": 0.3588039867109635,
+            "recall": 0.135
+          },
+          "shape=single-token": {
+            "cases": 368,
+            "f1": 0.6633925198337741,
+            "lenient_f1": 0.7366830374008312,
+            "precision": 0.8549172346640701,
+            "recall": 0.5419753086419753
+          }
+        },
+        "state": "ok"
+      },
+      {
+        "model": "ref-gliner-multi",
+        "state": "not-measured"
+      },
+      {
+        "model": "control-null",
+        "overall": {
+          "cases": 545,
+          "f1": null,
+          "lenient_f1": null,
+          "precision": null,
+          "recall": 0.0
+        },
+        "run_id": "run-395459fbb4ecb4da:control-null",
+        "slices": {
+          "collision=common-word": {
+            "cases": 156,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "collision=location": {
+            "cases": 52,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "collision=organization": {
+            "cases": 33,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "context=no-person": {
+            "cases": 135,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": null
+          },
+          "difficulty=ambiguous": {
+            "cases": 252,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "difficulty=unambiguous": {
+            "cases": 293,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "language=en": {
+            "cases": 244,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "language=ko": {
+            "cases": 301,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "script=mixed": {
+            "cases": 36,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "seen=false": {
+            "cases": 128,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "seen=true": {
+            "cases": 335,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "shape=multi-token": {
+            "cases": 177,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          },
+          "shape=single-token": {
+            "cases": 368,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": null,
+            "recall": 0.0
+          }
+        },
+        "state": "ok"
+      },
+      {
+        "model": "control-capitalized-run",
+        "overall": {
+          "cases": 545,
+          "f1": 0.2021952628538417,
+          "lenient_f1": 0.30675909878682844,
+          "precision": 0.15541740674955595,
+          "recall": 0.2892561983471074
+        },
+        "run_id": "run-395459fbb4ecb4da:control-capitalized-run",
+        "slices": {
+          "collision=common-word": {
+            "cases": 156,
+            "f1": 0.1967435549525102,
+            "lenient_f1": 0.2442333785617368,
+            "precision": 0.13134057971014493,
+            "recall": 0.3918918918918919
+          },
+          "collision=location": {
+            "cases": 52,
+            "f1": 0.19823008849557522,
+            "lenient_f1": 0.19823008849557522,
+            "precision": 0.11405295315682282,
+            "recall": 0.7567567567567568
+          },
+          "collision=organization": {
+            "cases": 33,
+            "f1": 0.09615384615384616,
+            "lenient_f1": 0.09615384615384616,
+            "precision": 0.054945054945054944,
+            "recall": 0.38461538461538464
+          },
+          "context=no-person": {
+            "cases": 135,
+            "f1": null,
+            "lenient_f1": null,
+            "precision": 0.0,
+            "recall": null
+          },
+          "difficulty=ambiguous": {
+            "cases": 252,
+            "f1": 0.16479999999999997,
+            "lenient_f1": 0.1928,
+            "precision": 0.10330992978936811,
+            "recall": 0.40711462450592883
+          },
+          "difficulty=unambiguous": {
+            "cases": 293,
+            "f1": 0.22332730560578662,
+            "lenient_f1": 0.3711573236889692,
+            "precision": 0.19681274900398407,
+            "recall": 0.258098223615465
+          },
+          "language=en": {
+            "cases": 244,
+            "f1": 0.3319566339700568,
+            "lenient_f1": 0.4424367578729994,
+            "precision": 0.2171563660925363,
+            "recall": 0.7042716319824753
+          },
+          "language=ko": {
+            "cases": 301,
+            "f1": 0.037377049180327866,
+            "lenient_f1": 0.13442622950819672,
+            "precision": 0.03694102397926118,
+            "recall": 0.0378234903782349
+          },
+          "script=mixed": {
+            "cases": 36,
+            "f1": 0.20634920634920634,
+            "lenient_f1": 0.37777777777777777,
+            "precision": 0.18258426966292135,
+            "recall": 0.23722627737226276
+          },
+          "seen=false": {
+            "cases": 128,
+            "f1": 0.2501330494944119,
+            "lenient_f1": 0.4215007982969665,
+            "precision": 0.20452567449956485,
+            "recall": 0.3219178082191781
+          },
+          "seen=true": {
+            "cases": 335,
+            "f1": 0.20034467901766484,
+            "lenient_f1": 0.28694528220594573,
+            "precision": 0.15752032520325204,
+            "recall": 0.27514792899408286
+          },
+          "shape=multi-token": {
+            "cases": 177,
+            "f1": 0.24939383443020435,
+            "lenient_f1": 0.4683062002078282,
+            "precision": 0.17249640632486823,
+            "recall": 0.45
+          },
+          "shape=single-token": {
+            "cases": 368,
+            "f1": 0.16844191231112213,
+            "lenient_f1": 0.19123111221203867,
+            "precision": 0.1406702523789822,
+            "recall": 0.20987654320987653
+          }
+        },
+        "state": "ok"
+      }
+    ]
+  },
+  "populations": [
+    {
+      "artifact_runs": [],
+      "case_count": null,
+      "caveats": [],
+      "id": "candidate-specific",
+      "identity": {
+        "corpus_id": "candidate-specific",
+        "corpus_version": null
+      },
+      "is_holdout": false,
+      "provenance": {
+        "custody": "fastner-benchmarks",
+        "license": "project-internal",
+        "personal_data": false,
+        "source": "per-candidate failure analysis",
+        "synthetic": true
+      },
+      "role": "candidate-diagnostic",
+      "status": "planned",
+      "title": "Candidate-specific diagnostic cases"
+    },
+    {
+      "artifact_runs": [],
+      "case_count": 37,
+      "caveats": [],
+      "content_digest": "sha256:b86a7d66e9889ab88a5ef21b192d89665de4495769544dadf6d295c7ca81ede4",
+      "id": "fastner-adversarial",
+      "identity": {
+        "corpus_id": "fastner-adversarial",
+        "corpus_version": "0.1.0"
+      },
+      "is_holdout": false,
+      "origins": {
+        "seed-taxonomy": 37
+      },
+      "provenance": {
+        "custody": "fastner-benchmarks",
+        "license": "project-internal; to be set before public release",
+        "personal_data": false,
+        "source": "authored in this repo",
+        "synthetic": true
+      },
+      "role": "adversarial-gate",
+      "status": "available",
+      "title": "FastNER adversarial product corpus"
+    },
+    {
+      "artifact_runs": [],
+      "case_count": 52,
+      "caveats": [],
+      "content_digest": "sha256:3dbdbfea6e16153d413e718f163b36958388c1a33057a1469babcb8f5f5c1bae",
+      "id": "fastner-regression",
+      "identity": {
+        "corpus_id": "fastner-regression",
+        "corpus_version": "0.1.0"
+      },
+      "is_holdout": false,
+      "origins": {
+        "seed-taxonomy": 52
+      },
+      "provenance": {
+        "custody": "fastner-benchmarks",
+        "license": "project-internal; to be set before public release",
+        "personal_data": false,
+        "source": "authored in this repo",
+        "synthetic": true
+      },
+      "role": "regression-gate",
+      "status": "available",
+      "title": "FastNER product regression corpus"
+    },
+    {
+      "artifact_runs": [
+        "run-395459fbb4ecb4da:control-capitalized-run",
+        "run-395459fbb4ecb4da:control-null",
+        "run-395459fbb4ecb4da:fastner-crf",
+        "run-395459fbb4ecb4da:fastner-neural",
+        "run-395459fbb4ecb4da:fastner-stat",
+        "run-395459fbb4ecb4da:fastner-transformer",
+        "run-395459fbb4ecb4da:hf-dslim-bert-base-ner-d1a3e8f",
+        "run-395459fbb4ecb4da:hf-leo97-koelectra-small-v3-modu-ner-bb9d562",
+        "run-395459fbb4ecb4da:spacy-en-core-web-sm-3.8.0"
+      ],
+      "case_count": 545,
+      "caveats": [
+        "Not a holdout: FastNER candidates were not trained on it, but it was run three times against successive FastNER builds (fastner ADR-0002 process disclosure); FastNER numbers are likely optimistic relative to references that were never tuned against it.",
+        "All text is project-authored synthetic with no independent review; seen/unseen is a name-rarity proxy, not training-data membership.",
+        "Small slices (organization 33, location 52, mixed-script 36 cases) are anecdote-sized; no confidence intervals are computed."
+      ],
+      "id": "ner-evidence-public",
+      "identity": {
+        "case_count": 545,
+        "corpus_version": "person-en-ko-alpha.1-65b5a0970bfe",
+        "digest_spec": "ner-evidence-snapshot-digest/1",
+        "fixture_count": 2987,
+        "schema": "ner-evidence.snapshot/0.1.0",
+        "snapshot_digest": "sha256:65b5a0970bfe9307d4c5fb4c0ad5dbdd11546ce3d591e0afe583249955757415",
+        "snapshot_id": "person-en-ko-alpha.1-65b5a0970bfe",
+        "source_manifest_digest": "sha256:7efa86e4f80e1e78533666ff0321374bedabde0dd40105562ddba7f29503dd00",
+        "taxonomy_version": "0.1.0"
+      },
+      "is_holdout": false,
+      "provenance": {
+        "custody": "ner-evidence (canonical, not modified here)",
+        "independent_review": false,
+        "license": "per ner-evidence source manifest; redistribution: internal-only",
+        "personal_data": false,
+        "source": "ner-evidence released snapshot (ner-evidence PR #10)",
+        "synthetic": true
+      },
+      "role": "quality-floor",
+      "status": "available",
+      "title": "Public/shared ner-evidence snapshot"
+    },
+    {
+      "artifact_runs": [],
+      "case_count": null,
+      "caveats": [],
+      "id": "protected-holdout",
+      "identity": {
+        "corpus_id": "protected-holdout",
+        "corpus_version": null
+      },
+      "is_holdout": true,
+      "provenance": {
+        "custody": "unassigned; text never stored in this repo",
+        "license": "unassigned",
+        "personal_data": null,
+        "source": "unassigned",
+        "synthetic": null
+      },
+      "role": "holdout-gate",
+      "status": "planned",
+      "title": "Future protected/holdout corpus"
+    }
+  ],
+  "rejected_artifacts": [],
+  "schema": "fastner-benchmarks.bakeoff-report/1",
+  "slice_sizes": {
+    "ner-evidence-public": {
+      "collision=common-word": 156,
+      "collision=location": 52,
+      "collision=organization": 33,
+      "context=no-person": 135,
+      "difficulty=ambiguous": 252,
+      "difficulty=unambiguous": 293,
+      "language=en": 244,
+      "language=ko": 301,
+      "script=mixed": 36,
+      "seen=false": 128,
+      "seen=true": 335,
+      "shape=multi-token": 177,
+      "shape=single-token": 368
+    }
+  },
+  "unavailable": {},
+  "values": {
+    "control-capitalized-run": {
+      "ambiguous_name_precision": 0.10330992978936811,
+      "collision_precision_worst": 0.054945054945054944,
+      "en_f1": 0.3319566339700568,
+      "entity_f1": 0.2021952628538417,
+      "entity_precision": 0.15541740674955595,
+      "entity_recall": 0.2892561983471074,
+      "ko_f1": 0.037377049180327866,
+      "latency_p95_ms": 0.0,
+      "model_size_bytes": 0,
+      "multi_token_f1": 0.24939383443020435,
+      "peak_memory_mb": 40.03125,
+      "runtime_binary_size_bytes": null,
+      "single_token_recall": 0.20987654320987653,
+      "startup_ms": 0.0,
+      "throughput_docs_per_s": 2867794.6659019217,
+      "unseen_name_recall": 0.3219178082191781,
+      "wasm_size_bytes": null
+    },
+    "control-null": {
+      "ambiguous_name_precision": null,
+      "collision_precision_worst": null,
+      "en_f1": null,
+      "entity_f1": null,
+      "entity_precision": null,
+      "entity_recall": 0.0,
+      "ko_f1": null,
+      "latency_p95_ms": 0.0,
+      "model_size_bytes": 0,
+      "multi_token_f1": null,
+      "peak_memory_mb": 40.03125,
+      "runtime_binary_size_bytes": null,
+      "single_token_recall": 0.0,
+      "startup_ms": 0.0,
+      "throughput_docs_per_s": 17066666.666666668,
+      "unseen_name_recall": 0.0,
+      "wasm_size_bytes": null
+    },
+    "fastner-a-statistical": {
+      "ambiguous_name_precision": 0.18329278183292783,
+      "collision_precision_worst": 0.1324200913242009,
+      "en_f1": 0.47120418848167545,
+      "entity_f1": 0.458650610943864,
+      "entity_precision": 0.40130151843817785,
+      "entity_recall": 0.5351239669421488,
+      "ko_f1": 0.4512126339537507,
+      "latency_p95_ms": 0.036,
+      "model_size_bytes": 131920,
+      "multi_token_f1": 0.4153248195446974,
+      "peak_memory_mb": 2.421875,
+      "runtime_binary_size_bytes": 563936,
+      "single_token_recall": 0.5685185185185185,
+      "startup_ms": 1390.047,
+      "throughput_docs_per_s": 125506.63498670023,
+      "unseen_name_recall": 0.5589041095890411,
+      "wasm_size_bytes": 68011
+    },
+    "fastner-b-linear-crf": {
+      "ambiguous_name_precision": 0.44867549668874174,
+      "collision_precision_worst": 0.26605504587155965,
+      "en_f1": 0.6861233480176212,
+      "entity_f1": 0.693815331010453,
+      "entity_precision": 0.7334254143646409,
+      "entity_recall": 0.6582644628099174,
+      "ko_f1": 0.6988472622478386,
+      "latency_p95_ms": 0.07,
+      "model_size_bytes": 590684,
+      "multi_token_f1": 0.7256425582785416,
+      "peak_memory_mb": 3.09375,
+      "runtime_binary_size_bytes": 563936,
+      "single_token_recall": 0.608641975308642,
+      "startup_ms": 1337.082,
+      "throughput_docs_per_s": 198562.53137443122,
+      "unseen_name_recall": 0.7027397260273973,
+      "wasm_size_bytes": 71680
+    },
+    "fastner-c-compact-neural": {
+      "ambiguous_name_precision": 0.20473022912047303,
+      "collision_precision_worst": 0.10891089108910891,
+      "en_f1": 0.5204081632653061,
+      "entity_f1": 0.478330658105939,
+      "entity_precision": 0.3910761154855643,
+      "entity_recall": 0.6157024793388429,
+      "ko_f1": 0.44921238457360124,
+      "latency_p95_ms": 0.049,
+      "model_size_bytes": 665172,
+      "multi_token_f1": 0.5190909090909092,
+      "peak_memory_mb": 3.4375,
+      "runtime_binary_size_bytes": 563936,
+      "single_token_recall": 0.567283950617284,
+      "startup_ms": 1805.632,
+      "throughput_docs_per_s": 26656.022028536605,
+      "unseen_name_recall": 0.6301369863013698,
+      "wasm_size_bytes": 76450
+    },
+    "fastner-d-tiny-transformer": {
+      "ambiguous_name_precision": 0.2874058127018299,
+      "collision_precision_worst": 0.15555555555555556,
+      "en_f1": 0.5860420650095604,
+      "entity_f1": 0.548217636022514,
+      "entity_precision": 0.5020618556701031,
+      "entity_recall": 0.6037190082644628,
+      "ko_f1": 0.5237801111797407,
+      "latency_p95_ms": 0.072,
+      "model_size_bytes": 674532,
+      "multi_token_f1": 0.5964535196131112,
+      "peak_memory_mb": 3.6875,
+      "runtime_binary_size_bytes": 563936,
+      "single_token_recall": 0.5592592592592592,
+      "startup_ms": 1111.1,
+      "throughput_docs_per_s": 5132.96241370628,
+      "unseen_name_recall": 0.6520547945205479,
+      "wasm_size_bytes": 79603
+    },
+    "ref-bert-base-ner": {
+      "ambiguous_name_precision": 0.47333333333333333,
+      "collision_precision_worst": 0.19230769230769232,
+      "en_f1": 0.41259398496240607,
+      "entity_f1": 0.22886263608987722,
+      "entity_precision": 0.26041117554032683,
+      "entity_recall": 0.20413223140495868,
+      "ko_f1": 0.05958829902491874,
+      "latency_p95_ms": 85.738,
+      "model_size_bytes": 433506746,
+      "multi_token_f1": 0.2801833927661742,
+      "peak_memory_mb": 685.1875,
+      "runtime_binary_size_bytes": null,
+      "single_token_recall": 0.13518518518518519,
+      "startup_ms": 3638.32,
+      "throughput_docs_per_s": 8.319342908414015,
+      "unseen_name_recall": 0.09041095890410959,
+      "wasm_size_bytes": null
+    },
+    "ref-gliner-multi": {
+      "ambiguous_name_precision": null,
+      "collision_precision_worst": null,
+      "en_f1": null,
+      "entity_f1": null,
+      "entity_precision": null,
+      "entity_recall": null,
+      "ko_f1": null,
+      "latency_p95_ms": null,
+      "model_size_bytes": null,
+      "multi_token_f1": null,
+      "peak_memory_mb": null,
+      "runtime_binary_size_bytes": null,
+      "single_token_recall": null,
+      "startup_ms": null,
+      "throughput_docs_per_s": null,
+      "unseen_name_recall": null,
+      "wasm_size_bytes": null
+    },
+    "ref-koelectra-ko": {
+      "ambiguous_name_precision": 0.6847826086956522,
+      "collision_precision_worst": 0.5555555555555556,
+      "en_f1": 0.08884859474161379,
+      "entity_f1": 0.5019088826673455,
+      "entity_precision": 0.6534128561961564,
+      "entity_recall": 0.40743801652892564,
+      "ko_f1": 0.7085066162570889,
+      "latency_p95_ms": 24.59,
+      "model_size_bytes": 57365125,
+      "multi_token_f1": 0.19618528610354224,
+      "peak_memory_mb": 375.671875,
+      "runtime_binary_size_bytes": null,
+      "single_token_recall": 0.5419753086419753,
+      "startup_ms": 6393.363,
+      "throughput_docs_per_s": 51.47763053247,
+      "unseen_name_recall": 0.3,
+      "wasm_size_bytes": null
+    },
+    "ref-spacy-en": {
+      "ambiguous_name_precision": 0.3112244897959184,
+      "collision_precision_worst": 0.09302325581395349,
+      "en_f1": 0.6474820143884893,
+      "entity_f1": 0.3054939640305494,
+      "entity_precision": 0.37827943868212327,
+      "entity_recall": 0.256198347107438,
+      "ko_f1": 0.11753643629525153,
+      "latency_p95_ms": 14.917,
+      "model_size_bytes": 15231350,
+      "multi_token_f1": 0.5981035740335522,
+      "peak_memory_mb": 152.078125,
+      "runtime_binary_size_bytes": null,
+      "single_token_recall": 0.12962962962962962,
+      "startup_ms": 1791.142,
+      "throughput_docs_per_s": 180.3097989655505,
+      "unseen_name_recall": 0.27945205479452057,
+      "wasm_size_bytes": null
+    }
+  },
+  "views": {
+    "ambiguity_precision": {
+      "dimensions": [
+        "ambiguous_name_precision"
+      ],
+      "rows": [
+        {
+          "ambiguous_name_precision": 0.18329278183292783,
+          "model": "fastner-a-statistical"
+        },
+        {
+          "ambiguous_name_precision": 0.44867549668874174,
+          "model": "fastner-b-linear-crf"
+        },
+        {
+          "ambiguous_name_precision": 0.20473022912047303,
+          "model": "fastner-c-compact-neural"
+        },
+        {
+          "ambiguous_name_precision": 0.2874058127018299,
+          "model": "fastner-d-tiny-transformer"
+        },
+        {
+          "ambiguous_name_precision": 0.3112244897959184,
+          "model": "ref-spacy-en"
+        },
+        {
+          "ambiguous_name_precision": 0.47333333333333333,
+          "model": "ref-bert-base-ner"
+        },
+        {
+          "ambiguous_name_precision": 0.6847826086956522,
+          "model": "ref-koelectra-ko"
+        },
+        {
+          "ambiguous_name_precision": null,
+          "model": "ref-gliner-multi"
+        },
+        {
+          "ambiguous_name_precision": null,
+          "model": "control-null"
+        },
+        {
+          "ambiguous_name_precision": 0.10330992978936811,
+          "model": "control-capitalized-run"
+        }
+      ],
+      "title": "Ambiguous-name precision"
+    },
+    "binary_size": {
+      "dimensions": [
+        "runtime_binary_size_bytes"
+      ],
+      "rows": [
+        {
+          "delta_bytes": null,
+          "model": "fastner-a-statistical",
+          "runtime_binary_size_bytes": 563936
+        },
+        {
+          "delta_bytes": null,
+          "model": "fastner-b-linear-crf",
+          "runtime_binary_size_bytes": 563936
+        },
+        {
+          "delta_bytes": null,
+          "model": "fastner-c-compact-neural",
+          "runtime_binary_size_bytes": 563936
+        },
+        {
+          "delta_bytes": null,
+          "model": "fastner-d-tiny-transformer",
+          "runtime_binary_size_bytes": 563936
+        },
+        {
+          "delta_bytes": null,
+          "model": "ref-spacy-en",
+          "runtime_binary_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "ref-bert-base-ner",
+          "runtime_binary_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "ref-koelectra-ko",
+          "runtime_binary_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "ref-gliner-multi",
+          "runtime_binary_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "control-null",
+          "runtime_binary_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "control-capitalized-run",
+          "runtime_binary_size_bytes": null
+        }
+      ],
+      "title": "Runtime binary size"
+    },
+    "collision_slices": {
+      "dimensions": [
+        "collision=common-word",
+        "collision=location",
+        "collision=organization"
+      ],
+      "rows": [
+        {
+          "collision=common-word": 0.21845318860244234,
+          "collision=location": 0.1324200913242009,
+          "collision=organization": 0.15508021390374332,
+          "model": "fastner-a-statistical"
+        },
+        {
+          "collision=common-word": 0.5649717514124294,
+          "collision=location": 0.47126436781609193,
+          "collision=organization": 0.26605504587155965,
+          "model": "fastner-b-linear-crf"
+        },
+        {
+          "collision=common-word": 0.2592137592137592,
+          "collision=location": 0.20647773279352227,
+          "collision=organization": 0.10891089108910891,
+          "model": "fastner-c-compact-neural"
+        },
+        {
+          "collision=common-word": 0.3395585738539898,
+          "collision=location": 0.3219178082191781,
+          "collision=organization": 0.15555555555555556,
+          "model": "fastner-d-tiny-transformer"
+        },
+        {
+          "collision=common-word": 0.38181818181818183,
+          "collision=location": 0.39215686274509803,
+          "collision=organization": 0.09302325581395349,
+          "model": "ref-spacy-en"
+        },
+        {
+          "collision=common-word": 0.505,
+          "collision=location": 0.8536585365853658,
+          "collision=organization": 0.19230769230769232,
+          "model": "ref-bert-base-ner"
+        },
+        {
+          "collision=common-word": 0.7706422018348624,
+          "collision=location": 0.6470588235294118,
+          "collision=organization": 0.5555555555555556,
+          "model": "ref-koelectra-ko"
+        },
+        {
+          "collision=common-word": null,
+          "collision=location": null,
+          "collision=organization": null,
+          "model": "ref-gliner-multi"
+        },
+        {
+          "collision=common-word": null,
+          "collision=location": null,
+          "collision=organization": null,
+          "model": "control-null"
+        },
+        {
+          "collision=common-word": 0.13134057971014493,
+          "collision=location": 0.11405295315682282,
+          "collision=organization": 0.054945054945054944,
+          "model": "control-capitalized-run"
+        }
+      ],
+      "title": "Collision slices (precision)"
+    },
+    "global_quality": {
+      "dimensions": [
+        "entity_precision",
+        "entity_recall",
+        "entity_f1"
+      ],
+      "rows": [
+        {
+          "entity_f1": 0.458650610943864,
+          "entity_precision": 0.40130151843817785,
+          "entity_recall": 0.5351239669421488,
+          "model": "fastner-a-statistical"
+        },
+        {
+          "entity_f1": 0.693815331010453,
+          "entity_precision": 0.7334254143646409,
+          "entity_recall": 0.6582644628099174,
+          "model": "fastner-b-linear-crf"
+        },
+        {
+          "entity_f1": 0.478330658105939,
+          "entity_precision": 0.3910761154855643,
+          "entity_recall": 0.6157024793388429,
+          "model": "fastner-c-compact-neural"
+        },
+        {
+          "entity_f1": 0.548217636022514,
+          "entity_precision": 0.5020618556701031,
+          "entity_recall": 0.6037190082644628,
+          "model": "fastner-d-tiny-transformer"
+        },
+        {
+          "entity_f1": 0.3054939640305494,
+          "entity_precision": 0.37827943868212327,
+          "entity_recall": 0.256198347107438,
+          "model": "ref-spacy-en"
+        },
+        {
+          "entity_f1": 0.22886263608987722,
+          "entity_precision": 0.26041117554032683,
+          "entity_recall": 0.20413223140495868,
+          "model": "ref-bert-base-ner"
+        },
+        {
+          "entity_f1": 0.5019088826673455,
+          "entity_precision": 0.6534128561961564,
+          "entity_recall": 0.40743801652892564,
+          "model": "ref-koelectra-ko"
+        },
+        {
+          "entity_f1": null,
+          "entity_precision": null,
+          "entity_recall": null,
+          "model": "ref-gliner-multi"
+        },
+        {
+          "entity_f1": null,
+          "entity_precision": null,
+          "entity_recall": 0.0,
+          "model": "control-null"
+        },
+        {
+          "entity_f1": 0.2021952628538417,
+          "entity_precision": 0.15541740674955595,
+          "entity_recall": 0.2892561983471074,
+          "model": "control-capitalized-run"
+        }
+      ],
+      "title": "Global quality (public snapshot)"
+    },
+    "language_quality": {
+      "dimensions": [
+        "en_f1",
+        "ko_f1"
+      ],
+      "rows": [
+        {
+          "en_f1": 0.47120418848167545,
+          "ko_f1": 0.4512126339537507,
+          "model": "fastner-a-statistical"
+        },
+        {
+          "en_f1": 0.6861233480176212,
+          "ko_f1": 0.6988472622478386,
+          "model": "fastner-b-linear-crf"
+        },
+        {
+          "en_f1": 0.5204081632653061,
+          "ko_f1": 0.44921238457360124,
+          "model": "fastner-c-compact-neural"
+        },
+        {
+          "en_f1": 0.5860420650095604,
+          "ko_f1": 0.5237801111797407,
+          "model": "fastner-d-tiny-transformer"
+        },
+        {
+          "en_f1": 0.6474820143884893,
+          "ko_f1": 0.11753643629525153,
+          "model": "ref-spacy-en"
+        },
+        {
+          "en_f1": 0.41259398496240607,
+          "ko_f1": 0.05958829902491874,
+          "model": "ref-bert-base-ner"
+        },
+        {
+          "en_f1": 0.08884859474161379,
+          "ko_f1": 0.7085066162570889,
+          "model": "ref-koelectra-ko"
+        },
+        {
+          "en_f1": null,
+          "ko_f1": null,
+          "model": "ref-gliner-multi"
+        },
+        {
+          "en_f1": null,
+          "ko_f1": null,
+          "model": "control-null"
+        },
+        {
+          "en_f1": 0.3319566339700568,
+          "ko_f1": 0.037377049180327866,
+          "model": "control-capitalized-run"
+        }
+      ],
+      "title": "EN / KO quality"
+    },
+    "latency": {
+      "dimensions": [
+        "latency_p95_ms"
+      ],
+      "rows": [
+        {
+          "latency_p95_ms": 0.036,
+          "model": "fastner-a-statistical"
+        },
+        {
+          "latency_p95_ms": 0.07,
+          "model": "fastner-b-linear-crf"
+        },
+        {
+          "latency_p95_ms": 0.049,
+          "model": "fastner-c-compact-neural"
+        },
+        {
+          "latency_p95_ms": 0.072,
+          "model": "fastner-d-tiny-transformer"
+        },
+        {
+          "latency_p95_ms": 14.917,
+          "model": "ref-spacy-en"
+        },
+        {
+          "latency_p95_ms": 85.738,
+          "model": "ref-bert-base-ner"
+        },
+        {
+          "latency_p95_ms": 24.59,
+          "model": "ref-koelectra-ko"
+        },
+        {
+          "latency_p95_ms": null,
+          "model": "ref-gliner-multi"
+        },
+        {
+          "latency_p95_ms": 0.0,
+          "model": "control-null"
+        },
+        {
+          "latency_p95_ms": 0.0,
+          "model": "control-capitalized-run"
+        }
+      ],
+      "title": "Latency (warm p95)"
+    },
+    "memory": {
+      "dimensions": [
+        "peak_memory_mb"
+      ],
+      "rows": [
+        {
+          "model": "fastner-a-statistical",
+          "peak_memory_mb": 2.421875
+        },
+        {
+          "model": "fastner-b-linear-crf",
+          "peak_memory_mb": 3.09375
+        },
+        {
+          "model": "fastner-c-compact-neural",
+          "peak_memory_mb": 3.4375
+        },
+        {
+          "model": "fastner-d-tiny-transformer",
+          "peak_memory_mb": 3.6875
+        },
+        {
+          "model": "ref-spacy-en",
+          "peak_memory_mb": 152.078125
+        },
+        {
+          "model": "ref-bert-base-ner",
+          "peak_memory_mb": 685.1875
+        },
+        {
+          "model": "ref-koelectra-ko",
+          "peak_memory_mb": 375.671875
+        },
+        {
+          "model": "ref-gliner-multi",
+          "peak_memory_mb": null
+        },
+        {
+          "model": "control-null",
+          "peak_memory_mb": 40.03125
+        },
+        {
+          "model": "control-capitalized-run",
+          "peak_memory_mb": 40.03125
+        }
+      ],
+      "title": "Peak memory"
+    },
+    "model_size": {
+      "dimensions": [
+        "model_size_bytes"
+      ],
+      "rows": [
+        {
+          "model": "fastner-a-statistical",
+          "model_size_bytes": 131920
+        },
+        {
+          "model": "fastner-b-linear-crf",
+          "model_size_bytes": 590684
+        },
+        {
+          "model": "fastner-c-compact-neural",
+          "model_size_bytes": 665172
+        },
+        {
+          "model": "fastner-d-tiny-transformer",
+          "model_size_bytes": 674532
+        },
+        {
+          "model": "ref-spacy-en",
+          "model_size_bytes": 15231350
+        },
+        {
+          "model": "ref-bert-base-ner",
+          "model_size_bytes": 433506746
+        },
+        {
+          "model": "ref-koelectra-ko",
+          "model_size_bytes": 57365125
+        },
+        {
+          "model": "ref-gliner-multi",
+          "model_size_bytes": null
+        },
+        {
+          "model": "control-null",
+          "model_size_bytes": 0
+        },
+        {
+          "model": "control-capitalized-run",
+          "model_size_bytes": 0
+        }
+      ],
+      "title": "Model size"
+    },
+    "shape_quality": {
+      "dimensions": [
+        "single_token_recall",
+        "multi_token_f1"
+      ],
+      "rows": [
+        {
+          "model": "fastner-a-statistical",
+          "multi_token_f1": 0.4153248195446974,
+          "single_token_recall": 0.5685185185185185
+        },
+        {
+          "model": "fastner-b-linear-crf",
+          "multi_token_f1": 0.7256425582785416,
+          "single_token_recall": 0.608641975308642
+        },
+        {
+          "model": "fastner-c-compact-neural",
+          "multi_token_f1": 0.5190909090909092,
+          "single_token_recall": 0.567283950617284
+        },
+        {
+          "model": "fastner-d-tiny-transformer",
+          "multi_token_f1": 0.5964535196131112,
+          "single_token_recall": 0.5592592592592592
+        },
+        {
+          "model": "ref-spacy-en",
+          "multi_token_f1": 0.5981035740335522,
+          "single_token_recall": 0.12962962962962962
+        },
+        {
+          "model": "ref-bert-base-ner",
+          "multi_token_f1": 0.2801833927661742,
+          "single_token_recall": 0.13518518518518519
+        },
+        {
+          "model": "ref-koelectra-ko",
+          "multi_token_f1": 0.19618528610354224,
+          "single_token_recall": 0.5419753086419753
+        },
+        {
+          "model": "ref-gliner-multi",
+          "multi_token_f1": null,
+          "single_token_recall": null
+        },
+        {
+          "model": "control-null",
+          "multi_token_f1": null,
+          "single_token_recall": 0.0
+        },
+        {
+          "model": "control-capitalized-run",
+          "multi_token_f1": 0.24939383443020435,
+          "single_token_recall": 0.20987654320987653
+        }
+      ],
+      "title": "Single / multi-token behaviour"
+    },
+    "startup": {
+      "dimensions": [
+        "startup_ms"
+      ],
+      "rows": [
+        {
+          "model": "fastner-a-statistical",
+          "startup_ms": 1390.047
+        },
+        {
+          "model": "fastner-b-linear-crf",
+          "startup_ms": 1337.082
+        },
+        {
+          "model": "fastner-c-compact-neural",
+          "startup_ms": 1805.632
+        },
+        {
+          "model": "fastner-d-tiny-transformer",
+          "startup_ms": 1111.1
+        },
+        {
+          "model": "ref-spacy-en",
+          "startup_ms": 1791.142
+        },
+        {
+          "model": "ref-bert-base-ner",
+          "startup_ms": 3638.32
+        },
+        {
+          "model": "ref-koelectra-ko",
+          "startup_ms": 6393.363
+        },
+        {
+          "model": "ref-gliner-multi",
+          "startup_ms": null
+        },
+        {
+          "model": "control-null",
+          "startup_ms": 0.0
+        },
+        {
+          "model": "control-capitalized-run",
+          "startup_ms": 0.0
+        }
+      ],
+      "title": "Startup (cold)"
+    },
+    "throughput": {
+      "dimensions": [
+        "throughput_docs_per_s"
+      ],
+      "rows": [
+        {
+          "model": "fastner-a-statistical",
+          "throughput_docs_per_s": 125506.63498670023
+        },
+        {
+          "model": "fastner-b-linear-crf",
+          "throughput_docs_per_s": 198562.53137443122
+        },
+        {
+          "model": "fastner-c-compact-neural",
+          "throughput_docs_per_s": 26656.022028536605
+        },
+        {
+          "model": "fastner-d-tiny-transformer",
+          "throughput_docs_per_s": 5132.96241370628
+        },
+        {
+          "model": "ref-spacy-en",
+          "throughput_docs_per_s": 180.3097989655505
+        },
+        {
+          "model": "ref-bert-base-ner",
+          "throughput_docs_per_s": 8.319342908414015
+        },
+        {
+          "model": "ref-koelectra-ko",
+          "throughput_docs_per_s": 51.47763053247
+        },
+        {
+          "model": "ref-gliner-multi",
+          "throughput_docs_per_s": null
+        },
+        {
+          "model": "control-null",
+          "throughput_docs_per_s": 17066666.666666668
+        },
+        {
+          "model": "control-capitalized-run",
+          "throughput_docs_per_s": 2867794.6659019217
+        }
+      ],
+      "title": "Throughput"
+    },
+    "unseen_recall": {
+      "dimensions": [
+        "unseen_name_recall"
+      ],
+      "rows": [
+        {
+          "model": "fastner-a-statistical",
+          "unseen_name_recall": 0.5589041095890411
+        },
+        {
+          "model": "fastner-b-linear-crf",
+          "unseen_name_recall": 0.7027397260273973
+        },
+        {
+          "model": "fastner-c-compact-neural",
+          "unseen_name_recall": 0.6301369863013698
+        },
+        {
+          "model": "fastner-d-tiny-transformer",
+          "unseen_name_recall": 0.6520547945205479
+        },
+        {
+          "model": "ref-spacy-en",
+          "unseen_name_recall": 0.27945205479452057
+        },
+        {
+          "model": "ref-bert-base-ner",
+          "unseen_name_recall": 0.09041095890410959
+        },
+        {
+          "model": "ref-koelectra-ko",
+          "unseen_name_recall": 0.3
+        },
+        {
+          "model": "ref-gliner-multi",
+          "unseen_name_recall": null
+        },
+        {
+          "model": "control-null",
+          "unseen_name_recall": 0.0
+        },
+        {
+          "model": "control-capitalized-run",
+          "unseen_name_recall": 0.3219178082191781
+        }
+      ],
+      "title": "Unseen-name recall"
+    },
+    "wasm_size": {
+      "dimensions": [
+        "wasm_size_bytes"
+      ],
+      "rows": [
+        {
+          "delta_bytes": null,
+          "model": "fastner-a-statistical",
+          "wasm_size_bytes": 68011
+        },
+        {
+          "delta_bytes": null,
+          "model": "fastner-b-linear-crf",
+          "wasm_size_bytes": 71680
+        },
+        {
+          "delta_bytes": null,
+          "model": "fastner-c-compact-neural",
+          "wasm_size_bytes": 76450
+        },
+        {
+          "delta_bytes": null,
+          "model": "fastner-d-tiny-transformer",
+          "wasm_size_bytes": 79603
+        },
+        {
+          "delta_bytes": null,
+          "model": "ref-spacy-en",
+          "wasm_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "ref-bert-base-ner",
+          "wasm_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "ref-koelectra-ko",
+          "wasm_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "ref-gliner-multi",
+          "wasm_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "control-null",
+          "wasm_size_bytes": null
+        },
+        {
+          "delta_bytes": null,
+          "model": "control-capitalized-run",
+          "wasm_size_bytes": null
+        }
+      ],
+      "title": "WASM size"
+    }
+  }
+}

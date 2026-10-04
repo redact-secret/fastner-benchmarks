@@ -7,9 +7,9 @@ own identity, provenance, artifact, and **role**:
 
 | Population | Role | Owner | Status |
 |---|---|---|---|
-| `ner-evidence-public` | quality floor | ner-evidence | pending-pin (no immutable snapshot released yet) |
-| `fastner-regression` | regression gate | this repo | created by #7 |
-| `fastner-adversarial` | adversarial gate | this repo | created by #7 |
+| `ner-evidence-public` | quality floor | ner-evidence | available: snapshot `person-en-ko-alpha.1-65b5a0970bfe` (545 cases), **not a holdout** |
+| `fastner-regression` | regression gate | this repo | available (52 cases); not yet measured by ner-eval |
+| `fastner-adversarial` | adversarial gate | this repo | available (37 cases); not yet measured by ner-eval |
 | `candidate-specific` | candidate diagnostic only | this repo | planned |
 | `protected-holdout` | holdout gate | external custodian | planned |
 
@@ -30,8 +30,10 @@ own identity, provenance, artifact, and **role**:
 - **Provenance fields are mandatory**: source, license, synthetic, personal_data, custody.
   `null` is allowed only for populations that are not yet available.
 
-## Debt
+## Public snapshot caveats (recorded in the registry, surfaced in every report)
+- Not a holdout: FastNER candidates were not trained on it but were run against it three times across builds; FastNER numbers are likely optimistic relative to references never tuned against it.
+- Project-authored synthetic text with no independent review; seen/unseen is a name-rarity proxy.
+- `redistribution: internal-only`: this repo stores aggregates only.
 
-- `ner-evidence-public` cannot be pinned until `ner-evidence` publishes a snapshot manifest.
-  Tracked as a cross-repo handoff.
+## Debt
 - Licenses for product corpora must be set before public release.

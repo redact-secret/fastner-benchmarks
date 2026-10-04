@@ -1,6 +1,6 @@
 {
   "schema": "fastner-benchmarks.populations/1",
-  "policy_version": "0.1.0",
+  "policy_version": "0.2.0",
   "rules": {
     "never_merge_denominators": true,
     "required_fields": [
@@ -45,25 +45,39 @@
       "title": "Public/shared ner-evidence snapshot",
       "role": "quality-floor",
       "owner": "ner-evidence",
-      "status": "pending-pin",
-      "blocked_by": "ner-evidence has not released an immutable snapshot (snapshot manifest with content digest). Pin it here once released.",
+      "status": "available",
       "identity": {
-        "snapshot_id": null,
-        "snapshot_digest": null,
-        "case_count": null
+        "snapshot_id": "person-en-ko-alpha.1-65b5a0970bfe",
+        "snapshot_digest": "sha256:65b5a0970bfe9307d4c5fb4c0ad5dbdd11546ce3d591e0afe583249955757415",
+        "case_count": 545,
+        "fixture_count": 2987,
+        "source_manifest_digest": "sha256:7efa86e4f80e1e78533666ff0321374bedabde0dd40105562ddba7f29503dd00",
+        "taxonomy_version": "0.1.0",
+        "schema": "ner-evidence.snapshot/0.1.0",
+        "digest_spec": "ner-evidence-snapshot-digest/1",
+        "corpus_version": "person-en-ko-alpha.1-65b5a0970bfe"
       },
       "artifact": {
         "kind": "ner-evidence-snapshot",
-        "path": null
+        "path": null,
+        "note": "Consumed through ner-eval artifacts; the snapshot text itself is not stored in this repo."
       },
       "provenance": {
-        "source": "ner-evidence snapshot manifest",
-        "license": "per ner-evidence source manifest",
-        "synthetic": null,
-        "personal_data": null,
-        "custody": "ner-evidence (canonical, not modified here)"
+        "source": "ner-evidence released snapshot (ner-evidence PR #10)",
+        "license": "per ner-evidence source manifest; redistribution: internal-only",
+        "synthetic": true,
+        "personal_data": false,
+        "custody": "ner-evidence (canonical, not modified here)",
+        "independent_review": false
       },
-      "publication": "public"
+      "publication": "public-aggregates-only",
+      "redistribution": "internal-only",
+      "is_holdout": false,
+      "caveats": [
+        "Not a holdout: FastNER candidates were not trained on it, but it was run three times against successive FastNER builds (fastner ADR-0002 process disclosure); FastNER numbers are likely optimistic relative to references that were never tuned against it.",
+        "All text is project-authored synthetic with no independent review; seen/unseen is a name-rarity proxy, not training-data membership.",
+        "Small slices (organization 33, location 52, mixed-script 36 cases) are anecdote-sized; no confidence intervals are computed."
+      ]
     },
     {
       "id": "fastner-regression",
@@ -87,7 +101,8 @@
         "personal_data": false,
         "custody": "fastner-benchmarks"
       },
-      "publication": "public"
+      "publication": "public",
+      "is_holdout": false
     },
     {
       "id": "fastner-adversarial",
@@ -111,7 +126,8 @@
         "personal_data": false,
         "custody": "fastner-benchmarks"
       },
-      "publication": "public"
+      "publication": "public",
+      "is_holdout": false
     },
     {
       "id": "candidate-specific",
@@ -135,7 +151,8 @@
         "personal_data": false,
         "custody": "fastner-benchmarks"
       },
-      "publication": "public"
+      "publication": "public",
+      "is_holdout": false
     },
     {
       "id": "protected-holdout",
@@ -159,7 +176,8 @@
         "personal_data": null,
         "custody": "unassigned; text never stored in this repo"
       },
-      "publication": "private-aggregates-only"
+      "publication": "private-aggregates-only",
+      "is_holdout": true
     }
   ],
   "companions": [

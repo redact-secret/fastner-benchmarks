@@ -141,12 +141,21 @@ def _tie(t, dmap, vals, elig):
 
 
 def _finish(out, rule, adr_refs):
+    """promoted only when a fastner ADR is accepted, names the same architecture, and is on fastner main."""
     ref = adr_refs.get(out["bakeoff_id"])
     out["adr_ref"] = ref
-    if out["decision"] == "recommend":
-        out["promotion_state"] = "promoted" if ref else "recommended-awaiting-adr"
-    else:
+    if out["decision"] != "recommend":
         out["promotion_state"] = "not-promoted"
+    elif not ref:
+        out["promotion_state"] = "recommended-awaiting-adr"
+    elif ref.get("decision") != out["selected"]:
+        out["promotion_state"] = "adr-decision-mismatch"
+    elif ref.get("status") != "accepted":
+        out["promotion_state"] = "recommended-awaiting-adr"
+    elif not ref.get("on_main"):
+        out["promotion_state"] = "adr-accepted-pending-merge"
+    else:
+        out["promotion_state"] = "promoted"
     return out
 
 
@@ -157,7 +166,7 @@ def render_adr_handoff(rule, policy, report, decision):
          f"Target repo: `{rule['adr_handoff']['target_repo']}`. Policy {policy['policy_version']}, promotion rule {rule['rule_version']}.", "",
          "## Decision", "",
          f"- Outcome: **{d['decision']}**", f"- Selected: {d.get('selected') or 'none'}",
-         f"- Promotion state: **{d['promotion_state']}** (promotion is effective only once a fastner ADR is recorded in `policy/promotion-adr-refs.json`)",
+         f"- Promotion state: **{d['promotion_state']}** (effective only when the fastner ADR is accepted, names this architecture and is on fastner main; recorded in `policy/promotion-adr-refs.json`)",
          f"- Reason: {d['reason']}", "",
          "## Evidence", "",
          f"- Metric protocol: {', '.join(report['metric_protocol_versions']) or 'none'}; evaluator: {', '.join(report['evaluator_versions']) or 'none'}",
@@ -175,7 +184,12 @@ def render_adr_handoff(rule, policy, report, decision):
           "- " + d["reason"], "", "## Known deficits", ""]
     L += [f"- {x}" for x in report["known_limitations"]] or ["- none"]
     L += ["", "## Requested actions for fastner", ""]
-    if d["decision"] == "recommend":
+    ref = d.get("adr_ref")
+    if d["decision"] == "recommend" and ref:
+        L += [f"- fastner ADR recorded: `{ref['adr']}` ({ref['pr']}, status {ref['status']}, decision {ref['decision']}, on main: {ref['on_main']}).",
+              "1. " + ("Merge the ADR so it is the source of truth on `main`, then set `on_main` and the merge commit in `policy/promotion-adr-refs.json`; promotion becomes effective then." if not ref.get("on_main") else "Nothing further; the ADR is on main."),
+              "2. Keep the measured runtime commit and model digests (see the report pins) in the ADR's provenance."]
+    elif d["decision"] == "recommend":
         L += ["1. Record an ADR adopting the selected architecture, citing this handoff and the report digest.",
               "2. Reply with the ADR reference so it can be added to `policy/promotion-adr-refs.json`."]
     else:

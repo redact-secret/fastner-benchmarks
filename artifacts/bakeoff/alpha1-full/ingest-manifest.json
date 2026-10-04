@@ -1,0 +1,32 @@
+{
+  "bakeoff_id": "alpha1-full",
+  "dropped": "diagnostics, per-case records and per_projection/per_kind detail (aggregate-only ingest)",
+  "measurement_protocol": "ner-eval.match/1.1.0",
+  "ner_eval_commit": "307548a97f8bb76329cf332764dbeb43408fdb2d",
+  "ner_eval_run_id": "run-395459fbb4ecb4da",
+  "ner_eval_run_manifest_digest": "sha256:87397d2a8337fc84266d9a7ea2f8a89045bdd279cf2ff3b41178bd3f45d687d9",
+  "performance_protocol": "ner-eval.perf-protocol/1.1.0",
+  "redistribution": "internal-only",
+  "schema": "fastner-benchmarks.ingest-manifest/1",
+  "snapshot_id": "person-en-ko-alpha.1-65b5a0970bfe",
+  "source_artifact_file_sha256": {
+    "performance/control-capitalized-run.performance.json": "sha256:af4ade214fd84f864161cece8dee17487b9fa5e0413ced0deffad6da5f166a24",
+    "performance/control-null.performance.json": "sha256:d39d226b7d9d2ddc65fc91c32b1a62afa3512a2b5488ba7902c5010f3b4d8d97",
+    "performance/fastner-crf.performance.json": "sha256:5d33858a18b553c31ea01c0b72443ae32fdd670f4ea96943175b4b30f992a796",
+    "performance/fastner-neural.performance.json": "sha256:1b360d581bca7500219bb9b70da5f346e3d6ccd76a6c81fe72ab6e71a4afe0f3",
+    "performance/fastner-stat.performance.json": "sha256:b2b1d11ffcf74a4354d1a87bf72f37d6d407ba79cc36ebe4577962e9cf9f083b",
+    "performance/fastner-transformer.performance.json": "sha256:81310dccc67589f66260477fe43b346cb107ff0906f4ff81a8a2574904d7146c",
+    "performance/hf-dslim-bert-base-ner-d1a3e8f.performance.json": "sha256:3620bba1cacdf127f91c90a517517ee3d90aae4af807d433291fa25bcffa841b",
+    "performance/hf-leo97-koelectra-small-v3-modu-ner-bb9d562.performance.json": "sha256:b93e5ca034b71e387565bfd4987766f8c306a1319200c129f8d312c0619cee73",
+    "performance/spacy-en-core-web-sm-3.8.0.performance.json": "sha256:930b68cf8ed508abd9379ccbbcfc13e2c2bf34c46a75f4ea715bc8e304ba6949",
+    "quality/control-capitalized-run.quality.json": "sha256:51b84d530f307e7fad65c3689af5f3ef8c9510337047462caf10ce427f3ca955",
+    "quality/control-null.quality.json": "sha256:a259bfba81f0def8d59e0825848f3575827c09c77c58495c1a0ff58a31770afe",
+    "quality/fastner-crf.quality.json": "sha256:cbfc4099e408f6f7ab2b8fc7e1545b727f5b175efadeed8b89e1e423877ce367",
+    "quality/fastner-neural.quality.json": "sha256:255ec2e665bb352792d8f42afbe315801aeee2295383853cfe6e404c6b286f82",
+    "quality/fastner-stat.quality.json": "sha256:a965a4985be3a35eeab165fe26feae90b726a07a9b5378c66e38feef73122afe",
+    "quality/fastner-transformer.quality.json": "sha256:1d8b64e33bd363758b47fc7add1de7dc0ecf7b066b0f5bf83eca10136c059bb9",
+    "quality/hf-dslim-bert-base-ner-d1a3e8f.quality.json": "sha256:d3726f0db98d24be21e674e0c6f10ff82e90616af920964c120671770e9fc229",
+    "quality/hf-leo97-koelectra-small-v3-modu-ner-bb9d562.quality.json": "sha256:b500668112cc35167cb2f4fbfee4b484ef53b80a200b498ea7e198c7956e3b9b",
+    "quality/spacy-en-core-web-sm-3.8.0.quality.json": "sha256:f7822087e2d95211332574f256540d7500d6c1bdfb6e4039d637bd33d5a59395"
+  }
+}
