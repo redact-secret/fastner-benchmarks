@@ -26,7 +26,8 @@
       "regression-gate",
       "adversarial-gate",
       "candidate-diagnostic",
-      "holdout-gate"
+      "holdout-gate",
+      "quality-floor-beta1"
     ],
     "statuses": [
       "available",
@@ -77,7 +78,8 @@
         "Not a holdout: FastNER candidates were not trained on it, but it was run three times against successive FastNER builds (fastner ADR-0002 process disclosure); FastNER numbers are likely optimistic relative to references that were never tuned against it.",
         "All text is project-authored synthetic with no independent review; seen/unseen is a name-rarity proxy, not training-data membership.",
         "Small slices (organization 33, location 52, mixed-script 36 cases) are anecdote-sized; no confidence intervals are computed."
-      ]
+      ],
+      "selection_exposed": true
     },
     {
       "id": "fastner-regression",
@@ -102,7 +104,9 @@
         "custody": "fastner-benchmarks"
       },
       "publication": "public",
-      "is_holdout": false
+      "is_holdout": false,
+      "selection_exposed": true,
+      "selection_note": "Scores on this corpus were tracked per experiment during FastNER Beta 1 development (fastner docs/beta1/experiments.md)."
     },
     {
       "id": "fastner-adversarial",
@@ -127,7 +131,9 @@
         "custody": "fastner-benchmarks"
       },
       "publication": "public",
-      "is_holdout": false
+      "is_holdout": false,
+      "selection_exposed": true,
+      "selection_note": "Scores on this corpus were tracked per experiment during FastNER Beta 1 development (fastner docs/beta1/experiments.md)."
     },
     {
       "id": "candidate-specific",
@@ -153,7 +159,9 @@
         "custody": "fastner-benchmarks"
       },
       "publication": "public",
-      "is_holdout": false
+      "is_holdout": false,
+      "selection_exposed": true,
+      "selection_note": "Scores on this corpus were tracked per experiment during FastNER Beta 1 development (fastner docs/beta1/experiments.md)."
     },
     {
       "id": "protected-holdout",
@@ -179,6 +187,43 @@
       },
       "publication": "private-aggregates-only",
       "is_holdout": true
+    },
+    {
+      "id": "ner-evidence-beta1",
+      "title": "Public/shared ner-evidence Beta 1 snapshot",
+      "role": "quality-floor-beta1",
+      "owner": "ner-evidence",
+      "status": "available",
+      "identity": {
+        "snapshot_id": "person-en-ko-beta.1-1dc0b13fe0ff",
+        "snapshot_digest": "sha256:1dc0b13fe0ff13e24616fef6d9c4b7aec3b9ab9672e531a2a02bcfffdac46ba9",
+        "case_count": 872,
+        "corpus_version": "person-en-ko-beta.1-1dc0b13fe0ff",
+        "taxonomy_version": "0.2.0",
+        "schema": "ner-evidence.snapshot/0.1.0"
+      },
+      "artifact": {
+        "kind": "ner-evidence-snapshot",
+        "path": null,
+        "note": "Consumed through ner-eval artifacts; text is not stored in this repo."
+      },
+      "provenance": {
+        "source": "ner-evidence released snapshot beta.1 (snapshots/index.json)",
+        "license": "per ner-evidence source manifest; redistribution: internal-only",
+        "synthetic": true,
+        "personal_data": false,
+        "custody": "ner-evidence (canonical, not modified here)",
+        "independent_review": false
+      },
+      "redistribution": "internal-only",
+      "publication": "public-aggregates-only",
+      "is_holdout": false,
+      "selection_exposed": true,
+      "caveats": [
+        "Not a holdout: the FastNER Beta 1 work used this snapshot for selection as well as reporting (fastner docs/beta1/experiments.md); improvement over Alpha is an optimistic estimate.",
+        "Project-authored synthetic text; independent review is not complete; seen/unseen is a name-rarity proxy, not training-data membership.",
+        "Small slices (organization, location, mixed-script) remain anecdote-sized; ner-eval reports 95% bootstrap intervals and low-N flags."
+      ]
     }
   ],
   "companions": [

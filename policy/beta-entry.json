@@ -146,6 +146,11 @@
       "match": "budget.peak_memory_mb",
       "title": "Reduce peak memory",
       "area": "memory"
+    },
+    {
+      "match": "calibration.ece",
+      "title": "Improve confidence calibration (confidence is over-confident)",
+      "area": "calibration"
     }
   ]
 }

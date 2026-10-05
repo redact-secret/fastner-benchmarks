@@ -40,6 +40,9 @@ def _lazy(mod, fn="main"):
 
 
 COMMANDS = {
+    "beta1-ingest": ("ingest the ner-eval Beta 1 plan", _lazy("beta1_ingest")),
+    "beta1-verify-pins": ("re-verify Beta 1 pins against sibling repos", _lazy("beta1", "verify_pins")),
+    "beta1": ("evaluate Beta 1 acceptance and write the support matrix and record", _lazy("beta1")),
     "ingest": ("ingest real ner-eval run output into normalized artifacts", _lazy("ingest")),
     "corpus": ("build/check product corpora from .src.jsonl", _lazy("corpus")),
     "workloads": ("build/check reproducible performance workloads", _lazy("workloads")),

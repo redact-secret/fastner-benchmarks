@@ -1,0 +1,159 @@
+{
+  "cells": [
+    {
+      "baseline_rss_bytes": null,
+      "batch_size": 1,
+      "cases_per_sec": {
+        "max": 65.5355369521101,
+        "max_over_min": 1.1622429848815659,
+        "median": 64.7320809968255,
+        "min": 56.387121974144044,
+        "n": 5
+      },
+      "effective_threads": 1,
+      "first_batch_us": {
+        "max": 39469.0,
+        "max_over_min": 1.1271382471371048,
+        "median": 35732.0,
+        "min": 35017.0,
+        "n": 15
+      },
+      "memory_scope": "adapter-process",
+      "peak_rss_bytes": {
+        "max": 702054400.0,
+        "max_over_min": 1.003889045075438,
+        "median": 699678720.0,
+        "min": 699334656.0,
+        "n": 5
+      },
+      "repeats": 5,
+      "runtime_per_case_p50_us": null,
+      "startup_us": {
+        "max": 1810543.0,
+        "max_over_min": 1.1761133511191488,
+        "median": 1554613.0,
+        "min": 1539429.0,
+        "n": 15
+      },
+      "threads": 1,
+      "warm_batch_p50_us": {
+        "max": 16596.0,
+        "max_over_min": 1.1476979996888022,
+        "median": 14576.541,
+        "min": 14460.25,
+        "n": 5
+      },
+      "warm_batch_p95_us": {
+        "max": 23515.291,
+        "max_over_min": 1.2934288029471441,
+        "median": 18451.125,
+        "min": 18180.584,
+        "n": 5
+      }
+    },
+    {
+      "baseline_rss_bytes": null,
+      "batch_size": 32,
+      "cases_per_sec": {
+        "max": 66.45796730317406,
+        "max_over_min": 1.3417386126571929,
+        "median": 53.74631733046935,
+        "min": 49.531232593478116,
+        "n": 5
+      },
+      "effective_threads": 1,
+      "first_batch_us": {
+        "max": 590931.0,
+        "max_over_min": 1.1632087839407266,
+        "median": 531084.0,
+        "min": 508018.0,
+        "n": 15
+      },
+      "memory_scope": "adapter-process",
+      "peak_rss_bytes": {
+        "max": 719273984.0,
+        "max_over_min": 1.0008891523414345,
+        "median": 718897152.0,
+        "min": 718635008.0,
+        "n": 5
+      },
+      "repeats": 5,
+      "runtime_per_case_p50_us": null,
+      "startup_us": {
+        "max": 2332090.0,
+        "max_over_min": 1.52383447823425,
+        "median": 1788024.0,
+        "min": 1530409.0,
+        "n": 15
+      },
+      "threads": 1,
+      "warm_batch_p50_us": {
+        "max": 628682.0,
+        "max_over_min": 1.3030843430306596,
+        "median": 590371.917,
+        "min": 482456.875,
+        "n": 5
+      },
+      "warm_batch_p95_us": {
+        "max": 763963.666,
+        "max_over_min": 1.5166022292147219,
+        "median": 742684.5,
+        "min": 503733.709,
+        "n": 5
+      }
+    }
+  ],
+  "environment": {
+    "description": "macos 26.5.2 aarch64, Apple M4 (10 logical cores), rustc 1.98.1 (48a229cea 2026-09-01), evaluator 0.2.0 [release]",
+    "id": "sha256:f3fbb386e42b91f4fdb03f500d91b2bead768a2569ff8a09148d3d38ff96ffdf"
+  },
+  "measurement_notes": [
+    "Latencies are wall-clock around Adapter::predict only; normalization and validation are outside the timed region.",
+    "External-process adapters include JSON-lines serialization and pipe transfer in every latency; native adapters do not. Compare transports with that in mind.",
+    "Cold = a fresh process start with model files likely in the OS page cache after the first run; true cold-disk start is not forced. For native adapters each cold sample is a fresh evaluator child process (no spawn or pipe cost in the sample: only open and the first batch are timed).",
+    "Warm = the same process after `warmup_batches` untimed batches. Each cell is repeated `repeats` times; the cell's top-level numbers are the lower-median repeat and `summary` carries median and spread over repeats.",
+    "Native memory: `in-process-isolated` is the peak RSS of a dedicated child holding only the workload; `baseline_rss_bytes` is its peak before the adapter opened.",
+    "Cells and repeats run serially on an otherwise unmanaged machine; the protocol does not control CPU frequency, thermal state or background load."
+  ],
+  "model": {
+    "adapter_id": "hf-dslim-bert-base-ner-d1a3e8f",
+    "artifact_digest": "sha256:0263fcac83c837d8311d4695337312e0f9e8987a8ee92875c4d5afd278e89a1f",
+    "id": "ref-bert-base-ner"
+  },
+  "parameters": {
+    "batch_sizes": [
+      1,
+      32
+    ],
+    "cold_runs": 3,
+    "enabled": true,
+    "max_cases": 400,
+    "measured_batches": 40,
+    "repeats": 5,
+    "thread_counts": [
+      1
+    ],
+    "warmup_batches": 5
+  },
+  "protocol": "ner-eval.perf-protocol/1.2.0",
+  "run_id": "run-3427ef56b592dbf0:hf-dslim-bert-base-ner-d1a3e8f:perf",
+  "schema": "fastner-benchmarks.perf/3",
+  "sizes": {
+    "binary_bytes": null,
+    "model_bytes": 433506746,
+    "wasm_bytes": null
+  },
+  "source": {
+    "artifact_digest": "sha256:612d94ed0de14919e1797056f1da530763acd8f274fbb2d3cf43100650ce17ae",
+    "artifact_file_sha256": "sha256:ceaaa7dc3e3ee0212bd46ffae79946e69a016bbcae34ec6309c6af5ba5808c72",
+    "ner_eval_run_id": "run-3427ef56b592dbf0",
+    "path": "results/beta1/ner-evidence-beta1/performance/hf-dslim-bert-base-ner-d1a3e8f.performance.json"
+  },
+  "status": "ok",
+  "transport": "external-process",
+  "workload": {
+    "cases": 400,
+    "order": "evenly spaced over fixture_id order, cycled",
+    "text_bytes": 31668
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "corpus": {
+    "case_count": 46,
+    "digest": "sha256:5962532da7f6f5866a859a933910f950bee13596704823bda7bf09dd28f5ed60",
+    "id": "candidate-specific"
+  },
+  "low_n_below": 30,
+  "model": {
+    "adapter_id": "hf-leo97-koelectra-small-v3-modu-ner-bb9d562",
+    "artifact_digest": "sha256:9ad852bbefa730824fdb115491a1e983a64834ab88ac10dc590fd2b54a3bbab4",
+    "id": "ref-koelectra-ko"
+  },
+  "overall": {
+    "accuracy": 0.6666666666666666,
+    "auroc": 0.921875,
+    "brier": 0.12529429884678892,
+    "confidence_minus_accuracy": 0.09612201775113749,
+    "correct": 16,
+    "ece_equal_mass": 0.15660709515213966,
+    "ece_equal_width": 0.17294561738769212,
+    "log_loss": 0.36037696104882294,
+    "low_n": true,
+    "mce_equal_width": 0.8221371173858643,
+    "mean_confidence": 0.7627886844178041,
+    "n": 24
+  },
+  "protocol": "ner-eval.calibration/1.0.0",
+  "run_id": "run-128faf8766bc6c8c:hf-leo97-koelectra-small-v3-modu-ner-bb9d562:cal",
+  "schema": "fastner-benchmarks.calibration/1",
+  "source": {
+    "artifact_digest": "sha256:0f9dc0da12025efb0679f39d5174d6eeccd871eb370e61f8d0ca004e87bad184",
+    "artifact_file_sha256": "sha256:291076df97e3c7a02b642ee501882c2e3548638689b4511f243ea946f25c0885",
+    "ner_eval_run_id": "run-128faf8766bc6c8c",
+    "path": "results/beta1/candidate-b-linear-crf-diagnostic/calibration/hf-leo97-koelectra-small-v3-modu-ner-bb9d562.calibration.json"
+  }
+}

@@ -15,3 +15,6 @@ validate: test
 	$(PY) -m fnbench workloads --check
 	$(PY) -m fnbench support --check
 	$(PY) -m fnbench qualify --check
+	$(PY) -m fnbench beta1-ingest --check
+	$(PY) -m fnbench beta1-verify-pins
+	$(PY) -m fnbench beta1 --check

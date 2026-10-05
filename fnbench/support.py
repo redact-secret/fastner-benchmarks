@@ -56,15 +56,29 @@ def validate_gates(g, policy):
 
 
 def _value(gate, model, report):
-    """(value, cases): cases is the slice size for population/slice gates, else None."""
+    """(value, cases, interval): cases is the slice size and interval the 95% interval (F1 only), when known."""
     src = gate["source"]
     if "dimension" in src:
-        return report["values"][model].get(src["dimension"]), None
+        iv = (report.get("intervals", {}).get(model) or {}).get(src["dimension"])
+        return report["values"][model].get(src["dimension"]), None, iv
     for row in report["population_quality"].get(src["population"], []):
         if row["model"] == model and row["state"] == "ok":
             block = row["overall"] if src.get("slice") is None else row["slices"].get(src["slice"])
-            return (None, None) if block is None else (block.get(src["metric"]), block.get("cases"))
-    return None, None
+            if block is None:
+                return None, None, None
+            iv = block.get("strict_f1_interval") if src["metric"] == "f1" else None
+            return block.get(src["metric"]), block.get("cases"), iv
+    return None, None, None
+
+
+def interval_clarity(op, threshold, interval):
+    """'clear' when the whole 95% interval is on one side of the threshold, 'straddles' otherwise, None without an interval."""
+    if not interval or interval[0] is None or interval[1] is None:
+        return None
+    lo, hi = interval
+    if (op == ">=" and (lo >= threshold or hi < threshold)) or (op == "<=" and (hi <= threshold or lo > threshold)):
+        return "clear"
+    return "straddles"
 
 
 def evaluate_support(gates, report, decision, policy_version, policy_min_cases=50):
@@ -82,7 +96,7 @@ def evaluate_support(gates, report, decision, policy_version, policy_min_cases=5
         results, reasons = [], []
         measured_any = False
         for gate in prof["gates"]:
-            v, cases = _value(gate, sel, report) if sel else (None, None)
+            v, cases, iv = _value(gate, sel, report) if sel else (None, None, None)
             if v is not None:
                 measured_any = True
             res = "unmeasured" if v is None else ("pass" if OPS[gate["op"]](v, gate["threshold"]) else "fail")
@@ -90,6 +104,12 @@ def evaluate_support(gates, report, decision, policy_version, policy_min_cases=5
             if cases is not None:
                 r["cases"] = cases
                 r["low_n"] = cases < min_cases
+            if iv:
+                r["interval"] = [round(iv[0], 6), round(iv[1], 6)]
+                r["interval_clarity"] = interval_clarity(gate["op"], gate["threshold"], iv)
+            src_tag = (report.get("value_sources", {}).get(sel) or {}).get((gate["source"] or {}).get("dimension"))
+            if src_tag and src_tag != "ner-eval":
+                r["value_source"] = src_tag
             if gate.get("caveat"):
                 r["caveat"] = gate["caveat"]
             results.append(r)

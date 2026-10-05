@@ -1,0 +1,978 @@
+{
+  "beta2_planning": {
+    "inputs_not_scheduled": [
+      "Independent holdout or independently reviewed population outside selection (required before provisional)",
+      "ner-eval to measure the WASM probe (currently candidate-reported)",
+      "Add fastner's 18 proposed regression cases (origin beta1-proposal) to the product corpus, then requalify (a corpus change makes older measurements stale)",
+      "Mixed-script and organization/person precision slices (see slice watchlist)",
+      "Calibration on realistic text (confidence is over-confident on this evidence)"
+    ],
+    "measured_deficits": [
+      {
+        "area": "calibration",
+        "evidence": [
+          {
+            "gate": "calibration.ece",
+            "op": "<=",
+            "profile": "PERSON/en",
+            "relative_shortfall": 0.502669,
+            "threshold": 0.1,
+            "value": 0.15026688233652807
+          },
+          {
+            "gate": "calibration.ece",
+            "op": "<=",
+            "profile": "PERSON/ko",
+            "relative_shortfall": 0.502669,
+            "threshold": 0.1,
+            "value": 0.15026688233652807
+          }
+        ],
+        "priority": 1,
+        "relative_shortfall": 0.502669,
+        "title": "Improve confidence calibration (confidence is over-confident)"
+      },
+      {
+        "area": "collision",
+        "evidence": [
+          {
+            "gate": "public.collision_precision_worst",
+            "op": ">=",
+            "profile": "PERSON/en",
+            "relative_shortfall": 0.343629,
+            "threshold": 0.7,
+            "value": 0.4594594594594595
+          },
+          {
+            "gate": "public.collision_precision_worst",
+            "op": ">=",
+            "profile": "PERSON/ko",
+            "relative_shortfall": 0.343629,
+            "threshold": 0.7,
+            "value": 0.4594594594594595
+          }
+        ],
+        "priority": 2,
+        "relative_shortfall": 0.343629,
+        "title": "Reduce false positives on person/organization/location collisions"
+      },
+      {
+        "area": "ambiguity",
+        "evidence": [
+          {
+            "gate": "public.ambiguous_precision",
+            "op": ">=",
+            "profile": "PERSON/en",
+            "relative_shortfall": 0.312965,
+            "threshold": 0.85,
+            "value": 0.5839793281653747
+          },
+          {
+            "gate": "public.ambiguous_precision",
+            "op": ">=",
+            "profile": "PERSON/ko",
+            "relative_shortfall": 0.312965,
+            "threshold": 0.85,
+            "value": 0.5839793281653747
+          }
+        ],
+        "priority": 3,
+        "relative_shortfall": 0.312965,
+        "title": "Reduce false positives on ambiguous names"
+      },
+      {
+        "area": "quality-en",
+        "evidence": [
+          {
+            "gate": "public.en_f1",
+            "op": ">=",
+            "profile": "PERSON/en",
+            "relative_shortfall": 0.106427,
+            "threshold": 0.85,
+            "value": 0.7595367847411445
+          }
+        ],
+        "priority": 4,
+        "relative_shortfall": 0.106427,
+        "title": "Raise English entity F1 on the public snapshot"
+      },
+      {
+        "area": "tokenization-ko",
+        "caveat": "based on a 18-case slice of a seed corpus",
+        "evidence": [
+          {
+            "cases": 18,
+            "gate": "regression.ko_f1",
+            "op": ">=",
+            "profile": "PERSON/ko",
+            "relative_shortfall": 0.079284,
+            "threshold": 0.85,
+            "value": 0.7826086956521738
+          }
+        ],
+        "priority": 5,
+        "relative_shortfall": 0.079284,
+        "title": "Fix Korean tokenization and particle failures from the regression corpus"
+      }
+    ],
+    "measurement_gaps": []
+  },
+  "calibration": {
+    "accuracy": 0.8075187969924812,
+    "auroc": 0.8116897339902752,
+    "brier": 0.15940745687674698,
+    "confidence_minus_accuracy": 0.15026688233652807,
+    "ece_equal_mass": 0.15026688233652807,
+    "mean_confidence": 0.9577856793290093,
+    "n": 3990
+  },
+  "candidate": {
+    "commit": "544484a240af62d0208a7eff70649e447ea7599c",
+    "crate_tree": "4399c7a83cad754e671e6f122648eb1c40cd0dee",
+    "id": "fastner-b-linear-crf-beta1",
+    "model_bytes": 590760,
+    "model_dir_digest": "sha256:39411273a59993fea35e2c5fa35a3f8f032dc8c8130bfb971ed98d11069aa3a2",
+    "tag": "beta1-candidate-1"
+  },
+  "candidate_specific_diagnostic": {
+    "cases": 46,
+    "interval": [
+      0.7042253521126761,
+      0.9158878504672897
+    ],
+    "non_exact": 12,
+    "strict": {
+      "f1": 0.8311688311688312,
+      "precision": 0.8205128205128205,
+      "recall": 0.8421052631578947
+    }
+  },
+  "case_level_vs_alpha": {
+    "fastner-adversarial": {
+      "alpha_failing_cases": 11,
+      "beta1_failing_cases": 6,
+      "changed_outcome": [
+        {
+          "alpha_outcomes": [
+            "miss"
+          ],
+          "case_id": "fnb-adv-005",
+          "category": "mixed-script",
+          "language": "mixed",
+          "outcomes": [
+            "under-wide"
+          ]
+        },
+        {
+          "alpha_outcomes": [
+            "under-wide"
+          ],
+          "case_id": "fnb-adv-017",
+          "category": "unicode-homoglyph",
+          "language": "en",
+          "outcomes": [
+            "miss"
+          ]
+        }
+      ],
+      "fixed": [
+        {
+          "case_id": "fnb-adv-006",
+          "category": "unicode-invisible",
+          "language": "en",
+          "outcomes": [
+            "under-wide"
+          ]
+        },
+        {
+          "case_id": "fnb-adv-007",
+          "category": "unicode-invisible",
+          "language": "ko",
+          "outcomes": [
+            "false-positive",
+            "under-wide"
+          ]
+        },
+        {
+          "case_id": "fnb-adv-014",
+          "category": "unicode-invisible",
+          "language": "en",
+          "outcomes": [
+            "under-wide"
+          ]
+        },
+        {
+          "case_id": "fnb-adv-022",
+          "category": "structured-text",
+          "language": "en",
+          "outcomes": [
+            "miss"
+          ]
+        },
+        {
+          "case_id": "fnb-adv-026",
+          "category": "ko-particle",
+          "language": "ko",
+          "outcomes": [
+            "miss"
+          ]
+        },
+        {
+          "case_id": "fnb-adv-035",
+          "category": "ambiguity-false-positive",
+          "language": "en",
+          "outcomes": [
+            "false-positive"
+          ]
+        }
+      ],
+      "new_failures": [
+        {
+          "case_id": "fnb-adv-004",
+          "category": "mixed-script",
+          "language": "mixed",
+          "outcomes": [
+            "over-wide"
+          ]
+        }
+      ],
+      "unchanged_failing": [
+        {
+          "case_id": "fnb-adv-011",
+          "category": "unicode-normalization",
+          "language": "en",
+          "outcomes": [
+            "miss"
+          ]
+        },
+        {
+          "case_id": "fnb-adv-012",
+          "category": "unicode-invisible",
+          "language": "en",
+          "outcomes": [
+            "miss"
+          ]
+        },
+        {
+          "case_id": "fnb-adv-020",
+          "category": "hostile-text",
+          "language": "en",
+          "outcomes": [
+            "false-positive"
+          ]
+        }
+      ]
+    },
+    "fastner-regression": {
+      "alpha_failing_cases": 10,
+      "beta1_failing_cases": 9,
+      "changed_outcome": [],
+      "fixed": [
+        {
+          "case_id": "fnb-reg-003",
+          "category": "ambiguity-false-positive",
+          "language": "en",
+          "outcomes": [
+            "false-positive"
+          ]
+        },
+        {
+          "case_id": "fnb-reg-016",
+          "category": "ambiguity-true-positive",
+          "language": "en",
+          "outcomes": [
+            "under-wide"
+          ]
+        },
+        {
+          "case_id": "fnb-reg-029",
+          "category": "en-tokenization",
+          "language": "en",
+          "outcomes": [
+            "false-positive"
+          ]
+        },
+        {
+          "case_id": "fnb-reg-050",
+          "category": "ko-particle-false-positive",
+          "language": "ko",
+          "outcomes": [
+            "false-positive"
+          ]
+        }
+      ],
+      "new_failures": [
+        {
+          "case_id": "fnb-reg-006",
+          "category": "ambiguity-false-positive",
+          "language": "en",
+          "outcomes": [
+            "false-positive"
+          ]
+        },
+        {
+          "case_id": "fnb-reg-046",
+          "category": "ambiguity-false-positive",
+          "language": "ko",
+          "outcomes": [
+            "false-positive"
+          ]
+        },
+        {
+          "case_id": "fnb-reg-047",
+          "category": "ambiguity-false-positive",
+          "language": "ko",
+          "outcomes": [
+            "false-positive"
+          ]
+        }
+      ],
+      "unchanged_failing": [
+        {
+          "case_id": "fnb-reg-012",
+          "category": "ambiguity-false-positive",
+          "language": "en",
+          "outcomes": [
+            "false-positive"
+          ]
+        },
+        {
+          "case_id": "fnb-reg-023",
+          "category": "unseen-name",
+          "language": "en",
+          "outcomes": [
+            "miss"
+          ]
+        },
+        {
+          "case_id": "fnb-reg-034",
+          "category": "boundary",
+          "language": "en",
+          "outcomes": [
+            "miss"
+          ]
+        },
+        {
+          "case_id": "fnb-reg-041",
+          "category": "boundary",
+          "language": "ko",
+          "outcomes": [
+            "miss"
+          ]
+        },
+        {
+          "case_id": "fnb-reg-042",
+          "category": "ambiguity-true-positive",
+          "language": "ko",
+          "outcomes": [
+            "miss"
+          ]
+        },
+        {
+          "case_id": "fnb-reg-043",
+          "category": "ambiguity-false-positive",
+          "language": "ko",
+          "outcomes": [
+            "false-positive"
+          ]
+        }
+      ]
+    }
+  },
+  "checks": [
+    {
+      "detail": "tag beta1-candidate-1 -> commit 544484a, crate tree 4399c7a, model dir sha256:39411273a599…; all artifact identities equal the pin",
+      "hard": true,
+      "id": "candidate_pin_complete",
+      "pass": true,
+      "stage": "0-pins"
+    },
+    {
+      "detail": "person-en-ko-beta.1-1dc0b13fe0ff (872 cases), digest sha256:1dc0b13fe0ff…; published in ner-evidence snapshots/index.json (release beta.1)",
+      "hard": true,
+      "id": "evidence_pin_matches",
+      "pass": true,
+      "stage": "0-pins"
+    },
+    {
+      "detail": "product and candidate-specific corpora measured at the committed content digests",
+      "hard": true,
+      "id": "corpus_digests_match",
+      "pass": true,
+      "stage": "0-pins"
+    },
+    {
+      "detail": "reference and control digests equal the Alpha pins",
+      "hard": true,
+      "id": "reference_pins_unchanged",
+      "pass": true,
+      "stage": "0-pins"
+    },
+    {
+      "detail": "plan verification identical over 60 files; evaluator 0.2.0; protocol ner-eval.match/1.1.0; one hardware class; 28 quality runs all ok",
+      "hard": true,
+      "id": "run_integrity",
+      "pass": true,
+      "stage": "0-pins"
+    },
+    {
+      "detail": "native and shim carry identical model digests",
+      "hard": true,
+      "id": "same_model_both_transports",
+      "pass": true,
+      "stage": "0-pins"
+    },
+    {
+      "detail": "class B-linear-crf, default features ['cand-crf']",
+      "hard": true,
+      "id": "architecture_unchanged",
+      "pass": true,
+      "stage": "1-architecture"
+    },
+    {
+      "detail": "ADR-0002 promoted (on main); ADR-0003, ADR-0004 accepted; candidate commit is fastner main",
+      "hard": true,
+      "id": "adr_chain_on_main",
+      "pass": true,
+      "stage": "1-architecture"
+    },
+    {
+      "detail": "runtime crate dependencies: 0",
+      "hard": true,
+      "id": "no_new_dependencies",
+      "pass": true,
+      "stage": "1-architecture"
+    },
+    {
+      "detail": "model 590684 -> 590760 bytes (+0.01%, limit 5%); WASM 71680 (ner-eval Alpha probe) -> 76427 (candidate-reported) (+6.62%, limit 10%); WASM growth vs Alpha tree as reported by fastner: +6.08%",
+      "evidence": {
+        "model_growth": 0.000129,
+        "wasm_growth": 0.066225
+      },
+      "hard": true,
+      "id": "size_growth_bounded",
+      "pass": true,
+      "stage": "1-architecture"
+    },
+    {
+      "detail": "native and shim quality results identical on ner-evidence-beta1, fastner-regression, fastner-adversarial, candidate-specific",
+      "hard": true,
+      "id": "native_shim_parity",
+      "pass": true,
+      "stage": "2-quality"
+    },
+    {
+      "detail": "10 like-for-like comparisons on the regression and adversarial corpora (tolerance 0.02); regressions: fastner-regression/language=ko/f1 -0.036",
+      "evidence": [
+        {
+          "alpha": 0.8461538461538461,
+          "alpha_inside_beta1_interval": null,
+          "beta1": 0.8717948717948718,
+          "beta1_interval": null,
+          "cases": 52,
+          "delta": 0.025641,
+          "metric": "precision",
+          "ok": true,
+          "population": "fastner-regression",
+          "slice": "overall"
+        },
+        {
+          "alpha": 0.868421052631579,
+          "alpha_inside_beta1_interval": null,
+          "beta1": 0.8947368421052632,
+          "beta1_interval": null,
+          "cases": 52,
+          "delta": 0.026316,
+          "metric": "recall",
+          "ok": true,
+          "population": "fastner-regression",
+          "slice": "overall"
+        },
+        {
+          "alpha": 0.8571428571428572,
+          "alpha_inside_beta1_interval": true,
+          "beta1": 0.8831168831168831,
+          "beta1_interval": [
+            0.794118,
+            0.945946
+          ],
+          "cases": 52,
+          "delta": 0.025974,
+          "metric": "f1",
+          "ok": true,
+          "population": "fastner-regression",
+          "slice": "overall"
+        },
+        {
+          "alpha": 0.8727272727272727,
+          "alpha_inside_beta1_interval": true,
+          "beta1": 0.9259259259259259,
+          "beta1_interval": [
+            0.837209,
+            0.984127
+          ],
+          "cases": 34,
+          "delta": 0.053199,
+          "metric": "f1",
+          "ok": true,
+          "population": "fastner-regression",
+          "slice": "language=en"
+        },
+        {
+          "alpha": 0.8181818181818182,
+          "alpha_inside_beta1_interval": true,
+          "beta1": 0.7826086956521738,
+          "beta1_interval": [
+            0.571429,
+            0.928571
+          ],
+          "cases": 18,
+          "delta": -0.035573,
+          "metric": "f1",
+          "ok": false,
+          "population": "fastner-regression",
+          "slice": "language=ko"
+        },
+        {
+          "alpha": 0.7142857142857143,
+          "alpha_inside_beta1_interval": null,
+          "beta1": 0.8888888888888888,
+          "beta1_interval": null,
+          "cases": 37,
+          "delta": 0.174603,
+          "metric": "precision",
+          "ok": true,
+          "population": "fastner-adversarial",
+          "slice": "overall"
+        },
+        {
+          "alpha": 0.6896551724137931,
+          "alpha_inside_beta1_interval": null,
+          "beta1": 0.8275862068965517,
+          "beta1_interval": null,
+          "cases": 37,
+          "delta": 0.137931,
+          "metric": "recall",
+          "ok": true,
+          "population": "fastner-adversarial",
+          "slice": "overall"
+        },
+        {
+          "alpha": 0.7017543859649122,
+          "alpha_inside_beta1_interval": false,
+          "beta1": 0.8571428571428572,
+          "beta1_interval": [
+            0.740741,
+            0.956522
+          ],
+          "cases": 37,
+          "delta": 0.155388,
+          "metric": "f1",
+          "ok": true,
+          "population": "fastner-adversarial",
+          "slice": "overall"
+        },
+        {
+          "alpha": 0.625,
+          "alpha_inside_beta1_interval": false,
+          "beta1": 0.8666666666666666,
+          "beta1_interval": [
+            0.695652,
+            0.971429
+          ],
+          "cases": 23,
+          "delta": 0.241667,
+          "metric": "f1",
+          "ok": true,
+          "population": "fastner-adversarial",
+          "slice": "language=en"
+        },
+        {
+          "alpha": 0.6,
+          "alpha_inside_beta1_interval": false,
+          "beta1": 1.0,
+          "beta1_interval": [
+            1.0,
+            1.0
+          ],
+          "cases": 9,
+          "delta": 0.4,
+          "metric": "f1",
+          "ok": true,
+          "population": "fastner-adversarial",
+          "slice": "language=ko"
+        }
+      ],
+      "hard": true,
+      "id": "no_regression_vs_alpha",
+      "pass": false,
+      "stage": "2-quality"
+    },
+    {
+      "detail": "improved by more than the tolerance: regression.en_f1 +0.053, adversarial.en_precision +0.304, adversarial.ko_precision +0.400; all comparable gates: regression.en_f1 +0.053, regression.ko_f1 -0.036, adversarial.en_precision +0.304, adversarial.ko_precision +0.400",
+      "evidence": {
+        "adversarial.en_precision": 0.303571,
+        "adversarial.ko_precision": 0.4,
+        "regression.en_f1": 0.053199,
+        "regression.ko_f1": -0.035573
+      },
+      "hard": true,
+      "id": "improvement_vs_alpha",
+      "pass": true,
+      "stage": "2-quality"
+    },
+    {
+      "detail": "native and shim calibration identical within 1e-05; n=3990 scored predictions on ner-evidence-beta1; ECE 0.1503, mean confidence 0.958 vs accuracy 0.808 (over-confident by 0.150), Brier 0.159, AUROC 0.812",
+      "hard": true,
+      "id": "calibration_measured",
+      "pass": true,
+      "stage": "3-calibration"
+    },
+    {
+      "detail": "all seven budget values present; WASM is candidate-reported, not ner-eval-measured",
+      "hard": true,
+      "id": "budgets_evaluable",
+      "pass": true,
+      "stage": "4-performance-size"
+    },
+    {
+      "detail": "throughput repeat spread max/min 1.061 (bound 1.5); a larger spread would make the value inconclusive, not failing",
+      "hard": true,
+      "id": "perf_repeat_stability",
+      "pass": true,
+      "stage": "4-performance-size"
+    }
+  ],
+  "evidence_exposure": {
+    "populations": {
+      "candidate-specific": {
+        "is_holdout": false,
+        "note": "Scores on this corpus were tracked per experiment during FastNER Beta 1 development (fastner docs/beta1/experiments.md).",
+        "selection_exposed": true
+      },
+      "fastner-adversarial": {
+        "is_holdout": false,
+        "note": "Scores on this corpus were tracked per experiment during FastNER Beta 1 development (fastner docs/beta1/experiments.md).",
+        "selection_exposed": true
+      },
+      "fastner-regression": {
+        "is_holdout": false,
+        "note": "Scores on this corpus were tracked per experiment during FastNER Beta 1 development (fastner docs/beta1/experiments.md).",
+        "selection_exposed": true
+      },
+      "ner-evidence-beta1": {
+        "is_holdout": false,
+        "note": null,
+        "selection_exposed": true
+      }
+    },
+    "statement": "Used by the FastNER Beta 1 work for selection as well as reporting (fastner docs/beta1/experiments.md 'Selection protocol and its limit'); no protected holdout exists. Product corpora scores were also tracked per experiment (regression/adversarial columns), so they are not blind either."
+  },
+  "gate_set_version": "0.3.0",
+  "ner_eval": {
+    "commit": "4b5bea11b9dc8bd0aaa45eee4cfe74a698557077",
+    "evaluator_version": "0.2.0",
+    "plan_id": "fastner-beta1",
+    "plan_manifest_digest": "sha256:b2f7aa2e2c866d46ca9c30387e835e60a8b0cfbea92645173e8983e889f1cc03"
+  },
+  "outcome": "A",
+  "outcome_label": "BETA 1 FAIL: fix the Beta 1 candidate (or the measurement) and re-measure",
+  "outcome_reason": "hard checks failed: no_regression_vs_alpha",
+  "performance": {
+    "alpha_shim_note": "Alpha shim startup (~1.3 s) used protocol 1.1.0 and is not comparable to this plan's protocol 1.2.0 measurements; no performance regression claim is made against Alpha.",
+    "native": {
+      "binary_size_bytes": 2675296,
+      "latency_p95_ms": 0.0037080000000000004,
+      "memory_scope": "in-process-isolated",
+      "model_size_bytes": 590760,
+      "peak_memory_mb": 3.625,
+      "startup_ms": 1.426,
+      "throughput_docs_per_s": 441849.0415845535,
+      "throughput_spread_max_over_min": 1.061158584534731,
+      "transport": "native",
+      "wasm_size_bytes": null
+    },
+    "shim": {
+      "binary_size_bytes": 580912,
+      "latency_p95_ms": 0.02075,
+      "memory_scope": "adapter-process",
+      "model_size_bytes": 590760,
+      "peak_memory_mb": 3.15625,
+      "startup_ms": 6.087,
+      "throughput_docs_per_s": 253540.6556402892,
+      "throughput_spread_max_over_min": 1.1060921632714447,
+      "transport": "external-process",
+      "wasm_size_bytes": null
+    }
+  },
+  "policy_version": "0.2.0",
+  "provisional_blockers": [],
+  "references": [
+    {
+      "beta1_f1_minus_this": 0.512172,
+      "en_f1": 0.6579854461891995,
+      "ko_f1": 0.07449530850156383,
+      "model": "ref-spacy-en",
+      "strict_f1": 0.29121929695543464,
+      "strict_precision": 0.35765895953757226,
+      "strict_recall": 0.24559662614735797
+    },
+    {
+      "beta1_f1_minus_this": 0.574626,
+      "en_f1": 0.4191279887482419,
+      "ko_f1": 0.04325437693099897,
+      "model": "ref-bert-base-ner",
+      "strict_f1": 0.2287655719139298,
+      "strict_precision": 0.2664029014177382,
+      "strict_recall": 0.20044653932026793
+    },
+    {
+      "beta1_f1_minus_this": 0.312366,
+      "en_f1": 0.08998393144081415,
+      "ko_f1": 0.6952965235173824,
+      "model": "ref-koelectra-ko",
+      "strict_f1": 0.4910252509887436,
+      "strict_precision": 0.6346834447502949,
+      "strict_recall": 0.4003969238402382
+    },
+    {
+      "beta1_f1_minus_this": null,
+      "en_f1": null,
+      "ko_f1": null,
+      "model": "control-null",
+      "strict_f1": null,
+      "strict_precision": null,
+      "strict_recall": 0.0
+    },
+    {
+      "beta1_f1_minus_this": 0.591462,
+      "en_f1": 0.3427304402914159,
+      "ko_f1": 0.042308482234545086,
+      "model": "control-capitalized-run",
+      "strict_f1": 0.21192882053116338,
+      "strict_precision": 0.16568791946308725,
+      "strict_recall": 0.29397171917638304
+    }
+  ],
+  "regression_vs_alpha": [
+    {
+      "alpha": 0.8461538461538461,
+      "alpha_inside_beta1_interval": null,
+      "beta1": 0.8717948717948718,
+      "beta1_interval": null,
+      "cases": 52,
+      "delta": 0.025641,
+      "metric": "precision",
+      "ok": true,
+      "population": "fastner-regression",
+      "slice": "overall"
+    },
+    {
+      "alpha": 0.868421052631579,
+      "alpha_inside_beta1_interval": null,
+      "beta1": 0.8947368421052632,
+      "beta1_interval": null,
+      "cases": 52,
+      "delta": 0.026316,
+      "metric": "recall",
+      "ok": true,
+      "population": "fastner-regression",
+      "slice": "overall"
+    },
+    {
+      "alpha": 0.8571428571428572,
+      "alpha_inside_beta1_interval": true,
+      "beta1": 0.8831168831168831,
+      "beta1_interval": [
+        0.794118,
+        0.945946
+      ],
+      "cases": 52,
+      "delta": 0.025974,
+      "metric": "f1",
+      "ok": true,
+      "population": "fastner-regression",
+      "slice": "overall"
+    },
+    {
+      "alpha": 0.8727272727272727,
+      "alpha_inside_beta1_interval": true,
+      "beta1": 0.9259259259259259,
+      "beta1_interval": [
+        0.837209,
+        0.984127
+      ],
+      "cases": 34,
+      "delta": 0.053199,
+      "metric": "f1",
+      "ok": true,
+      "population": "fastner-regression",
+      "slice": "language=en"
+    },
+    {
+      "alpha": 0.8181818181818182,
+      "alpha_inside_beta1_interval": true,
+      "beta1": 0.7826086956521738,
+      "beta1_interval": [
+        0.571429,
+        0.928571
+      ],
+      "cases": 18,
+      "delta": -0.035573,
+      "metric": "f1",
+      "ok": false,
+      "population": "fastner-regression",
+      "slice": "language=ko"
+    },
+    {
+      "alpha": 0.7142857142857143,
+      "alpha_inside_beta1_interval": null,
+      "beta1": 0.8888888888888888,
+      "beta1_interval": null,
+      "cases": 37,
+      "delta": 0.174603,
+      "metric": "precision",
+      "ok": true,
+      "population": "fastner-adversarial",
+      "slice": "overall"
+    },
+    {
+      "alpha": 0.6896551724137931,
+      "alpha_inside_beta1_interval": null,
+      "beta1": 0.8275862068965517,
+      "beta1_interval": null,
+      "cases": 37,
+      "delta": 0.137931,
+      "metric": "recall",
+      "ok": true,
+      "population": "fastner-adversarial",
+      "slice": "overall"
+    },
+    {
+      "alpha": 0.7017543859649122,
+      "alpha_inside_beta1_interval": false,
+      "beta1": 0.8571428571428572,
+      "beta1_interval": [
+        0.740741,
+        0.956522
+      ],
+      "cases": 37,
+      "delta": 0.155388,
+      "metric": "f1",
+      "ok": true,
+      "population": "fastner-adversarial",
+      "slice": "overall"
+    },
+    {
+      "alpha": 0.625,
+      "alpha_inside_beta1_interval": false,
+      "beta1": 0.8666666666666666,
+      "beta1_interval": [
+        0.695652,
+        0.971429
+      ],
+      "cases": 23,
+      "delta": 0.241667,
+      "metric": "f1",
+      "ok": true,
+      "population": "fastner-adversarial",
+      "slice": "language=en"
+    },
+    {
+      "alpha": 0.6,
+      "alpha_inside_beta1_interval": false,
+      "beta1": 1.0,
+      "beta1_interval": [
+        1.0,
+        1.0
+      ],
+      "cases": 9,
+      "delta": 0.4,
+      "metric": "f1",
+      "ok": true,
+      "population": "fastner-adversarial",
+      "slice": "language=ko"
+    }
+  ],
+  "rule_feedback": [
+    "fastner-regression/language=ko/f1: -0.036 on 18 cases; Alpha value 0.818 lies inside Beta 1's 95% interval [0.571429, 0.928571]. The pre-declared tolerance (0.02 absolute) is not sample-size aware, so on slices this small one extra error exceeds it. The outcome follows the rule as declared; a sample-size-aware tolerance should be proposed for the next rule version, not applied retroactively."
+  ],
+  "rule_version": "1.0.0",
+  "schema": "fastner-benchmarks.beta1-qualification/1",
+  "slice_watchlist": [
+    {
+      "cases": 72,
+      "low_n": false,
+      "slice": "collision=organization",
+      "strict_f1": 0.5698324022346369,
+      "strict_precision": 0.4594594594594595,
+      "strict_recall": 0.75
+    },
+    {
+      "cases": 196,
+      "low_n": true,
+      "slice": "context=no-person",
+      "strict_f1": null,
+      "strict_precision": 0.0,
+      "strict_recall": null
+    },
+    {
+      "cases": 407,
+      "low_n": false,
+      "slice": "difficulty=ambiguous",
+      "strict_f1": 0.6363209760675739,
+      "strict_precision": 0.5839793281653747,
+      "strict_recall": 0.6989690721649484
+    }
+  ],
+  "support": [
+    {
+      "gate_counts": {
+        "fail": 4,
+        "pass": 10,
+        "unmeasured": 0
+      },
+      "profile": "PERSON/en",
+      "reasons": [
+        "4 gate(s) failing"
+      ],
+      "status": "experimental"
+    },
+    {
+      "gate_counts": {
+        "fail": 4,
+        "pass": 10,
+        "unmeasured": 0
+      },
+      "profile": "PERSON/ko",
+      "reasons": [
+        "4 gate(s) failing"
+      ],
+      "status": "experimental"
+    }
+  ],
+  "value_sources": {
+    "runtime_binary_size_bytes": "ner-eval (adapter shim binary, as in Alpha; the native host binary is the evaluator and is not a product cost)",
+    "wasm_size_bytes": "candidate-reported"
+  },
+  "values": {
+    "ambiguous_name_precision": 0.583979,
+    "calibration_ece": 0.150267,
+    "collision_precision_worst": 0.459459,
+    "en_f1": 0.759537,
+    "entity_f1": 0.803391,
+    "entity_precision": 0.807519,
+    "entity_recall": 0.799305,
+    "ko_f1": 0.828712,
+    "latency_p95_ms": 0.003708,
+    "model_size_bytes": 590760,
+    "multi_token_f1": 0.772364,
+    "peak_memory_mb": 3.625,
+    "runtime_binary_size_bytes": 580912,
+    "single_token_recall": 0.806798,
+    "startup_ms": 1.426,
+    "throughput_docs_per_s": 441849.041585,
+    "unseen_name_recall": 0.816984,
+    "wasm_size_bytes": 76427
+  }
+}

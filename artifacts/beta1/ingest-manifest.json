@@ -1,0 +1,106 @@
+{
+  "dropped": "diagnostic text/spans and per-projection detail; failures kept as case id + outcome for own corpora only; calibration reliability bins and operating curves not kept",
+  "evaluator_version": "0.2.0",
+  "hardware_class": [
+    "sha256:f3fbb386e42b91f4fdb03f500d91b2bead768a2569ff8a09148d3d38ff96ffdf"
+  ],
+  "ner_eval_commit": "4b5bea11b9dc8bd0aaa45eee4cfe74a698557077",
+  "plan_digest": "sha256:aa60290c0cfbfd47dbe00ed1d723f5274e7aa8092cb38137c693c6ea29cc616d",
+  "plan_id": "fastner-beta1",
+  "plan_manifest_digest": "sha256:b2f7aa2e2c866d46ca9c30387e835e60a8b0cfbea92645173e8983e889f1cc03",
+  "plan_verification": {
+    "digest": "sha256:551ac6f5c4f97b995ccde462969271582020fc4b917b29b6f78a518218314778",
+    "files_compared": 60,
+    "identical": true
+  },
+  "protocols": {
+    "adapter_protocol": "ner-eval.adapter-protocol/1",
+    "artifacts": "ner-eval.artifacts/1",
+    "calibration": "ner-eval.calibration/1.0.0",
+    "measurement": "ner-eval.match/1.1.0",
+    "observation_schema": "ner-eval.observation/1",
+    "performance": "ner-eval.perf-protocol/1.2.0",
+    "slice_spec": "ner-eval.person-slices/2",
+    "uncertainty": "ner-eval.uncertainty/1.0.0"
+  },
+  "runs": [
+    {
+      "population_id": "ner-evidence-beta1",
+      "registry_id": "ner-evidence-beta1",
+      "run_id": "run-3427ef56b592dbf0",
+      "run_manifest_digest": "sha256:0c132b764ace41716f63dc834d5ec65f77df60ec723f0866c118cfb1d701b31b"
+    },
+    {
+      "population_id": "fastner-regression",
+      "registry_id": "fastner-regression",
+      "run_id": "run-40c3ee7992ecbe99",
+      "run_manifest_digest": "sha256:2d0c1e7f875ec729c2c92a8b06f4aa8dd040a4175a62235e6c8292274b6351c7"
+    },
+    {
+      "population_id": "fastner-adversarial",
+      "registry_id": "fastner-adversarial",
+      "run_id": "run-47cf6e363f6949ec",
+      "run_manifest_digest": "sha256:b75bfcf0e02e7bd464cb9d05dbe8c6d92504f1c4b3cd39b707b727b47944140c"
+    },
+    {
+      "population_id": "candidate-b-linear-crf-diagnostic",
+      "registry_id": "candidate-specific",
+      "run_id": "run-128faf8766bc6c8c",
+      "run_manifest_digest": "sha256:571a3bcc85f566eb43d8f4497e5ef9e7b867eade7f531c1e99b31ec0923fb9f6"
+    }
+  ],
+  "schema": "fastner-benchmarks.beta1-ingest-manifest/1",
+  "source_artifact_file_sha256": {
+    "results/beta1/candidate-b-linear-crf-diagnostic/calibration/fastner-crf-beta1-native.calibration.json": "sha256:5f3492bc12f3a57c0eb2328b29ebfefe963ada88c420a716ba690913cc01d0eb",
+    "results/beta1/candidate-b-linear-crf-diagnostic/calibration/fastner-crf-beta1-shim.calibration.json": "sha256:03e3afdcc4a9079ae8c4f29efca96ff8e263f738466312c375335f8a8c368118",
+    "results/beta1/candidate-b-linear-crf-diagnostic/calibration/hf-dslim-bert-base-ner-d1a3e8f.calibration.json": "sha256:a11b7bfaf652039a192f54ca4ddabc2d4def7a517f5cdab38f15b0ecbfacbaa4",
+    "results/beta1/candidate-b-linear-crf-diagnostic/calibration/hf-leo97-koelectra-small-v3-modu-ner-bb9d562.calibration.json": "sha256:291076df97e3c7a02b642ee501882c2e3548638689b4511f243ea946f25c0885",
+    "results/beta1/candidate-b-linear-crf-diagnostic/quality/control-capitalized-run.quality.json": "sha256:fe870f3548c013436010888807d67866842dd5834d38287525eb2ac77fe9c7fa",
+    "results/beta1/candidate-b-linear-crf-diagnostic/quality/control-null.quality.json": "sha256:bcc3f24d7933b616843f917395bb05001929abbf43422e26cff380cd8c261ec7",
+    "results/beta1/candidate-b-linear-crf-diagnostic/quality/fastner-crf-beta1-native.quality.json": "sha256:32edb54b336d4f88e56088c8aea190b447ffce3b6de8aabbc412a7a0997a2abb",
+    "results/beta1/candidate-b-linear-crf-diagnostic/quality/fastner-crf-beta1-shim.quality.json": "sha256:80e0645320352126e47aa3208ea6beb7d2db14bbba52c8fc346d56a0f5e4d7c4",
+    "results/beta1/candidate-b-linear-crf-diagnostic/quality/hf-dslim-bert-base-ner-d1a3e8f.quality.json": "sha256:8a718b0f1ff5ee24bbfb062809da7f911480376faba15f7581aa13d596062101",
+    "results/beta1/candidate-b-linear-crf-diagnostic/quality/hf-leo97-koelectra-small-v3-modu-ner-bb9d562.quality.json": "sha256:eaafd3ffba9cb519a66d399f19edc213615131c5917f61e8f5af4e16946a9fc2",
+    "results/beta1/candidate-b-linear-crf-diagnostic/quality/spacy-en-core-web-sm-3.8.0.quality.json": "sha256:64ba08633977b04fdbf9d9b95314f68abee13f8b9bb6d42e9cc7abe5c80487af",
+    "results/beta1/fastner-adversarial/calibration/fastner-crf-beta1-native.calibration.json": "sha256:ba2ed190b4c094e6768b378f07342b4136b394e064f7c945f6c634a22cc50da1",
+    "results/beta1/fastner-adversarial/calibration/fastner-crf-beta1-shim.calibration.json": "sha256:1f24903d2b92d77398b3628988e814f3d2654422e96a3a1b7a89b97470a7e37e",
+    "results/beta1/fastner-adversarial/calibration/hf-dslim-bert-base-ner-d1a3e8f.calibration.json": "sha256:1e7d6eb095910d2822d5fbc7d909dd9b67866a78d501e12aaaf261182b9e8bf2",
+    "results/beta1/fastner-adversarial/calibration/hf-leo97-koelectra-small-v3-modu-ner-bb9d562.calibration.json": "sha256:b86768e69d5ef7b2025e724654498c5605ef6ac3a7f4119008a94544879e5c24",
+    "results/beta1/fastner-adversarial/quality/control-capitalized-run.quality.json": "sha256:4139fa2b560cd1ba4c00434e11aab456287a771b0adc77cc0edb201353356ab8",
+    "results/beta1/fastner-adversarial/quality/control-null.quality.json": "sha256:cc01b7a0bd7ae65a8e946509543879995c494f7b452c54f10c3437b01763d626",
+    "results/beta1/fastner-adversarial/quality/fastner-crf-beta1-native.quality.json": "sha256:b294d78d4954f60b0a94031211b69565eb5094023bfb3bf200247f6857004bdd",
+    "results/beta1/fastner-adversarial/quality/fastner-crf-beta1-shim.quality.json": "sha256:a0470efb7ac63cdc5775af5fb9b21e6fee6cef31488737f6dc2cbc95be1d1ed0",
+    "results/beta1/fastner-adversarial/quality/hf-dslim-bert-base-ner-d1a3e8f.quality.json": "sha256:b7ca5092485cff372778deba20a9bca408c08cd5803e6a2c443e6d1fc51484c7",
+    "results/beta1/fastner-adversarial/quality/hf-leo97-koelectra-small-v3-modu-ner-bb9d562.quality.json": "sha256:fda68dbda2715c1410420d3c6ca58e424387efb1af463e6f43323b22d91b0bea",
+    "results/beta1/fastner-adversarial/quality/spacy-en-core-web-sm-3.8.0.quality.json": "sha256:5f83132fcf77ebf99a6c259e5205548e7bf5f24ddfab812387b9fd0df6607a05",
+    "results/beta1/fastner-regression/calibration/fastner-crf-beta1-native.calibration.json": "sha256:fb3260fbf7e1d4d244f33dfe12870078dda6b5e54bd23738b4db3ce4dd15483b",
+    "results/beta1/fastner-regression/calibration/fastner-crf-beta1-shim.calibration.json": "sha256:032736f0722e93853ffe927cd61f1f317c506fda75a5796afa2579fab5639678",
+    "results/beta1/fastner-regression/calibration/hf-dslim-bert-base-ner-d1a3e8f.calibration.json": "sha256:b4638b11871df62fc8698f4efc437303cece6602afb77473a6aad8e5c8d47212",
+    "results/beta1/fastner-regression/calibration/hf-leo97-koelectra-small-v3-modu-ner-bb9d562.calibration.json": "sha256:711dca123993183ae57b8449eba7b5ce9a868635ab1c6e6eefca62b8f7936e1b",
+    "results/beta1/fastner-regression/quality/control-capitalized-run.quality.json": "sha256:bc6f0a04b64aebf3b59b45553dd851752dfa29a82f6e127f123203d8c97eae6a",
+    "results/beta1/fastner-regression/quality/control-null.quality.json": "sha256:7b8f0fe753eb0c47027054c335ee907e51a28bb3c53ba6a900e17cccb4568857",
+    "results/beta1/fastner-regression/quality/fastner-crf-beta1-native.quality.json": "sha256:12179e3b4d7f6a23c970b4c2fc72f230cf3c3649dd4a9228daa4748aa8fbdca6",
+    "results/beta1/fastner-regression/quality/fastner-crf-beta1-shim.quality.json": "sha256:8143495ab5f0f65ea72cd40605cb0af2e75d9060dc010875155e6777f0b5807a",
+    "results/beta1/fastner-regression/quality/hf-dslim-bert-base-ner-d1a3e8f.quality.json": "sha256:3547f1397786364b0e7fa65b0de4b2077b106cbf9ec0f5ca7ef3f8e319456eb2",
+    "results/beta1/fastner-regression/quality/hf-leo97-koelectra-small-v3-modu-ner-bb9d562.quality.json": "sha256:970cb84dc68ca2bc263f94d0672a1a9c18d2f7c8956bb29fd49153d780b3f980",
+    "results/beta1/fastner-regression/quality/spacy-en-core-web-sm-3.8.0.quality.json": "sha256:403cfa746c9b05d0a85f74c7ebcca8a777e7c65fbfd298176e182e9c8cbb8986",
+    "results/beta1/ner-evidence-beta1/calibration/fastner-crf-beta1-native.calibration.json": "sha256:0b4f98e4bf863499bfea8c1e05d6e346381fc9c120723c42f79d6a3a903865fb",
+    "results/beta1/ner-evidence-beta1/calibration/fastner-crf-beta1-shim.calibration.json": "sha256:43e982ebc9052e867c7a2ad77d4a350117838914a25d5a285b15b241d4b0d512",
+    "results/beta1/ner-evidence-beta1/calibration/hf-dslim-bert-base-ner-d1a3e8f.calibration.json": "sha256:1b2a4f64c1f74be506fa594120110609cfb1cddd3be7f624ffbc7fb8c6a15381",
+    "results/beta1/ner-evidence-beta1/calibration/hf-leo97-koelectra-small-v3-modu-ner-bb9d562.calibration.json": "sha256:af8763ec2d9c8bd2a76faa5dedf9e2f20f4b37bdd7757acdfc51b3cd6d2a37c8",
+    "results/beta1/ner-evidence-beta1/performance/control-capitalized-run.performance.json": "sha256:e589cb08eda65e26559e29ae865d804849fcbb7b63f06ab8869650845d042dd0",
+    "results/beta1/ner-evidence-beta1/performance/control-null.performance.json": "sha256:db45bdee2d7b8106fa07d4c4bd5921f0f556fed5df4fd409229a9a7527f411b5",
+    "results/beta1/ner-evidence-beta1/performance/fastner-crf-beta1-native.performance.json": "sha256:e46d3efeb20eeedd3937f8b72cc9f04592a12424ba94eb66065149e56c229223",
+    "results/beta1/ner-evidence-beta1/performance/fastner-crf-beta1-shim.performance.json": "sha256:29e32fd88599ede9c0990342685311130c1b198a892f593be155b25db2b5f3ff",
+    "results/beta1/ner-evidence-beta1/performance/hf-dslim-bert-base-ner-d1a3e8f.performance.json": "sha256:ceaaa7dc3e3ee0212bd46ffae79946e69a016bbcae34ec6309c6af5ba5808c72",
+    "results/beta1/ner-evidence-beta1/performance/hf-leo97-koelectra-small-v3-modu-ner-bb9d562.performance.json": "sha256:d80229239c84336108453a32d241d1b9b23dc42b62f059d24fe2e20ab9a4990f",
+    "results/beta1/ner-evidence-beta1/performance/spacy-en-core-web-sm-3.8.0.performance.json": "sha256:e9d3b0690f38bf88c308c94068213c4614ab42ca6aafb688b8f2b4af1a8a6321",
+    "results/beta1/ner-evidence-beta1/quality/control-capitalized-run.quality.json": "sha256:c6bc7fee29d146ce13d1b4ff44c6ea393f957630c4b62425ea7c49b5e3e9dc33",
+    "results/beta1/ner-evidence-beta1/quality/control-null.quality.json": "sha256:8c7d88ca875fbc533a62b7417f843ebddf5ddfba378bc9ae7870456fe807c677",
+    "results/beta1/ner-evidence-beta1/quality/fastner-crf-beta1-native.quality.json": "sha256:9b36a7b8dd8bd387126bd8cab5c81af8db16ff52c9fb8409d48a9b32d997bbfa",
+    "results/beta1/ner-evidence-beta1/quality/fastner-crf-beta1-shim.quality.json": "sha256:8e6ad5c71006b6e3c91abec4fef8bc30a15b6be5fb5d0e3648e750b679797fb4",
+    "results/beta1/ner-evidence-beta1/quality/hf-dslim-bert-base-ner-d1a3e8f.quality.json": "sha256:e20287849dc9eafc04ec443b5feb124929c8fc4e34d008b45cf936f9ba711985",
+    "results/beta1/ner-evidence-beta1/quality/hf-leo97-koelectra-small-v3-modu-ner-bb9d562.quality.json": "sha256:7ff4d616be52ed252d7b26ffddf4566c50c7c90551982f7c413ec7f3de76d26f",
+    "results/beta1/ner-evidence-beta1/quality/spacy-en-core-web-sm-3.8.0.quality.json": "sha256:192982eae5d89f619508208506f150c0c5ad68554795cc0fecdcb21c51b3c268"
+  }
+}

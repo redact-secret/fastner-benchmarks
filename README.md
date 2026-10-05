@@ -6,6 +6,8 @@ Product qualification and comparative benchmarking for FastNER.
 > readiness **ENTER BETA** with support `experimental` (real `ner-eval` runs on the public snapshot and both
 > product corpora). See `reports/qualification/`.
 
+**Beta 1 qualification:** see `docs/BETA1_QUALIFICATION.md` and `reports/beta1/` (the Alpha 1 records under `reports/qualification`, `reports/support` are historical).
+
 ## Quick start
 
 ```bash
@@ -16,6 +18,8 @@ python -m fnbench promotion    # promotion decision + ADR handoff for fastner
 python -m fnbench support      # support matrix
 python -m fnbench qualify      # qualification record + Beta-entry decision
 python -m fnbench corpus       # rebuild product corpora from *.src.jsonl
+python -m fnbench beta1-ingest # ner-eval Beta 1 plan -> artifacts/beta1
+python -m fnbench beta1        # Beta 1 qualification (stages, support matrix, record)
 ```
 
 Docs: `docs/QUALIFICATION_POLICY.md`, `POPULATIONS.md`, `BAKEOFF_CONFIG.md`, `ARTIFACT_CONTRACT.md`,

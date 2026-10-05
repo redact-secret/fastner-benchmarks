@@ -15,6 +15,7 @@
 | candidate-specific | candidate-diagnostic | available | 46 | bakeoff-failure=46 | none |
 | fastner-adversarial | adversarial-gate | available | 37 | seed-taxonomy=37 | run-810f86b911170c68:control-capitalized-run, run-810f86b911170c68:control-null, run-810f86b911170c68:fastner-crf |
 | fastner-regression | regression-gate | available | 52 | seed-taxonomy=52 | run-fa7c74ef7884624a:control-capitalized-run, run-fa7c74ef7884624a:control-null, run-fa7c74ef7884624a:fastner-crf |
+| ner-evidence-beta1 | quality-floor-beta1 | available | 872 | n/a | none |
 | ner-evidence-public | quality-floor | available | 545 | n/a | run-395459fbb4ecb4da:control-capitalized-run, run-395459fbb4ecb4da:control-null, run-395459fbb4ecb4da:fastner-crf, run-395459fbb4ecb4da:fastner-neural, run-395459fbb4ecb4da:fastner-stat, run-395459fbb4ecb4da:fastner-transformer, run-395459fbb4ecb4da:hf-dslim-bert-base-ner-d1a3e8f, run-395459fbb4ecb4da:hf-leo97-koelectra-small-v3-modu-ner-bb9d562, run-395459fbb4ecb4da:spacy-en-core-web-sm-3.8.0 |
 | protected-holdout | holdout-gate | planned | n/a | n/a | none |
 
