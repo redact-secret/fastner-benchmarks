@@ -1,0 +1,188 @@
+{
+  "schema": "fastner-benchmarks.beta1-config/1",
+  "bakeoff_id": "beta1",
+  "policy_version": "0.2.0",
+  "source": {
+    "ner_eval_path": "results/beta1",
+    "plan_id": "fastner-beta1",
+    "plan_digest": "sha256:aa60290c0cfbfd47dbe00ed1d723f5274e7aa8092cb38137c693c6ea29cc616d",
+    "plan_manifest_digest": "sha256:b2f7aa2e2c866d46ca9c30387e835e60a8b0cfbea92645173e8983e889f1cc03",
+    "plan_verification_digest": "sha256:551ac6f5c4f97b995ccde462969271582020fc4b917b29b6f78a518218314778",
+    "evaluator_version": "0.2.0",
+    "ner_eval_commit": "4b5bea11b9dc8bd0aaa45eee4cfe74a698557077",
+    "runs": [
+      {
+        "population_id": "ner-evidence-beta1",
+        "path": "ner-evidence-beta1",
+        "run_id": "run-3427ef56b592dbf0",
+        "run_manifest_digest": "sha256:0c132b764ace41716f63dc834d5ec65f77df60ec723f0866c118cfb1d701b31b",
+        "role": "evidence-snapshot",
+        "snapshot_id": "person-en-ko-beta.1-1dc0b13fe0ff",
+        "content_digest": "sha256:1dc0b13fe0ff13e24616fef6d9c4b7aec3b9ab9672e531a2a02bcfffdac46ba9",
+        "case_count": 872
+      },
+      {
+        "population_id": "fastner-regression",
+        "path": "fastner-regression",
+        "run_id": "run-40c3ee7992ecbe99",
+        "run_manifest_digest": "sha256:2d0c1e7f875ec729c2c92a8b06f4aa8dd040a4175a62235e6c8292274b6351c7",
+        "role": "product-regression",
+        "snapshot_id": "fastner-regression",
+        "content_digest": "sha256:3dbdbfea6e16153d413e718f163b36958388c1a33057a1469babcb8f5f5c1bae",
+        "case_count": 52
+      },
+      {
+        "population_id": "fastner-adversarial",
+        "path": "fastner-adversarial",
+        "run_id": "run-47cf6e363f6949ec",
+        "run_manifest_digest": "sha256:b75bfcf0e02e7bd464cb9d05dbe8c6d92504f1c4b3cd39b707b727b47944140c",
+        "role": "product-adversarial",
+        "snapshot_id": "fastner-adversarial",
+        "content_digest": "sha256:b86a7d66e9889ab88a5ef21b192d89665de4495769544dadf6d295c7ca81ede4",
+        "case_count": 37
+      },
+      {
+        "population_id": "candidate-b-linear-crf-diagnostic",
+        "path": "candidate-b-linear-crf-diagnostic",
+        "run_id": "run-128faf8766bc6c8c",
+        "run_manifest_digest": "sha256:571a3bcc85f566eb43d8f4497e5ef9e7b867eade7f531c1e99b31ec0923fb9f6",
+        "role": "candidate-specific-diagnostic",
+        "snapshot_id": "candidate-specific",
+        "content_digest": "sha256:5962532da7f6f5866a859a933910f950bee13596704823bda7bf09dd28f5ed60",
+        "case_count": 46
+      }
+    ]
+  },
+  "candidate": {
+    "id": "fastner-b-linear-crf-beta1",
+    "class": "B-linear-crf",
+    "role": "candidate",
+    "runtime": {
+      "name": "fastner",
+      "git_tag": "beta1-candidate-1",
+      "commit": "544484a240af62d0208a7eff70649e447ea7599c",
+      "crate_tree": "4399c7a83cad754e671e6f122648eb1c40cd0dee",
+      "version": "0.0.0",
+      "default_features": [
+        "cand-crf"
+      ],
+      "dependencies": 0,
+      "cargo_dependencies_section_empty": true,
+      "on_main": true
+    },
+    "model": {
+      "dir_digest": "sha256:39411273a59993fea35e2c5fa35a3f8f032dc8c8130bfb971ed98d11069aa3a2",
+      "dir_digest_spec": "ner-eval.dirdigest/1",
+      "size_bytes": 590760,
+      "version": "person-en-beta1+person-ko-beta1",
+      "formats": {
+        "calibration_schema": 1,
+        "container": "1.0",
+        "feature_groups_mask": 255,
+        "feature_schema": 3,
+        "tokenizer_schema": 3
+      },
+      "files": [
+        {
+          "lang": "en",
+          "name": "person-en-beta1",
+          "bytes": 197084,
+          "sha256": "2bc9caeb209a24b63edb780419a515d6e72420fc1745f9461f0171a46c74a0aa",
+          "model_identity": "7350711ee34cbcd9946653f2258cc744fa6a94c1ae413d373653e8bd48f35090",
+          "config_digest": "0d1c78850d0712aeee70e89e15ec5de5e9505826f4eb87b7332c8103bbb0b75c",
+          "evidence_digest": "67e7084bf1a8013cbc7dce2fe3dfd3e2ec5fde6cf825d188ac4cab3224941368"
+        },
+        {
+          "lang": "ko",
+          "name": "person-ko-beta1",
+          "bytes": 393676,
+          "sha256": "7ab1438e94837fa6bf4b226edbe4fac970891545d80b2a110fe589453d6c1121",
+          "model_identity": "97eb456ee5e235390bb9fe9e9ade3eb383f89ed2f9aebd61e5ebfa84554aa3a1",
+          "config_digest": "0b5f0d8c1acebcf57dae63c350793a372937e97b98d343e0b77cea83a0c48664",
+          "evidence_digest": "67e7084bf1a8013cbc7dce2fe3dfd3e2ec5fde6cf825d188ac4cab3224941368"
+        }
+      ]
+    },
+    "adapters": {
+      "native": {
+        "adapter_id": "fastner-crf-beta1-native",
+        "version": "native-1",
+        "transport": "native"
+      },
+      "shim": {
+        "adapter_id": "fastner-crf-beta1-shim",
+        "transport": "external-process",
+        "version": "1"
+      }
+    },
+    "wasm_candidate_reported": {
+      "bytes": 76427,
+      "gzip_bytes": 33674,
+      "profile": "min (opt-level z, fat LTO, panic=abort, stripped), features cand-crf, no model embedded",
+      "source": "fastner beta1-candidate-1: docs/beta1/handoff.json; built by crates/fastner-wasm-probe; NOT measured by ner-eval",
+      "measured_by_ner_eval": false
+    },
+    "adrs": {
+      "0002": {
+        "path": "docs/adr/0002-production-architecture.md",
+        "status": "accepted"
+      },
+      "0003": {
+        "path": "docs/adr/0003-beta1-architecture-contracts.md",
+        "status": "accepted"
+      },
+      "0004": {
+        "path": "docs/adr/0004-beta1-quality-within-crf.md",
+        "status": "accepted"
+      }
+    },
+    "support_status_claim_by_fastner": null
+  },
+  "evidence": {
+    "snapshot_id": "person-en-ko-beta.1-1dc0b13fe0ff",
+    "content_digest": "sha256:1dc0b13fe0ff13e24616fef6d9c4b7aec3b9ab9672e531a2a02bcfffdac46ba9",
+    "published_in": "ner-evidence snapshots/index.json (release beta.1)",
+    "case_count": 872,
+    "development_exposure": "Used by the FastNER Beta 1 work for selection as well as reporting (fastner docs/beta1/experiments.md 'Selection protocol and its limit'); no protected holdout exists. Product corpora scores were also tracked per experiment (regression/adversarial columns), so they are not blind either."
+  },
+  "populations": {
+    "ner-evidence-beta1": "ner-evidence-beta1",
+    "fastner-regression": "fastner-regression",
+    "fastner-adversarial": "fastner-adversarial",
+    "candidate-b-linear-crf-diagnostic": "candidate-specific"
+  },
+  "references": {
+    "spacy-en-core-web-sm-3.8.0": {
+      "pin": "ref-spacy-en",
+      "model_digest": "sha256:81160f80dfefb684976731b365eab4c47da91305c36b8165f68d30a1d7c48067",
+      "role": "reference"
+    },
+    "hf-dslim-bert-base-ner-d1a3e8f": {
+      "pin": "ref-bert-base-ner",
+      "model_digest": "sha256:0263fcac83c837d8311d4695337312e0f9e8987a8ee92875c4d5afd278e89a1f",
+      "role": "reference"
+    },
+    "hf-leo97-koelectra-small-v3-modu-ner-bb9d562": {
+      "pin": "ref-koelectra-ko",
+      "model_digest": "sha256:9ad852bbefa730824fdb115491a1e983a64834ab88ac10dc590fd2b54a3bbab4",
+      "role": "reference"
+    },
+    "control-null": {
+      "pin": "control-null",
+      "model_digest": "sha256:8b75399add249ce9cbaef4ff5ca2560d8a66ddab9bf1491b1dee6b3f41050beb",
+      "role": "control"
+    },
+    "control-capitalized-run": {
+      "pin": "control-capitalized-run",
+      "model_digest": "sha256:b1f093770bbd6219bc666f2a2a61dd6ab18d03f1472aa66110c5faf54bc8fc32",
+      "role": "control"
+    }
+  },
+  "alpha_baseline": {
+    "bakeoff_id": "alpha1-full",
+    "candidate": "fastner-b-linear-crf",
+    "model_size_bytes": 590684,
+    "wasm_bytes_ner_eval_measured": 71680,
+    "wasm_bytes_candidate_reported_alpha_tree": 72047
+  }
+}

@@ -1,0 +1,689 @@
+{
+  "corpus": {
+    "case_count": 37,
+    "digest": "sha256:b86a7d66e9889ab88a5ef21b192d89665de4495769544dadf6d295c7ca81ede4",
+    "id": "fastner-adversarial",
+    "redistribution": null,
+    "snapshot_id": "fastner-adversarial"
+  },
+  "evaluator_version": "0.2.0",
+  "failures": [
+    {
+      "case_id": "fnb-adv-001",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-001",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-002",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-003",
+      "outcome": "over-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-004",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-004",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-005",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-006",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-006",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-007",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-008",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-010",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-011",
+      "outcome": "wrong-type",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-012",
+      "outcome": "wrong-type",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-013",
+      "outcome": "wrong-type",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-014",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-016",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-017",
+      "outcome": "wrong-type",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-018",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-019",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-020",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-021",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-022",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-023",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-023",
+      "outcome": "wrong-type",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-025",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-026",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-027",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-032",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-033",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-034",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-035",
+      "outcome": "false-positive",
+      "region": null
+    }
+  ],
+  "metric_protocol_version": "ner-eval.match/1.1.0",
+  "metrics": {
+    "overall": {
+      "cases": 37,
+      "counts": {
+        "ambiguous": 0,
+        "boundary_overlap": 0,
+        "duplicate": 0,
+        "exact": 5,
+        "false_positive": 8,
+        "false_positive_asserted_negative": 0,
+        "gold_total": 29,
+        "miss": 18,
+        "over_wide": 1,
+        "pred_total": 19,
+        "under_wide": 0,
+        "wrong_type_gold": 5
+      },
+      "lenient": {
+        "f1": 0.25,
+        "precision": 0.3157894736842105,
+        "recall": 0.20689655172413793
+      },
+      "low_n": true,
+      "low_n_reasons": [
+        "gold_spans=29 < 30",
+        "scored_predictions=19 < 30"
+      ],
+      "strict": {
+        "f1": 0.20833333333333334,
+        "precision": 0.2631578947368421,
+        "recall": 0.1724137931034483
+      },
+      "strict_f1_interval": [
+        0.05555555555555555,
+        0.34920634920634924
+      ]
+    },
+    "slices": {
+      "collision=common-word": {
+        "cases": 6,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=6 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "collision=location": {
+        "cases": 2,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=2 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "collision=organization": {
+        "cases": 3,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=3 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "context=no-person": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=0 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "difficulty=ambiguous": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=0 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "difficulty=unambiguous": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=0 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "language=en": {
+        "cases": 23,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 3,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 16,
+          "miss": 8,
+          "over_wide": 0,
+          "pred_total": 3,
+          "under_wide": 0,
+          "wrong_type_gold": 5
+        },
+        "lenient": {
+          "f1": 0.3157894736842105,
+          "precision": 1.0,
+          "recall": 0.1875
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=23 < 30",
+          "gold_spans=16 < 30",
+          "scored_predictions=3 < 30"
+        ],
+        "strict": {
+          "f1": 0.3157894736842105,
+          "precision": 1.0,
+          "recall": 0.1875
+        },
+        "strict_f1_interval": [
+          0.10526315789473684,
+          0.5882352941176471
+        ]
+      },
+      "language=ko": {
+        "cases": 9,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 5,
+          "miss": 5,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": 0.0
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=9 < 30",
+          "gold_spans=5 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": 0.0
+        },
+        "strict_f1_interval": null
+      },
+      "script=mixed": {
+        "cases": 6,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 2,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 9,
+          "miss": 5,
+          "over_wide": 1,
+          "pred_total": 3,
+          "under_wide": 0,
+          "wrong_type_gold": 1
+        },
+        "lenient": {
+          "f1": 0.5,
+          "precision": 1.0,
+          "recall": 0.3333333333333333
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=6 < 30",
+          "gold_spans=9 < 30",
+          "scored_predictions=3 < 30"
+        ],
+        "strict": {
+          "f1": 0.3333333333333333,
+          "precision": 0.6666666666666666,
+          "recall": 0.2222222222222222
+        },
+        "strict_f1_interval": [
+          0.0,
+          0.5714285714285715
+        ]
+      },
+      "seen=false": {
+        "cases": 18,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 2,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 16,
+          "miss": 8,
+          "over_wide": 1,
+          "pred_total": 3,
+          "under_wide": 0,
+          "wrong_type_gold": 5
+        },
+        "lenient": {
+          "f1": 0.3157894736842105,
+          "precision": 1.0,
+          "recall": 0.1875
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=18 < 30",
+          "gold_spans=16 < 30",
+          "scored_predictions=3 < 30"
+        ],
+        "strict": {
+          "f1": 0.21052631578947367,
+          "precision": 0.6666666666666666,
+          "recall": 0.125
+        },
+        "strict_f1_interval": [
+          0.0,
+          0.47058823529411764
+        ]
+      },
+      "seen=true": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=0 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "shape=multi-token": {
+        "cases": 25,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 5,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 29,
+          "miss": 18,
+          "over_wide": 1,
+          "pred_total": 6,
+          "under_wide": 0,
+          "wrong_type_gold": 5
+        },
+        "lenient": {
+          "f1": 0.34285714285714286,
+          "precision": 1.0,
+          "recall": 0.20689655172413793
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=25 < 30",
+          "gold_spans=29 < 30",
+          "scored_predictions=6 < 30"
+        ],
+        "strict": {
+          "f1": 0.28571428571428575,
+          "precision": 0.8333333333333334,
+          "recall": 0.1724137931034483
+        },
+        "strict_f1_interval": [
+          0.1111111111111111,
+          0.4615384615384615
+        ]
+      },
+      "shape=single-token": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=0 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      }
+    }
+  },
+  "model": {
+    "adapter_id": "spacy-en-core-web-sm-3.8.0",
+    "artifact_digest": "sha256:81160f80dfefb684976731b365eab4c47da91305c36b8165f68d30a1d7c48067",
+    "id": "ref-spacy-en"
+  },
+  "run_id": "run-47cf6e363f6949ec:spacy-en-core-web-sm-3.8.0",
+  "runtime": {
+    "commit": null,
+    "tree": null
+  },
+  "schema": "fastner-benchmarks.quality/3",
+  "slice_spec": "ner-eval.person-slices/2",
+  "source": {
+    "artifact_digest": "sha256:9f5dc1bba4a585f0db752cfe146a821788277e31ac593fdfba697ead8ec4575c",
+    "artifact_file_sha256": "sha256:5f83132fcf77ebf99a6c259e5205548e7bf5f24ddfab812387b9fd0df6607a05",
+    "ner_eval_run_id": "run-47cf6e363f6949ec",
+    "ner_eval_run_manifest_digest": "sha256:b75bfcf0e02e7bd464cb9d05dbe8c6d92504f1c4b3cd39b707b727b47944140c",
+    "path": "results/beta1/fastner-adversarial/quality/spacy-en-core-web-sm-3.8.0.quality.json"
+  },
+  "status": "ok",
+  "transport": "external-process",
+  "uncertainty_protocol": "ner-eval.uncertainty/1.0.0"
+}

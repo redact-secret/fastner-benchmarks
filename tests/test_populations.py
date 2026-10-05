@@ -14,9 +14,16 @@ class PopulationTests(unittest.TestCase):
 
     def test_five_distinct_populations_with_roles(self):
         ids = {p["id"] for p in self.reg["populations"]}
-        self.assertEqual(ids, {"ner-evidence-public", "fastner-regression", "fastner-adversarial",
+        self.assertEqual(ids, {"ner-evidence-public", "ner-evidence-beta1", "fastner-regression", "fastner-adversarial",
                                "candidate-specific", "protected-holdout"})
-        self.assertEqual(len({p["role"] for p in self.reg["populations"]}), 5)
+        self.assertEqual(len({p["role"] for p in self.reg["populations"]}), 6)
+
+    def test_beta1_snapshot_is_pinned_and_marked_selection_exposed(self):
+        pop = P.by_id(self.reg)["ner-evidence-beta1"]
+        self.assertEqual(pop["identity"]["case_count"], 872)
+        self.assertTrue(pop["selection_exposed"])
+        self.assertFalse(pop["is_holdout"])
+        self.assertTrue(P.by_id(self.reg)["protected-holdout"]["is_holdout"])
 
     def test_each_population_carries_provenance_and_identity(self):
         for p in self.reg["populations"]:

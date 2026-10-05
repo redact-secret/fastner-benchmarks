@@ -1,0 +1,36 @@
+{
+  "corpus": {
+    "case_count": 52,
+    "digest": "sha256:3dbdbfea6e16153d413e718f163b36958388c1a33057a1469babcb8f5f5c1bae",
+    "id": "fastner-regression"
+  },
+  "low_n_below": 30,
+  "model": {
+    "adapter_id": "fastner-crf-beta1-shim",
+    "artifact_digest": "sha256:39411273a59993fea35e2c5fa35a3f8f032dc8c8130bfb971ed98d11069aa3a2",
+    "id": "fastner-crf-beta1-shim"
+  },
+  "overall": {
+    "accuracy": 0.8717948717948718,
+    "auroc": 0.9588235294117647,
+    "brier": 0.09533204328007691,
+    "confidence_minus_accuracy": 0.09289182051282019,
+    "correct": 34,
+    "ece_equal_mass": 0.10101905128205131,
+    "ece_equal_width": 0.09289182051282042,
+    "log_loss": 0.28063692501153964,
+    "low_n": false,
+    "mce_equal_width": 0.68333,
+    "mean_confidence": 0.964686692307692,
+    "n": 39
+  },
+  "protocol": "ner-eval.calibration/1.0.0",
+  "run_id": "run-40c3ee7992ecbe99:fastner-crf-beta1-shim:cal",
+  "schema": "fastner-benchmarks.calibration/1",
+  "source": {
+    "artifact_digest": "sha256:7dc09eae483bb5c4b44bc58b15f665ab58060a5ad1ba4433d8b96556a9ff6286",
+    "artifact_file_sha256": "sha256:032736f0722e93853ffe927cd61f1f317c506fda75a5796afa2579fab5639678",
+    "ner_eval_run_id": "run-40c3ee7992ecbe99",
+    "path": "results/beta1/fastner-regression/calibration/fastner-crf-beta1-shim.calibration.json"
+  }
+}

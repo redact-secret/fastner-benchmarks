@@ -49,6 +49,11 @@ runtime commit only if the pin lists it under `runtime.also_measured_at` with th
 unchanged and a recorded diff note (CRF: public snapshot at `007805d`, product corpora at `89c4134`;
 the difference is documentation and one comment line).
 
+## Beta 1 schemas (`artifacts/beta1`)
+`quality/3` adds `strict_f1_interval` (ner-eval's 95% percentile bootstrap over cases), `low_n` and the candidate's runtime tree/commit.
+`calibration/1` keeps aggregate statistics (n, accuracy, mean confidence, ECE, Brier, log loss, AUROC) only.
+`perf/3` keeps per-cell medians with min/max/spread over 5 repeats and role-tagged sizes. WASM is not present in Beta 1 artifacts.
+
 ## Dropped on ingest
 Diagnostics, per-case/fixture records, `per_projection`, `per_kind`. The snapshot is
 `redistribution: internal-only`; committed artifacts contain aggregates and ids only (tested).

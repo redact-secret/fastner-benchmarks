@@ -1,0 +1,825 @@
+{
+  "corpus": {
+    "case_count": 37,
+    "digest": "sha256:b86a7d66e9889ab88a5ef21b192d89665de4495769544dadf6d295c7ca81ede4",
+    "id": "fastner-adversarial",
+    "redistribution": null,
+    "snapshot_id": "fastner-adversarial"
+  },
+  "evaluator_version": "0.2.0",
+  "failures": [
+    {
+      "case_id": "fnb-adv-001",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-002",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-003",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-003",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-004",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-004",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-004",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-004",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-005",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-005",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-005",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-005",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-006",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-006",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-007",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-008",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-009",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-010",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-010",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-010",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-011",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-012",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-012",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-012",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-013",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-013",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-014",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-014",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-014",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-016",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-017",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-017",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-017",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-017",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-018",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-019",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-020",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-020",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-020",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-021",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-021",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-022",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-022",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-022",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-022",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-023",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-023",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-023",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-023",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-023",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-023",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-024",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-024",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-025",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-026",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-027",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-032",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-033",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-034",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-adv-035",
+      "outcome": "false-positive",
+      "region": null
+    }
+  ],
+  "metric_protocol_version": "ner-eval.match/1.1.0",
+  "metrics": {
+    "overall": {
+      "cases": 37,
+      "counts": {
+        "ambiguous": 0,
+        "boundary_overlap": 0,
+        "duplicate": 0,
+        "exact": 2,
+        "false_positive": 33,
+        "false_positive_asserted_negative": 0,
+        "gold_total": 29,
+        "miss": 11,
+        "over_wide": 0,
+        "pred_total": 51,
+        "under_wide": 16,
+        "wrong_type_gold": 0
+      },
+      "lenient": {
+        "f1": 0.45000000000000007,
+        "precision": 0.35294117647058826,
+        "recall": 0.6206896551724138
+      },
+      "low_n": true,
+      "low_n_reasons": [
+        "gold_spans=29 < 30"
+      ],
+      "strict": {
+        "f1": 0.05,
+        "precision": 0.0392156862745098,
+        "recall": 0.06896551724137931
+      },
+      "strict_f1_interval": [
+        0.0,
+        0.12195121951219513
+      ]
+    },
+    "slices": {
+      "collision=common-word": {
+        "cases": 6,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=6 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "collision=location": {
+        "cases": 2,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=2 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "collision=organization": {
+        "cases": 3,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=3 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "context=no-person": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=0 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "difficulty=ambiguous": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=0 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "difficulty=unambiguous": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=0 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "language=en": {
+        "cases": 23,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 19,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 16,
+          "miss": 4,
+          "over_wide": 0,
+          "pred_total": 31,
+          "under_wide": 12,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": 0.5106382978723403,
+          "precision": 0.3870967741935484,
+          "recall": 0.75
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=23 < 30",
+          "gold_spans=16 < 30"
+        ],
+        "strict": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0
+        },
+        "strict_f1_interval": [
+          0.0,
+          0.0
+        ]
+      },
+      "language=ko": {
+        "cases": 9,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 5,
+          "miss": 5,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": 0.0
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=9 < 30",
+          "gold_spans=5 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": 0.0
+        },
+        "strict_f1_interval": null
+      },
+      "script=mixed": {
+        "cases": 6,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 2,
+          "false_positive": 8,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 9,
+          "miss": 2,
+          "over_wide": 0,
+          "pred_total": 15,
+          "under_wide": 5,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": 0.5833333333333334,
+          "precision": 0.4666666666666667,
+          "recall": 0.7777777777777778
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=6 < 30",
+          "gold_spans=9 < 30",
+          "scored_predictions=15 < 30"
+        ],
+        "strict": {
+          "f1": 0.16666666666666669,
+          "precision": 0.13333333333333333,
+          "recall": 0.2222222222222222
+        },
+        "strict_f1_interval": [
+          0.0,
+          0.3636363636363636
+        ]
+      },
+      "seen=false": {
+        "cases": 18,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 20,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 16,
+          "miss": 4,
+          "over_wide": 0,
+          "pred_total": 32,
+          "under_wide": 12,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": 0.5,
+          "precision": 0.375,
+          "recall": 0.75
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=18 < 30",
+          "gold_spans=16 < 30"
+        ],
+        "strict": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0
+        },
+        "strict_f1_interval": [
+          0.0,
+          0.0
+        ]
+      },
+      "seen=true": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=0 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "shape=multi-token": {
+        "cases": 25,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 2,
+          "false_positive": 24,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 29,
+          "miss": 11,
+          "over_wide": 0,
+          "pred_total": 42,
+          "under_wide": 16,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": 0.5070422535211268,
+          "precision": 0.42857142857142855,
+          "recall": 0.6206896551724138
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=25 < 30",
+          "gold_spans=29 < 30"
+        ],
+        "strict": {
+          "f1": 0.056338028169014086,
+          "precision": 0.047619047619047616,
+          "recall": 0.06896551724137931
+        },
+        "strict_f1_interval": [
+          0.0,
+          0.14084507042253522
+        ]
+      },
+      "shape=single-token": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=0 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      }
+    }
+  },
+  "model": {
+    "adapter_id": "hf-dslim-bert-base-ner-d1a3e8f",
+    "artifact_digest": "sha256:0263fcac83c837d8311d4695337312e0f9e8987a8ee92875c4d5afd278e89a1f",
+    "id": "ref-bert-base-ner"
+  },
+  "run_id": "run-47cf6e363f6949ec:hf-dslim-bert-base-ner-d1a3e8f",
+  "runtime": {
+    "commit": null,
+    "tree": null
+  },
+  "schema": "fastner-benchmarks.quality/3",
+  "slice_spec": "ner-eval.person-slices/2",
+  "source": {
+    "artifact_digest": "sha256:ce912a063a1bb9cd56db271d043416f1058e150436d6bf825a42ca29ab8cda5e",
+    "artifact_file_sha256": "sha256:b7ca5092485cff372778deba20a9bca408c08cd5803e6a2c443e6d1fc51484c7",
+    "ner_eval_run_id": "run-47cf6e363f6949ec",
+    "ner_eval_run_manifest_digest": "sha256:b75bfcf0e02e7bd464cb9d05dbe8c6d92504f1c4b3cd39b707b727b47944140c",
+    "path": "results/beta1/fastner-adversarial/quality/hf-dslim-bert-base-ner-d1a3e8f.quality.json"
+  },
+  "status": "ok",
+  "transport": "external-process",
+  "uncertainty_protocol": "ner-eval.uncertainty/1.0.0"
+}

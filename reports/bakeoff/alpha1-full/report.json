@@ -2070,6 +2070,36 @@
       "title": "FastNER product regression corpus"
     },
     {
+      "artifact_runs": [],
+      "case_count": 872,
+      "caveats": [
+        "Not a holdout: the FastNER Beta 1 work used this snapshot for selection as well as reporting (fastner docs/beta1/experiments.md); improvement over Alpha is an optimistic estimate.",
+        "Project-authored synthetic text; independent review is not complete; seen/unseen is a name-rarity proxy, not training-data membership.",
+        "Small slices (organization, location, mixed-script) remain anecdote-sized; ner-eval reports 95% bootstrap intervals and low-N flags."
+      ],
+      "id": "ner-evidence-beta1",
+      "identity": {
+        "case_count": 872,
+        "corpus_version": "person-en-ko-beta.1-1dc0b13fe0ff",
+        "schema": "ner-evidence.snapshot/0.1.0",
+        "snapshot_digest": "sha256:1dc0b13fe0ff13e24616fef6d9c4b7aec3b9ab9672e531a2a02bcfffdac46ba9",
+        "snapshot_id": "person-en-ko-beta.1-1dc0b13fe0ff",
+        "taxonomy_version": "0.2.0"
+      },
+      "is_holdout": false,
+      "provenance": {
+        "custody": "ner-evidence (canonical, not modified here)",
+        "independent_review": false,
+        "license": "per ner-evidence source manifest; redistribution: internal-only",
+        "personal_data": false,
+        "source": "ner-evidence released snapshot beta.1 (snapshots/index.json)",
+        "synthetic": true
+      },
+      "role": "quality-floor-beta1",
+      "status": "available",
+      "title": "Public/shared ner-evidence Beta 1 snapshot"
+    },
+    {
       "artifact_runs": [
         "run-395459fbb4ecb4da:control-capitalized-run",
         "run-395459fbb4ecb4da:control-null",

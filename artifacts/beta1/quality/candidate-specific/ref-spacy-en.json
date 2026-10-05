@@ -1,0 +1,721 @@
+{
+  "corpus": {
+    "case_count": 46,
+    "digest": "sha256:5962532da7f6f5866a859a933910f950bee13596704823bda7bf09dd28f5ed60",
+    "id": "candidate-specific",
+    "redistribution": null,
+    "snapshot_id": "candidate-specific"
+  },
+  "evaluator_version": "0.2.0",
+  "failures": [
+    {
+      "case_id": "fnb-cand-b-001",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-002",
+      "outcome": "false-positive",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-005",
+      "outcome": "false-positive",
+      "region": "asserted-negative"
+    },
+    {
+      "case_id": "fnb-cand-b-007",
+      "outcome": "false-positive",
+      "region": "asserted-negative"
+    },
+    {
+      "case_id": "fnb-cand-b-008",
+      "outcome": "wrong-type",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-009",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-011",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-012",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-016",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-016",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-016",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-017",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-017",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-018",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-018",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-019",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-020",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-021",
+      "outcome": "false-positive",
+      "region": "asserted-negative"
+    },
+    {
+      "case_id": "fnb-cand-b-025",
+      "outcome": "false-positive",
+      "region": "asserted-negative"
+    },
+    {
+      "case_id": "fnb-cand-b-027",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-027",
+      "outcome": "wrong-type",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-028",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-028",
+      "outcome": "over-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-029",
+      "outcome": "wrong-type",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-031",
+      "outcome": "over-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-032",
+      "outcome": "wrong-type",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-033",
+      "outcome": "wrong-type",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-034",
+      "outcome": "under-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-035",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-036",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-038",
+      "outcome": "false-positive",
+      "region": "asserted-negative"
+    },
+    {
+      "case_id": "fnb-cand-b-040",
+      "outcome": "wrong-type",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-041",
+      "outcome": "wrong-type",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-042",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-043",
+      "outcome": "miss",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-044",
+      "outcome": "over-wide",
+      "region": null
+    },
+    {
+      "case_id": "fnb-cand-b-045",
+      "outcome": "false-positive",
+      "region": "asserted-negative"
+    }
+  ],
+  "metric_protocol_version": "ner-eval.match/1.1.0",
+  "metrics": {
+    "overall": {
+      "cases": 46,
+      "counts": {
+        "ambiguous": 0,
+        "boundary_overlap": 0,
+        "duplicate": 0,
+        "exact": 9,
+        "false_positive": 8,
+        "false_positive_asserted_negative": 6,
+        "gold_total": 38,
+        "miss": 18,
+        "over_wide": 3,
+        "pred_total": 28,
+        "under_wide": 1,
+        "wrong_type_gold": 7
+      },
+      "lenient": {
+        "f1": 0.3939393939393939,
+        "precision": 0.4642857142857143,
+        "recall": 0.34210526315789475
+      },
+      "low_n": true,
+      "low_n_reasons": [
+        "scored_predictions=28 < 30"
+      ],
+      "strict": {
+        "f1": 0.2727272727272727,
+        "precision": 0.32142857142857145,
+        "recall": 0.23684210526315788
+      },
+      "strict_f1_interval": [
+        0.11764705882352941,
+        0.43037974683544306
+      ]
+    },
+    "slices": {
+      "collision=common-word": {
+        "cases": 14,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 4,
+          "false_positive_asserted_negative": 4,
+          "gold_total": 4,
+          "miss": 3,
+          "over_wide": 0,
+          "pred_total": 4,
+          "under_wide": 0,
+          "wrong_type_gold": 1
+        },
+        "lenient": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=14 < 30",
+          "gold_spans=4 < 30",
+          "scored_predictions=4 < 30"
+        ],
+        "strict": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0
+        },
+        "strict_f1_interval": [
+          0.0,
+          0.0
+        ]
+      },
+      "collision=location": {
+        "cases": 4,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 2,
+          "false_positive_asserted_negative": 2,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 2,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": 0.0,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=4 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=2 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": 0.0,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "collision=organization": {
+        "cases": 3,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=3 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "context=no-person": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=0 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "difficulty=ambiguous": {
+        "cases": 17,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 4,
+          "false_positive_asserted_negative": 4,
+          "gold_total": 4,
+          "miss": 3,
+          "over_wide": 0,
+          "pred_total": 4,
+          "under_wide": 0,
+          "wrong_type_gold": 1
+        },
+        "lenient": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=17 < 30",
+          "gold_spans=4 < 30",
+          "scored_predictions=4 < 30"
+        ],
+        "strict": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0
+        },
+        "strict_f1_interval": [
+          0.0,
+          0.0
+        ]
+      },
+      "difficulty=unambiguous": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=0 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "language=en": {
+        "cases": 28,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 8,
+          "false_positive": 4,
+          "false_positive_asserted_negative": 4,
+          "gold_total": 19,
+          "miss": 5,
+          "over_wide": 0,
+          "pred_total": 13,
+          "under_wide": 1,
+          "wrong_type_gold": 5
+        },
+        "lenient": {
+          "f1": 0.5625,
+          "precision": 0.6923076923076923,
+          "recall": 0.47368421052631576
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=28 < 30",
+          "gold_spans=19 < 30",
+          "scored_predictions=13 < 30"
+        ],
+        "strict": {
+          "f1": 0.5,
+          "precision": 0.6153846153846154,
+          "recall": 0.42105263157894735
+        },
+        "strict_f1_interval": [
+          0.24242424242424246,
+          0.7027027027027026
+        ]
+      },
+      "language=ko": {
+        "cases": 16,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 1,
+          "false_positive": 2,
+          "false_positive_asserted_negative": 2,
+          "gold_total": 15,
+          "miss": 11,
+          "over_wide": 2,
+          "pred_total": 5,
+          "under_wide": 0,
+          "wrong_type_gold": 1
+        },
+        "lenient": {
+          "f1": 0.3,
+          "precision": 0.6,
+          "recall": 0.2
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=16 < 30",
+          "gold_spans=15 < 30",
+          "scored_predictions=5 < 30"
+        ],
+        "strict": {
+          "f1": 0.1,
+          "precision": 0.2,
+          "recall": 0.06666666666666667
+        },
+        "strict_f1_interval": [
+          0.0,
+          0.2608695652173913
+        ]
+      },
+      "script=mixed": {
+        "cases": 3,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 1,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 5,
+          "miss": 2,
+          "over_wide": 1,
+          "pred_total": 2,
+          "under_wide": 0,
+          "wrong_type_gold": 1
+        },
+        "lenient": {
+          "f1": 0.5714285714285715,
+          "precision": 1.0,
+          "recall": 0.4
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=3 < 30",
+          "gold_spans=5 < 30",
+          "scored_predictions=2 < 30"
+        ],
+        "strict": {
+          "f1": 0.28571428571428575,
+          "precision": 0.5,
+          "recall": 0.2
+        },
+        "strict_f1_interval": [
+          0.0,
+          1.0
+        ]
+      },
+      "seen=false": {
+        "cases": 17,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 8,
+          "false_positive": 1,
+          "false_positive_asserted_negative": 1,
+          "gold_total": 17,
+          "miss": 4,
+          "over_wide": 0,
+          "pred_total": 10,
+          "under_wide": 1,
+          "wrong_type_gold": 4
+        },
+        "lenient": {
+          "f1": 0.6666666666666667,
+          "precision": 0.9,
+          "recall": 0.5294117647058824
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=17 < 30",
+          "gold_spans=17 < 30",
+          "scored_predictions=10 < 30"
+        ],
+        "strict": {
+          "f1": 0.5925925925925927,
+          "precision": 0.8,
+          "recall": 0.47058823529411764
+        },
+        "strict_f1_interval": [
+          0.3,
+          0.787878787878788
+        ]
+      },
+      "seen=true": {
+        "cases": 0,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 0,
+          "miss": 0,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=0 < 30",
+          "gold_spans=0 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": null
+        },
+        "strict_f1_interval": null
+      },
+      "shape=multi-token": {
+        "cases": 26,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 9,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 33,
+          "miss": 13,
+          "over_wide": 3,
+          "pred_total": 13,
+          "under_wide": 1,
+          "wrong_type_gold": 7
+        },
+        "lenient": {
+          "f1": 0.5652173913043478,
+          "precision": 1.0,
+          "recall": 0.3939393939393939
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=26 < 30",
+          "scored_predictions=13 < 30"
+        ],
+        "strict": {
+          "f1": 0.391304347826087,
+          "precision": 0.6923076923076923,
+          "recall": 0.2727272727272727
+        },
+        "strict_f1_interval": [
+          0.2,
+          0.5714285714285714
+        ]
+      },
+      "shape=single-token": {
+        "cases": 3,
+        "counts": {
+          "ambiguous": 0,
+          "boundary_overlap": 0,
+          "duplicate": 0,
+          "exact": 0,
+          "false_positive": 0,
+          "false_positive_asserted_negative": 0,
+          "gold_total": 5,
+          "miss": 5,
+          "over_wide": 0,
+          "pred_total": 0,
+          "under_wide": 0,
+          "wrong_type_gold": 0
+        },
+        "lenient": {
+          "f1": null,
+          "precision": null,
+          "recall": 0.0
+        },
+        "low_n": true,
+        "low_n_reasons": [
+          "cases=3 < 30",
+          "gold_spans=5 < 30",
+          "scored_predictions=0 < 30"
+        ],
+        "strict": {
+          "f1": null,
+          "precision": null,
+          "recall": 0.0
+        },
+        "strict_f1_interval": null
+      }
+    }
+  },
+  "model": {
+    "adapter_id": "spacy-en-core-web-sm-3.8.0",
+    "artifact_digest": "sha256:81160f80dfefb684976731b365eab4c47da91305c36b8165f68d30a1d7c48067",
+    "id": "ref-spacy-en"
+  },
+  "run_id": "run-128faf8766bc6c8c:spacy-en-core-web-sm-3.8.0",
+  "runtime": {
+    "commit": null,
+    "tree": null
+  },
+  "schema": "fastner-benchmarks.quality/3",
+  "slice_spec": "ner-eval.person-slices/2",
+  "source": {
+    "artifact_digest": "sha256:9b6ce9093ca3deefcd6f68f2b4d5306ae82f64cc414a4c270ab7e58e3b967d87",
+    "artifact_file_sha256": "sha256:64ba08633977b04fdbf9d9b95314f68abee13f8b9bb6d42e9cc7abe5c80487af",
+    "ner_eval_run_id": "run-128faf8766bc6c8c",
+    "ner_eval_run_manifest_digest": "sha256:571a3bcc85f566eb43d8f4497e5ef9e7b867eade7f531c1e99b31ec0923fb9f6",
+    "path": "results/beta1/candidate-b-linear-crf-diagnostic/quality/spacy-en-core-web-sm-3.8.0.quality.json"
+  },
+  "status": "ok",
+  "transport": "external-process",
+  "uncertainty_protocol": "ner-eval.uncertainty/1.0.0"
+}

@@ -1,0 +1,307 @@
+{
+  "bakeoff_id": "beta1",
+  "candidate": "fastner-crf-beta1-native",
+  "gate_set_version": "0.3.0",
+  "policy_version": "0.2.0",
+  "profiles": [
+    {
+      "gate_counts": {
+        "fail": 4,
+        "pass": 10,
+        "unmeasured": 0
+      },
+      "gates": [
+        {
+          "gate": "public.en_f1",
+          "interval": [
+            0.711409,
+            0.802302
+          ],
+          "interval_clarity": "clear",
+          "op": ">=",
+          "result": "fail",
+          "threshold": 0.85,
+          "value": 0.7595367847411445
+        },
+        {
+          "gate": "public.ambiguous_precision",
+          "op": ">=",
+          "result": "fail",
+          "threshold": 0.85,
+          "value": 0.5839793281653747
+        },
+        {
+          "gate": "public.unseen_recall",
+          "op": ">=",
+          "result": "pass",
+          "threshold": 0.6,
+          "value": 0.8169838945827232
+        },
+        {
+          "gate": "public.collision_precision_worst",
+          "op": ">=",
+          "result": "fail",
+          "threshold": 0.7,
+          "value": 0.4594594594594595
+        },
+        {
+          "cases": 34,
+          "caveat": "tiny seed corpus used during Beta 1 development; ner-eval 95% interval shown for F1 only",
+          "gate": "regression.en_f1",
+          "interval": [
+            0.837209,
+            0.984127
+          ],
+          "interval_clarity": "straddles",
+          "low_n": true,
+          "op": ">=",
+          "result": "pass",
+          "threshold": 0.9,
+          "value": 0.9259259259259259
+        },
+        {
+          "cases": 23,
+          "caveat": "tiny seed corpus used during Beta 1 development; ner-eval 95% interval shown for F1 only",
+          "gate": "adversarial.en_precision",
+          "low_n": true,
+          "op": ">=",
+          "result": "pass",
+          "threshold": 0.85,
+          "value": 0.9285714285714286
+        },
+        {
+          "caveat": "native in-process, median of 5 repeats (ner-eval protocol 1.2.0); shim shown separately",
+          "gate": "budget.latency_p95_ms",
+          "op": "<=",
+          "result": "pass",
+          "threshold": 5,
+          "value": 0.0037080000000000004
+        },
+        {
+          "caveat": "native in-process, median of 5 repeats (ner-eval protocol 1.2.0); shim shown separately",
+          "gate": "budget.throughput",
+          "op": ">=",
+          "result": "pass",
+          "threshold": 500,
+          "value": 441849.0415845535
+        },
+        {
+          "caveat": "native in-process, median of 5 repeats (ner-eval protocol 1.2.0); shim shown separately",
+          "gate": "budget.startup_ms",
+          "op": "<=",
+          "result": "pass",
+          "threshold": 50,
+          "value": 1.426
+        },
+        {
+          "gate": "budget.peak_memory_mb",
+          "op": "<=",
+          "result": "pass",
+          "threshold": 64,
+          "value": 3.625
+        },
+        {
+          "gate": "budget.model_size",
+          "op": "<=",
+          "result": "pass",
+          "threshold": 5242880,
+          "value": 590760
+        },
+        {
+          "gate": "budget.runtime_binary",
+          "op": "<=",
+          "result": "pass",
+          "threshold": 10485760,
+          "value": 580912,
+          "value_source": "ner-eval (adapter shim binary, as in Alpha; the native host binary is the evaluator and is not a product cost)"
+        },
+        {
+          "gate": "budget.wasm_size",
+          "op": "<=",
+          "result": "pass",
+          "threshold": 2097152,
+          "value": 76427,
+          "value_source": "candidate-reported"
+        },
+        {
+          "caveat": "ece_equal_mass on the Beta 1 snapshot",
+          "gate": "calibration.ece",
+          "op": "<=",
+          "result": "fail",
+          "threshold": 0.1,
+          "value": 0.15026688233652807
+        }
+      ],
+      "profile": "PERSON/en",
+      "reasons": [
+        "4 gate(s) failing"
+      ],
+      "required_populations": [
+        "ner-evidence-public",
+        "fastner-regression",
+        "fastner-adversarial"
+      ],
+      "selection_exposure": {
+        "fastner-adversarial": true,
+        "fastner-regression": true,
+        "ner-evidence-beta1": true
+      },
+      "status": "experimental"
+    },
+    {
+      "gate_counts": {
+        "fail": 4,
+        "pass": 10,
+        "unmeasured": 0
+      },
+      "gates": [
+        {
+          "gate": "public.ko_f1",
+          "interval": [
+            0.796218,
+            0.859803
+          ],
+          "interval_clarity": "straddles",
+          "op": ">=",
+          "result": "pass",
+          "threshold": 0.8,
+          "value": 0.8287118977384464
+        },
+        {
+          "gate": "public.ambiguous_precision",
+          "op": ">=",
+          "result": "fail",
+          "threshold": 0.85,
+          "value": 0.5839793281653747
+        },
+        {
+          "gate": "public.unseen_recall",
+          "op": ">=",
+          "result": "pass",
+          "threshold": 0.6,
+          "value": 0.8169838945827232
+        },
+        {
+          "gate": "public.collision_precision_worst",
+          "op": ">=",
+          "result": "fail",
+          "threshold": 0.7,
+          "value": 0.4594594594594595
+        },
+        {
+          "cases": 18,
+          "caveat": "tiny seed corpus used during Beta 1 development; ner-eval 95% interval shown for F1 only",
+          "gate": "regression.ko_f1",
+          "interval": [
+            0.571429,
+            0.928571
+          ],
+          "interval_clarity": "straddles",
+          "low_n": true,
+          "op": ">=",
+          "result": "fail",
+          "threshold": 0.85,
+          "value": 0.7826086956521738
+        },
+        {
+          "cases": 9,
+          "caveat": "tiny seed corpus used during Beta 1 development; ner-eval 95% interval shown for F1 only",
+          "gate": "adversarial.ko_precision",
+          "low_n": true,
+          "op": ">=",
+          "result": "pass",
+          "threshold": 0.85,
+          "value": 1.0
+        },
+        {
+          "caveat": "native in-process, median of 5 repeats (ner-eval protocol 1.2.0); shim shown separately",
+          "gate": "budget.latency_p95_ms",
+          "op": "<=",
+          "result": "pass",
+          "threshold": 5,
+          "value": 0.0037080000000000004
+        },
+        {
+          "caveat": "native in-process, median of 5 repeats (ner-eval protocol 1.2.0); shim shown separately",
+          "gate": "budget.throughput",
+          "op": ">=",
+          "result": "pass",
+          "threshold": 500,
+          "value": 441849.0415845535
+        },
+        {
+          "caveat": "native in-process, median of 5 repeats (ner-eval protocol 1.2.0); shim shown separately",
+          "gate": "budget.startup_ms",
+          "op": "<=",
+          "result": "pass",
+          "threshold": 50,
+          "value": 1.426
+        },
+        {
+          "gate": "budget.peak_memory_mb",
+          "op": "<=",
+          "result": "pass",
+          "threshold": 64,
+          "value": 3.625
+        },
+        {
+          "gate": "budget.model_size",
+          "op": "<=",
+          "result": "pass",
+          "threshold": 5242880,
+          "value": 590760
+        },
+        {
+          "gate": "budget.runtime_binary",
+          "op": "<=",
+          "result": "pass",
+          "threshold": 10485760,
+          "value": 580912,
+          "value_source": "ner-eval (adapter shim binary, as in Alpha; the native host binary is the evaluator and is not a product cost)"
+        },
+        {
+          "gate": "budget.wasm_size",
+          "op": "<=",
+          "result": "pass",
+          "threshold": 2097152,
+          "value": 76427,
+          "value_source": "candidate-reported"
+        },
+        {
+          "caveat": "ece_equal_mass on the Beta 1 snapshot",
+          "gate": "calibration.ece",
+          "op": "<=",
+          "result": "fail",
+          "threshold": 0.1,
+          "value": 0.15026688233652807
+        }
+      ],
+      "profile": "PERSON/ko",
+      "reasons": [
+        "4 gate(s) failing"
+      ],
+      "required_populations": [
+        "ner-evidence-public",
+        "fastner-regression",
+        "fastner-adversarial"
+      ],
+      "selection_exposure": {
+        "fastner-adversarial": true,
+        "fastner-regression": true,
+        "ner-evidence-beta1": true
+      },
+      "status": "experimental"
+    }
+  ],
+  "promotion_state": "promoted",
+  "schema": "fastner-benchmarks.support-matrix/2",
+  "selected_architecture": "fastner-crf-beta1-native",
+  "selected_pin": {
+    "artifact_digest": "sha256:39411273a59993fea35e2c5fa35a3f8f032dc8c8130bfb971ed98d11069aa3a2",
+    "config_hash": null,
+    "id": "fastner-crf-beta1-native",
+    "pin_status": "resolved",
+    "version": "beta1-candidate-1"
+  },
+  "thresholds_status": "ratified-as-beta-targets"
+}
